@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <title>Login - Gerenciador do RU</title>
+    <link rel="stylesheet" href="/login.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="login-container">
+
+    <h1 class="titulo">GRU</h1>
+    <h3 class="subtitulo">Gerenciador do RU</h3>
+    <form action="/usuario/logar" method="POST">
+        <div class="form-group">
+            <input placeholder="E-mail" type="text" class="form-control rounded-pill px-4" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <input placeholder="Senha" type="password" class="form-control" id="senha" name="senha" required>
+        </div>
+        <div th:if="${erro != null}" th:text="${erro}" class="alerta" role="alert">
+        </div>
+        <div class="button">
+        <button type="submit" class="btn-primary">Entrar</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
