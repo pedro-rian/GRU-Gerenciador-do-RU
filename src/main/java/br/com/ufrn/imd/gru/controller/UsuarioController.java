@@ -1,7 +1,6 @@
 package br.com.ufrn.imd.gru.controller;
 
 import br.com.ufrn.imd.gru.entity.Usuario;
-import br.com.ufrn.imd.gru.repository.UsuarioRepository;
 import br.com.ufrn.imd.gru.service.UsuarioService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class UsuarioController {
 
     private UsuarioService usuarioService;
-    private UsuarioRepository usuarioRepository;
 
     @Autowired
-    public UsuarioController(UsuarioService usuarioService, UsuarioRepository usuarioRepository) {
+    public UsuarioController(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
-        this.usuarioRepository = usuarioRepository;
     }
 
     @GetMapping("/login")
