@@ -1,4 +1,4 @@
-package br.com.ufrn.imd.gru.entity;
+package br.com.ufrn.imd.gru.model;
 
 public enum TipoRefeicao {
     CAFE_DA_MANHA,
