@@ -1,12 +1,11 @@
 package br.com.ufrn.imd.gru.entity;
 
 import jakarta.persistence.*;
-
 import java.util.Date;
 
 @Entity
-@Table(name = "cardapio_convencional")
-public class CardapioConvencional {
+@Table(name = "cardapio")
+public class Cardapio{
 
     @Id
     @Column(name = "id")
@@ -19,8 +18,13 @@ public class CardapioConvencional {
     @Column(name = "acompanhamento")
     private String acompanhamento;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "tipo_refeicao")
-    private String tipoRefeicao;
+    private TipoRefeicao tipoRefeicao;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_cardapio")
+    private TipoCardapio tipoCardapio;
 
     @Column(name = "data")
     private Date data;
@@ -50,12 +54,20 @@ public class CardapioConvencional {
         this.acompanhamento = acompanhamento;
     }
 
-    public String getTipoRefeicao() {
+    public TipoRefeicao getTipoRefeicao() {
         return tipoRefeicao;
     }
 
-    public void setTipoRefeicao(String tipoRefeicao) {
+    public void setTipoRefeicao(TipoRefeicao tipoRefeicao) {
         this.tipoRefeicao = tipoRefeicao;
+    }
+
+    public TipoCardapio getTipoCardapio() {
+        return tipoCardapio;
+    }
+
+    public void setTipoCardapio(TipoCardapio tipoCardapio) {
+        this.tipoCardapio = tipoCardapio;
     }
 
     public Date getData() {
