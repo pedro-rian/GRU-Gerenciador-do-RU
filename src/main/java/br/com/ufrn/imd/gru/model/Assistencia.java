@@ -1,16 +1,6 @@
 package br.com.ufrn.imd.gru.model;
 
-
-
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Table;
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 
@@ -36,6 +26,10 @@ public class Assistencia {
 
     @Column(name = "horario")
     private LocalTime horario;
+
+    @ManyToOne
+    @JoinColumn(name = "consumidor_id")
+    private Consumidor consumidor;
 
     public long getId() {
         return id;
@@ -77,4 +71,11 @@ public class Assistencia {
         this.horario = horario;
     }
 
+    public Consumidor getConsumidor() {
+        return consumidor;
+    }
+
+    public void setConsumidor(Consumidor consumidor) {
+        this.consumidor = consumidor;
+    }
 }

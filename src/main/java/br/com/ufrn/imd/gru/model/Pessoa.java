@@ -33,9 +33,18 @@ public class Pessoa {
     private Date dataNascimento;
     @Column(name = "login")
     private String login;
+
     @Column(name = "ativo")
     private boolean ativo;
 
+    @Column(name = "senha", length = 50, nullable = false)
+    private String senha;
+
+    @Column(name = "tipo", nullable = false)
+    private String tipo;
+
+    @Column(name = "email", length = 50, nullable = true)
+    private String email;
     public long getId() {
         return id;
     }
@@ -77,7 +86,6 @@ public class Pessoa {
         this.dataNascimento = dataNascimento;
     }
 
-
     public String getLogin() {
         return login;
     }
@@ -86,12 +94,35 @@ public class Pessoa {
         this.login = login;
     }
 
-
     public boolean isAtivo() {
         return ativo;
     }
 
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

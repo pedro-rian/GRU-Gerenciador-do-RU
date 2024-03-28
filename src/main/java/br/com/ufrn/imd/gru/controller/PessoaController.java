@@ -1,7 +1,7 @@
 package br.com.ufrn.imd.gru.controller;
 
-import br.com.ufrn.imd.gru.model.Usuario;
-import br.com.ufrn.imd.gru.service.UsuarioService;
+import br.com.ufrn.imd.gru.model.Pessoa;
+import br.com.ufrn.imd.gru.service.PessoaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @CrossOrigin("*")
 @RequestMapping("/usuario")
-public class UsuarioController {
+public class PessoaController {
 
-    private UsuarioService usuarioService;
+    private PessoaService pessoaService;
 
     @Autowired
-    public UsuarioController(UsuarioService usuarioService) {
-        this.usuarioService = usuarioService;
+    public PessoaController(PessoaService pessoaService) {
+        this.pessoaService = pessoaService;
     }
 
     @GetMapping("/login")
@@ -30,11 +30,11 @@ public class UsuarioController {
 
     @PostMapping("/logar")
     public String logar(Model model, String email, String senha){
-        Usuario usuario = usuarioService.autenticarUsuario(email, senha);
-        if (usuario != null) {
-            if (usuario.getTipo().equals("administrador")) {
+        Pessoa pessoa = pessoaService.autenticarUsuario(email, senha);
+        if (pessoa != null) {
+            if (pessoa.getTipo().equals("administrador")) {
                 return "tela-inicial-administrador";
-            } else if (usuario.getTipo().equals("comum")) {
+            } else if (pessoa.getTipo().equals("comum")) {
                 return "tela-inicial-comum";
             } else {
                 return "login";

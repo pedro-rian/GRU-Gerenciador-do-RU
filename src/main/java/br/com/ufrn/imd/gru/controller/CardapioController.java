@@ -1,7 +1,6 @@
 package br.com.ufrn.imd.gru.controller;
 
 import br.com.ufrn.imd.gru.service.CardapioService;
-import br.com.ufrn.imd.gru.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 

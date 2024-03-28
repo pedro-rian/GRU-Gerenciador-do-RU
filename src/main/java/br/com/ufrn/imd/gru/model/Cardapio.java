@@ -13,7 +13,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "cardapio")
-public class Cardapio{
+public class Cardapio {
 
     @Id
     @Column(name = "id")
