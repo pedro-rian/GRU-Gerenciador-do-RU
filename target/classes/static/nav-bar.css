@@ -1,0 +1,47 @@
+.navbar {
+    height: 100%;
+    width: 15em;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #FCA15F;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+.navbar a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: white;
+    display: block;
+}
+.navbar a:hover {
+    background-color: #FFD179;
+}
+.titulo{
+    font-family: "Inter", sans-serif;
+    font-weight: 300;
+    color: #A71919;
+    text-align: center;
+    font-size: 5em;
+    margin-bottom: 1em;
+}
+.button{
+    margin-top: 3em;
+    margin-bottom: 3em;
+    text-align: center;
+}
+.btn-primary {
+    background-color: #A71919;
+    color: #fff;
+    border: none;
+    width: 200px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.btn-primary:hover {
+    background-color: #6c0a0a;
+}

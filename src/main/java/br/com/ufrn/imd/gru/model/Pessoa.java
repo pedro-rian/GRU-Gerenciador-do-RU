@@ -1,6 +1,14 @@
 package br.com.ufrn.imd.gru.model;
 
-import jakarta.persistence.*;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Id;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -16,26 +24,16 @@ public class Pessoa {
 
     @Column(name = "nome", length = 200, nullable = false)
     private String nome;
-
-    @Column(name = "email", length = 50, nullable = true)
-    private String email;
-
+    @Column(name = "cpf")
     private int cpf;
-
+    @Column(name = "telefone")
     private int telefone;
-
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date dataNascimento;
-
-    @OneToOne
-    private Papel papel;
-
+    @Column(name = "login")
     private String login;
-
-    @Column(name = "senha", length = 50, nullable = false)
-    private String password;
-    
+    @Column(name = "ativo")
     private boolean ativo;
 
     public long getId() {
@@ -54,13 +52,6 @@ public class Pessoa {
         this.nome = nome;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public int getCpf() {
         return cpf;
@@ -86,13 +77,6 @@ public class Pessoa {
         this.dataNascimento = dataNascimento;
     }
 
-    public Papel getPapel() {
-        return papel;
-    }
-
-    public void setPapel(Papel papel) {
-        this.papel = papel;
-    }
 
     public String getLogin() {
         return login;
@@ -102,13 +86,6 @@ public class Pessoa {
         this.login = login;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public boolean isAtivo() {
         return ativo;

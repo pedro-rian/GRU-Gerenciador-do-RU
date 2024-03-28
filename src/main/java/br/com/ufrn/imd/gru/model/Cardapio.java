@@ -1,25 +1,42 @@
 package br.com.ufrn.imd.gru.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Id;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 
-import java.util.List;
+import java.util.Date;
 
 @Entity
 @Table(name = "cardapio")
-public class Cardapio {
+public class Cardapio{
 
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToMany
-    private List<Refeicao> pratosPrincipais;
+    @Column(name = "prato_principal")
+    private String pratoPrincipal;
 
-    @OneToMany
-    private List<Refeicao> acompanhamentos;
+    @Column(name = "acompanhamento")
+    private String acompanhamento;
 
-    @OneToMany
-    private List<Refeicao> vegetarianos;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_refeicao")
+    private TipoRefeicao tipoRefeicao;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_cardapio")
+    private TipoCardapio tipoCardapio;
+
+    @Column(name = "data")
+    private Date data;
+
 
     public long getId() {
         return id;
@@ -29,28 +46,43 @@ public class Cardapio {
         this.id = id;
     }
 
-    public List<Refeicao> getPratosPrincipais() {
-        return pratosPrincipais;
+    public String getPratoPrincipal() {
+        return pratoPrincipal;
     }
 
-    public void setPratosPrincipais(List<Refeicao> pratosPrincipais) {
-        this.pratosPrincipais = pratosPrincipais;
+    public void setPratoPrincipal(String pratoPrincipal) {
+        this.pratoPrincipal = pratoPrincipal;
     }
 
-    public List<Refeicao> getAcompanhamentos() {
-        return acompanhamentos;
+    public String getAcompanhamento() {
+        return acompanhamento;
     }
 
-    public void setAcompanhamentos(List<Refeicao> acompanhamentos) {
-        this.acompanhamentos = acompanhamentos;
+    public void setAcompanhamento(String acompanhamento) {
+        this.acompanhamento = acompanhamento;
     }
 
-    public List<Refeicao> getVegetarianos() {
-        return vegetarianos;
+    public TipoRefeicao getTipoRefeicao() {
+        return tipoRefeicao;
     }
 
-    public void setVegetarianos(List<Refeicao> vegetarianos) {
-        this.vegetarianos = vegetarianos;
+    public void setTipoRefeicao(TipoRefeicao tipoRefeicao) {
+        this.tipoRefeicao = tipoRefeicao;
     }
 
+    public TipoCardapio getTipoCardapio() {
+        return tipoCardapio;
+    }
+
+    public void setTipoCardapio(TipoCardapio tipoCardapio) {
+        this.tipoCardapio = tipoCardapio;
+    }
+
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
 }
