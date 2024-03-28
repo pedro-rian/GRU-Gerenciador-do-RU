@@ -27,13 +27,24 @@
     margin-bottom: 1em;
 }
 .button{
-    margin-top: 3em;
-    margin-bottom: 3em;
+    margin-bottom: 0.5em;
     text-align: center;
 }
 .btn-primary {
+    text-align: center;
+    background-color: #EEEEEE;
+    color: black;
+    border: none;
+    width: 200px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+}
+.btn-sair{
     background-color: #A71919;
-    color: #fff;
+    color: white;
+    text-align: center;
     border: none;
     width: 200px;
     padding: 10px 20px;
@@ -43,5 +54,6 @@
 }
 
 .btn-primary:hover {
-    background-color: #6c0a0a;
+    background-color: #C3C3C3;
+    color: black;
 }

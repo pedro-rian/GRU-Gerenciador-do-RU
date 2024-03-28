@@ -12,11 +12,37 @@
 <div class="navbar">
     <h1 class="titulo">GRU</h1>
 
-    <button type="submit" class="btn-primary button">Entrar</button>
-    <a href="#">Home</a>
-    <a href="#">Sobre</a>
-    <a href="#">Serviços</a>
-    <a href="#">Contato</a>
+    <div class="button">
+        <button type="button" class="btn-primary button" id="homeButton">Home</button>
+        <button type="button" class="btn-primary button" id="sobreORuButton">Sobre o RU</button>
+        <button type="button" class="btn-primary button" id="meuPerfilButton">Meu Perfil</button>
+        <button type="button" class="btn-primary button" id="avaliaçõesButton">Avaliações</button>
+        <button type="button" class="btn-primary button" id="solicitarAssistenciaButton">Solicitar Assitência</button>
+        <button type="button" class="button btn-sair" id="sairButton">Sair</button>
+    </div>
+
+
+    <script>
+        document.getElementById("homeButton").onclick = function () {
+            window.location.href = "/usuario/tela-inicial-comum";
+        };
+        document.getElementById("sobreORuButton").onclick = function () {
+            window.location.href = "/usuario/sobre-o-ru";
+        };
+        document.getElementById("meuPerfilButton").onclick = function () {
+            window.location.href = "/usuario/meu-perfil";
+        }
+        document.getElementById("avaliaçõesButton").onclick = function () {
+            window.location.href = "/usuario/avaliacoes";
+        };
+        document.getElementById("solicitarAssistenciaButton").onclick = function () {
+            window.location.href = "/usuario/solicitar-assistencia";
+        }
+        document.getElementById("sairButton").onclick = function (){
+            window.location.href = "/usuario/login";
+        }
+
+    </script>
 </div>
 
 </body>

@@ -33,9 +33,9 @@ public class UsuarioController {
         Usuario usuario = usuarioService.autenticarUsuario(email, senha);
         if (usuario != null) {
             if (usuario.getTipo().equals("administrador")) {
-                return "tela-inicial-administrador";
+                return "redirect:/usuario/tela-inicial-administrador";
             } else if (usuario.getTipo().equals("comum")) {
-                return "tela-inicial-comum";
+                return "redirect:/usuario/tela-inicial-comum";
             } else {
                 return "login";
             }
@@ -44,5 +44,29 @@ public class UsuarioController {
             return "login";
         }
     }
+    @GetMapping("/tela-inicial-comum")
+    public String telaInicialComum() {
+        return "tela-inicial-comum";
+    }
+
+    @GetMapping("/sobre-o-ru")
+    public String sobreORu() {
+        return "sobre-o-ru";
+    }
+
+    @GetMapping("/meu-perfil")
+    public String meuPerfil() {
+        return "meu-perfil";
+    }
+
+    @GetMapping("/avaliacoes")
+    public String avaliacoes() {
+        return "avaliacoes";
+    }
+    @GetMapping("/solicitar-assistencia")
+    public String solicitarAssistencia() {
+        return "solicitar-assistencia";
+    }
+
 
 }
