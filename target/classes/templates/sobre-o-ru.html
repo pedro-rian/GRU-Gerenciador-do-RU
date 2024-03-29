@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/nav-bar.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <title>Sobre o Ru</title>
+</head>
+<body>
+<div class="navbar">
+    <h1 class="titulo">GRU</h1>
+
+    <div class="button">
+        <button type="button" class="btn-primary button" id="homeButton">Home</button>
+        <button type="button" class="btn-primary button" id="sobreORuButton">Sobre o RU</button>
+        <button type="button" class="btn-primary button" id="meuPerfilButton">Meu Perfil</button>
+        <button type="button" class="btn-primary button" id="avaliaçõesButton">Avaliações</button>
+        <button type="button" class="btn-primary button" id="solicitarAssistenciaButton">Solicitar Assitência</button>
+        <button type="button" class="button btn-sair" id="sairButton">Sair</button>
+    </div>
+
+
+    <script>
+        document.getElementById("homeButton").onclick = function () {
+            window.location.href = "/usuario/tela-inicial-comum";
+        };
+        document.getElementById("sobreORuButton").onclick = function () {
+            window.location.href = "/usuario/sobre-o-ru";
+        };
+        document.getElementById("meuPerfilButton").onclick = function () {
+            window.location.href = "/usuario/meu-perfil";
+        }
+        document.getElementById("avaliaçõesButton").onclick = function () {
+            window.location.href = "/usuario/avaliacoes";
+        };
+        document.getElementById("solicitarAssistenciaButton").onclick = function () {
+            window.location.href = "/usuario/solicitar-assistencia";
+        }
+        document.getElementById("sairButton").onclick = function (){
+            window.location.href = "/usuario/login";
+        }
+
+    </script>
+</div>
+</body>
+</html>

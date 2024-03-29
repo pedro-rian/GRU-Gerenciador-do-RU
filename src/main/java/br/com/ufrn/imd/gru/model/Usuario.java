@@ -1,5 +1,4 @@
 package br.com.ufrn.imd.gru.model;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -7,7 +6,11 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -30,6 +33,15 @@ public class Usuario {
     @Column(name = "tipo", nullable = false)
     private String tipo;
 
+    @Column(name = "telefone")
+    private int telefone;
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date dataNascimento;
+    @Column(name = "login")
+    private String login;
+    @Column(name = "ativo")
+    private boolean ativo;
     @OneToMany
     private List<Assistencia> assistenciaList;
 
@@ -79,5 +91,37 @@ public class Usuario {
 
     public void setAssistenciaList(List<Assistencia> assistenciaList) {
         this.assistenciaList = assistenciaList;
+    }
+
+    public int getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(int telefone) {
+        this.telefone = telefone;
+    }
+
+    public Date getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 }
