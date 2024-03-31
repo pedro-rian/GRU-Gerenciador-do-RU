@@ -1,41 +1,31 @@
 package br.com.ufrn.imd.gru.model;
-
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Table;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
-@Table(name = "pessoa")
-public class Pessoa {
-    
+@Table(name = "usuario")
+public class Usuario {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
-
     @Column(name = "nome", length = 200, nullable = false)
     private String nome;
-    @Column(name = "cpf")
-    private int cpf;
-    @Column(name = "telefone")
-    private int telefone;
-    @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Date dataNascimento;
-    @Column(name = "login")
-    private String login;
 
-    @Column(name = "ativo")
-    private boolean ativo;
+    @Column(name = "email", length = 50, nullable = true)
+    private String email;
 
     @Column(name = "senha", length = 50, nullable = false)
     private String senha;
@@ -43,15 +33,17 @@ public class Pessoa {
     @Column(name = "tipo", nullable = false)
     private String tipo;
 
-    @Column(name = "email", length = 50, nullable = true)
-    private String email;
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
+    @Column(name = "telefone")
+    private int telefone;
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date dataNascimento;
+    @Column(name = "login")
+    private String login;
+    @Column(name = "ativo")
+    private boolean ativo;
+    @OneToMany
+    private List<Assistencia> assistenciaList;
 
     public String getNome() {
         return nome;
@@ -61,13 +53,44 @@ public class Pessoa {
         this.nome = nome;
     }
 
-
-    public int getCpf() {
-        return cpf;
+    public String getEmail() {
+        return email;
     }
 
-    public void setCpf(int cpf) {
-        this.cpf = cpf;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public List<Assistencia> getAssistenciaList() {
+        return assistenciaList;
+    }
+
+    public void setAssistenciaList(List<Assistencia> assistenciaList) {
+        this.assistenciaList = assistenciaList;
     }
 
     public int getTelefone() {
@@ -100,29 +123,5 @@ public class Pessoa {
 
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 }

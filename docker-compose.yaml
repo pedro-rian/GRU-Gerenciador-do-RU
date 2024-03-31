@@ -7,6 +7,6 @@ services:
     # volumes:
     #   - ./database:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: gru2
+      POSTGRES_USER: gru
+      POSTGRES_PASSWORD: gru
+      POSTGRES_DB: gru

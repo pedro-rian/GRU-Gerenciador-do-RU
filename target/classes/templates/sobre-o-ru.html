@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/nav-bar.css">
-    <link rel="stylesheet" href="/tela-inicial-comum.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-    <title>Tela Inicial</title>
+    <title>Sobre o Ru</title>
 </head>
 <body>
 <div class="navbar">
@@ -21,6 +20,7 @@
         <button type="button" class="btn-primary button" id="solicitarAssistenciaButton">Solicitar Assitência</button>
         <button type="button" class="button btn-sair" id="sairButton">Sair</button>
     </div>
+
 
     <script>
         document.getElementById("homeButton").onclick = function () {
@@ -43,12 +43,6 @@
         }
 
     </script>
-
 </div>
-<div class="conteudo-pagina">
-    <h2>Aviso:</h2>
-    <span th:text="${aviso.titulo}"></span> - <span th:text="${aviso.descricao}"></span>
-</div>
-
 </body>
 </html>

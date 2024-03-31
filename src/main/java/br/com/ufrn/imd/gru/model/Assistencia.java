@@ -27,9 +27,9 @@ public class Assistencia {
     @Column(name = "horario")
     private LocalTime horario;
 
-    @ManyToOne
-    @JoinColumn(name = "consumidor_id")
-    private Consumidor consumidor;
+    @Column(name = "id_usuario")
+
+    private long id_usuario;
 
     public long getId() {
         return id;
@@ -71,11 +71,4 @@ public class Assistencia {
         this.horario = horario;
     }
 
-    public Consumidor getConsumidor() {
-        return consumidor;
-    }
-
-    public void setConsumidor(Consumidor consumidor) {
-        this.consumidor = consumidor;
-    }
 }
