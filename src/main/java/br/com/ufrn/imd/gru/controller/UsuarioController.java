@@ -35,7 +35,7 @@ public class UsuarioController {
             if (usuario.getTipo().equals("administrador")) {
                 return "redirect:/usuario/tela-inicial-administrador";
             } else if (usuario.getTipo().equals("comum")) {
-                return "redirect:/usuario/tela-inicial-comum";
+                return "redirect:/cardapio/tela-inicial-comum";
             } else {
                 return "login";
             }
@@ -44,10 +44,7 @@ public class UsuarioController {
             return "login";
         }
     }
-    @GetMapping("/tela-inicial-comum")
-    public String telaInicialComum() {
-        return "tela-inicial-comum";
-    }
+
 
     @GetMapping("/sobre-o-ru")
     public String sobreORu() {
