@@ -21,4 +21,8 @@ public class CardapioService {
         return cardapioRepository.findByData(dataAtual);
     }
 
+    public void salvarCardapio(Cardapio cardapio){
+        cardapioRepository.save(cardapio);
+    }
+
 }
