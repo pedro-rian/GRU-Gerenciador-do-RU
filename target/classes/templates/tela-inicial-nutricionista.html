@@ -14,29 +14,37 @@
 
     <div class="button">
         <button type="button" class="btn-primary button" id="homeButton">Home</button>
-        <button type="button" class="btn-primary button" id="sobreORuButton">Sobre o RU</button>
-        <button type="button" class="btn-primary button" id="meuPerfilButton">Meu Perfil</button>
-        <button type="button" class="btn-primary button" id="avaliaçõesButton">Avaliações</button>
-        <button type="button" class="btn-primary button" id="solicitarAssistenciaButton">Solicitar Assitência</button>
+        <button type="button" class="btn-primary button" id="meuPerfilButton">Meu perfil</button>
+        <button type="button" class="btn-primary button" id="estatisticasButton">Estatísticas</button>
+        <button type="button" class="btn-primary button" id="verAvaliacoesButton">Ver avaliações</button>
+        <button type="button" class="btn-primary button" id="cadastrarCardapioButton">Cadastrar cardápio</button>
+        <button type="button" class="btn-primary button" id="cadastrarAvisoButton">Cadastrar aviso</button>
+        <button type="button" class="btn-primary button" id="solicitacoesAssistenciaButton">Solicitações de Assitência</button>
         <button type="button" class="button btn-sair" id="sairButton">Sair</button>
     </div>
 
 
     <script>
         document.getElementById("homeButton").onclick = function () {
-            window.location.href = "/cardapio/tela-inicial-comum";
-        };
-        document.getElementById("sobreORuButton").onclick = function () {
-            window.location.href = "/usuario/sobre-o-ru";
+            window.location.href = "/usuario/tela-inicial-nutricionista";
         };
         document.getElementById("meuPerfilButton").onclick = function () {
-            window.location.href = "/usuario/meu-perfil";
-        }
-        document.getElementById("avaliaçõesButton").onclick = function () {
-            window.location.href = "/usuario/avaliacoes";
+            window.location.href = "/usuario/meu-perfil-nutricionista";
         };
-        document.getElementById("solicitarAssistenciaButton").onclick = function () {
-            window.location.href = "/usuario/solicitar-assistencia";
+        document.getElementById("estatisticasButton").onclick = function () {
+            window.location.href = "/usuario/estatisticas-nutricionista";
+        }
+        document.getElementById("verAvaliacoesButton").onclick = function () {
+            window.location.href = "/usuario/avaliacoes-nutricionista";
+        };
+        document.getElementById("cadastrarCardapioButton").onclick = function () {
+            window.location.href = "/cardapio/cadastrar-cardapio-nutricionista";
+        }
+        document.getElementById("cadastrarAvisoButton").onclick = function () {
+            window.location.href = "/usuario/cadastrar-aviso-nutricionista";
+        }
+        document.getElementById("solicitacoesAssistenciaButton").onclick = function () {
+            window.location.href = "/usuario/solicitacoes-assistencia-nutricionista";
         }
         document.getElementById("sairButton").onclick = function (){
             window.location.href = "/usuario/login";
@@ -46,19 +54,7 @@
 </div>
 
 <div class="texto">
-    <h1>Cardápio</h1>
-    <table>
-        <tr>
-            <th>Tipo de Refeição</th>
-            <th>Acompanhamento</th>
-            <th>Prato Principal</th>
-        </tr>
-        <tr th:each="cardapio : ${cardapios}">
-            <td th:text="${cardapio.tipoRefeicao}"></td>
-            <td th:text="${cardapio.acompanhamento}"></td>
-            <td th:text="${cardapio.pratoPrincipal}"></td>
-        </tr>
-    </table>
+    PÁGINA INICIAL DO USUÁRIO NUTRICIONISTA
 </div>
 
 </body>
