@@ -2,8 +2,8 @@ package br.com.ufrn.imd.gru.controller;
 
 import br.com.ufrn.imd.gru.model.TipoUsuario;
 import br.com.ufrn.imd.gru.model.Usuario;
-import br.com.ufrn.imd.gru.service.UsuarioService;
 
+import br.com.ufrn.imd.gru.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,6 +48,7 @@ public class UsuarioController {
             return "login";
         }
     }
+
 
     @GetMapping("/sobre-o-ru")
     public String sobreORu() {

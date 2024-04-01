@@ -1,3 +1,4 @@
+
 package br.com.ufrn.imd.gru.service;
 import br.com.ufrn.imd.gru.model.Usuario;
 import br.com.ufrn.imd.gru.repository.UsuarioRepository;
