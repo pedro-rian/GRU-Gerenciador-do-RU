@@ -47,7 +47,12 @@
 </div>
 <div class="conteudo-pagina">
     <h2>Aviso:</h2>
-    <span th:text="${aviso.titulo}"></span> - <span th:text="${aviso.descricao}"></span>
+    <div th:if="${aviso != null}">
+        <span th:text="${aviso.titulo}"></span> - <span th:text="${aviso.descricao}"></span>
+    </div>
+    <div th:unless="${aviso != null}">
+        <span>Nenhum aviso encontrado</span>
+    </div>
 </div>
 
 <div class="texto">

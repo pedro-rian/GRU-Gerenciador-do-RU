@@ -38,7 +38,7 @@ public class UsuarioController {
             } else if (usuario.getTipo().equals(TipoUsuario.CONSUMIDOR)) {
                 return "redirect:/cardapio/tela-inicial-comum";
             } else if (usuario.getTipo().equals(TipoUsuario.NUTRICIONISTA)) {
-                return "redirect:/cardapio/tela-inicial-nutricionista";
+                return "redirect:/usuario/tela-inicial-nutricionista";
             }
             else {
                 return "login";
@@ -50,6 +50,7 @@ public class UsuarioController {
     }
 
 
+    //Mapeamento das páginas de CONSUMIDOR:
     @GetMapping("/sobre-o-ru")
     public String sobreORu() {
         return "sobre-o-ru";
@@ -68,6 +69,21 @@ public class UsuarioController {
     public String solicitarAssistencia() {
         return "solicitar-assistencia";
     }
+
+    //Mapeamento das páginas de NUTRICIONISTA:
+    @GetMapping("/tela-inicial-nutricionista")
+    public String telaInicialNutricionista(){return "tela-inicial-nutricionista";}
+    @GetMapping("/meu-perfil-nutricionista")
+    public String meuPerfilNutricionista(){return "meu-perfil-nutricionista";}
+    @GetMapping("/estatisticas-nutricionista")
+    public String estatisticasNutricionista(){return "estatisticas-nutricionista";}
+    @GetMapping("/avaliacoes-nutricionista")
+    public String avaliacoesNutricionista(){return "avaliacoes-nutricionista";}
+
+    @GetMapping("/cadastrar-aviso-nutricionista")
+    public String cadastrarAvisoNutricionista(){return "cadastrar-aviso-nutricionista";}
+    @GetMapping("/solicitacoes-assistencia-nutricionista")
+    public String solicitacoesAssistenciaNutricionista(){return "solicitacoes-assistencia-nutricionista";}
 
 
 }
