@@ -1,13 +1,7 @@
 package br.com.ufrn.imd.gru.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Table;
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -30,11 +24,15 @@ public class Cardapio {
     @Column(name = "tipo_refeicao")
     private TipoRefeicao tipoRefeicao;
 
+
+    @Column(name = "tipo_cardapio", nullable = false)
     @Enumerated(EnumType.STRING)
-    @Column(name = "tipo_cardapio")
     private TipoCardapio tipoCardapio;
 
-    @Column(name = "data")
+
+    @Column(name = "data", nullable = false)
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date data;
 
 
