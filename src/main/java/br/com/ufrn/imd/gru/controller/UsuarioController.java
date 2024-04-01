@@ -1,5 +1,6 @@
 package br.com.ufrn.imd.gru.controller;
 
+import br.com.ufrn.imd.gru.model.TipoUsuario;
 import br.com.ufrn.imd.gru.model.Usuario;
 import br.com.ufrn.imd.gru.service.UsuarioService;
 
@@ -32,21 +33,20 @@ public class UsuarioController {
     public String logar(Model model, String email, String senha){
         Usuario usuario = usuarioService.autenticarUsuario(email, senha);
         if (usuario != null) {
-            if (usuario.getTipo().equals("administrador")) {
+            if (usuario.getTipo().equals(TipoUsuario.ADMINISTRADOR)) {
                 return "redirect:/usuario/tela-inicial-administrador";
-            } else if (usuario.getTipo().equals("comum")) {
-                return "redirect:/usuario/tela-inicial-comum";
-            } else {
+            } else if (usuario.getTipo().equals(TipoUsuario.CONSUMIDOR)) {
+                return "redirect:/cardapio/tela-inicial-comum";
+            } else if (usuario.getTipo().equals(TipoUsuario.NUTRICIONISTA)) {
+                return "redirect:/cardapio/tela-inicial-nutricionista";
+            }
+            else {
                 return "login";
             }
         }else{
             model.addAttribute("erro", "Usuário ou senha inválidos");
             return "login";
         }
-    }
-    @GetMapping("/tela-inicial-comum")
-    public String telaInicialComum() {
-        return "tela-inicial-comum";
     }
 
     @GetMapping("/sobre-o-ru")

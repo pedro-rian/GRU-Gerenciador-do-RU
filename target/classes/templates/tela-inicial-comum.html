@@ -24,7 +24,7 @@
 
     <script>
         document.getElementById("homeButton").onclick = function () {
-            window.location.href = "/usuario/tela-inicial-comum";
+            window.location.href = "/cardapio/tela-inicial-comum";
         };
         document.getElementById("sobreORuButton").onclick = function () {
             window.location.href = "/usuario/sobre-o-ru";
@@ -43,6 +43,22 @@
         }
 
     </script>
+</div>
+
+<div class="texto">
+    <h1>Cardápio</h1>
+    <table>
+        <tr>
+            <th>Tipo de Refeição</th>
+            <th>Acompanhamento</th>
+            <th>Prato Principal</th>
+        </tr>
+        <tr th:each="cardapio : ${cardapios}">
+            <td th:text="${cardapio.tipoRefeicao}"></td>
+            <td th:text="${cardapio.acompanhamento}"></td>
+            <td th:text="${cardapio.pratoPrincipal}"></td>
+        </tr>
+    </table>
 </div>
 
 </body>
