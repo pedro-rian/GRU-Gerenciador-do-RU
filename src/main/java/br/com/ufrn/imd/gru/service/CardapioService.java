@@ -13,6 +13,8 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.time.ZoneId;
+import java.util.Objects;
+import java.util.stream.Stream;
 
 
 @Service
@@ -29,24 +31,8 @@ public class CardapioService {
     }
     public void cadastrarCardapio(String tipoCardapioString, String tipoRefeicaoString, String pratoPrincipal,
                                   String acompanhamento, String dataString) {
-        Date data = null;
-        try {
-            data = new SimpleDateFormat("yyyy-MM-dd").parse(dataString);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        validarCardapio(tipoCardapioString, tipoRefeicaoString, pratoPrincipal, acompanhamento, data);
-
-
-    }
-
-    public void validarCardapio(String tipoCardapioString, String tipoRefeicaoString, String pratoPrincipal,
-                                String acompanhamento, Date data) {
-        if (tipoCardapioString == null || tipoRefeicaoString == null ||
-                pratoPrincipal == null || acompanhamento == null || data == null) {
-            throw new IllegalArgumentException("Todos os campos do cardápio são obrigatórios.");
-        }
+        validarCamposObrigatorios(tipoCardapioString, tipoRefeicaoString, pratoPrincipal, acompanhamento, dataString);
+        Date data = parseData(dataString);
 
         TipoCardapio tipoCardapio = TipoCardapio.valueOf(tipoCardapioString);
         TipoRefeicao tipoRefeicao = TipoRefeicao.valueOf(tipoRefeicaoString);
@@ -61,25 +47,33 @@ public class CardapioService {
         if (cardapioJaCadastrado(cardapio)) {
             throw new IllegalArgumentException("Já existe um cardápio cadastrado para esta data, tipo de cardápio e tipo de refeição.");
         }
-        salvarCardapio(cardapio);
+
+        cardapioRepository.save(cardapio);
     }
 
-    public boolean cardapioJaCadastrado(Cardapio cardapio) {
+    private void validarCamposObrigatorios(String tipoCardapioString, String tipoRefeicaoString, String pratoPrincipal,
+                                           String acompanhamento, String dataString) {
+        if (Stream.of(tipoCardapioString, tipoRefeicaoString, pratoPrincipal, acompanhamento, dataString)
+                .anyMatch(Objects::isNull) || dataString.isEmpty()) {
+            throw new IllegalArgumentException("Todos os campos do cardápio são obrigatórios.");
+        }
+    }
+
+    private Date parseData(String dataString) {
+        try {
+            return new SimpleDateFormat("yyyy-MM-dd").parse(dataString);
+        } catch (ParseException e) {
+            throw new IllegalArgumentException("Formato de data inválido.");
+        }
+    }
+
+
+    private boolean cardapioJaCadastrado(Cardapio cardapio) {
         LocalDate data = cardapio.getData().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
         return cardapioRepository.existsByDataAndTipoCardapioAndTipoRefeicao(
                 data, cardapio.getTipoCardapio(), cardapio.getTipoRefeicao()
         );
     }
-
-    public void salvarCardapio(Cardapio cardapio) {
-
-        if (cardapioJaCadastrado(cardapio)) {
-            throw new IllegalArgumentException("Já existe um cardápio cadastrado para esta data, tipo de cardápio e tipo de refeição.");
-        }
-
-        cardapioRepository.save(cardapio);
-    }
-
 
 }
