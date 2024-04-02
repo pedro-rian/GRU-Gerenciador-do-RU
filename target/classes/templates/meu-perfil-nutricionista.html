@@ -6,7 +6,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-    <title>Cadastro de cardápio</title>
+    <title>Meu perfil - Nutricionista</title>
 </head>
 <body>
 <div class="navbar">
@@ -54,36 +54,7 @@
 </div>
 
 <div class="texto">
-    <h1>Cadastro de Cardápio</h1>
-    <form action="/cardapio/cadastrar-cardapio-nutricionista/cadastrar-cardapio" method="post">
-        <label for="tipo_cardapio">Tipo de cardápio:</label>
-        <select name="tipo_cardapio" id="tipo_cardapio">
-            <option value="">--Selecione uma opção--</option>
-            <option value="PRINCIPAL">Principal</option>
-            <option value="VEGETARIANO">Vegetariano</option>
-        </select><br><br>
-
-        <label for="tipo_refeicao">Tipo de refeição:</label>
-        <select name="tipo_refeicao" id="tipo_refeicao">
-            <option value="">--Selecione uma opção--</option>
-            <option value="CAFE">Café</option>
-            <option value="ALMOCO">Almoço</option>
-            <option value="JANTAR">Jantar</option>
-        </select><br><br>
-
-        <label for="prato_principal">Prato Principal:</label>
-        <input type="text" id="prato_principal" name="prato_principal"><br><br>
-
-        <label for="acompanhamento">Acompanhamento:</label>
-        <input type="text" id="acompanhamento" name="acompanhamento"><br><br>
-
-        <label for="data">Data do cardápio:</label>
-        <input type="date" id="data" name="data"><br><br>
-
-        <p th:if="${error}" class="error" th:text="${error}"></p>
-
-        <button type="submit">Cadastrar cardápio</button>
-    </form>
+    PERFIL DO NUTRICIONISTA
 </div>
 
 </body>

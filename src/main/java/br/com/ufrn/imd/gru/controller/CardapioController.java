@@ -13,14 +13,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
-import java.time.LocalDate;
 
 
 @Controller
@@ -51,24 +48,22 @@ public class CardapioController {
 
     @PostMapping("/cadastrar-cardapio-nutricionista/cadastrar-cardapio")
     public String cadastrarCardapio(@RequestParam("tipo_cardapio") String tipoCardapioString,
-                                                 @RequestParam("tipo_refeicao") String tipoRefeicaoString,
-                                                 @RequestParam("prato_principal") String pratoPrincipal,
-                                                 @RequestParam("acompanhamento") String acompanhamento,
-                                                 @RequestParam("data") @DateTimeFormat(pattern = "yyyy-MM-dd") Date data){
-        //Lidando com Enums:
-        TipoCardapio tipoCardapio = TipoCardapio.valueOf(tipoCardapioString);
-        TipoRefeicao tipoRefeicao = TipoRefeicao.valueOf(tipoRefeicaoString);
+                                    @RequestParam("tipo_refeicao") String tipoRefeicaoString,
+                                    @RequestParam("prato_principal") String pratoPrincipal,
+                                    @RequestParam("acompanhamento") String acompanhamento,
+                                    @RequestParam(value = "data", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") String dataString,
+                                    Model model) {
 
-        Cardapio cardapio = new Cardapio();
-        cardapio.setTipoCardapio(tipoCardapio);
-        cardapio.setTipoRefeicao(tipoRefeicao);
-        cardapio.setPratoPrincipal(pratoPrincipal);
-        cardapio.setAcompanhamento(acompanhamento);
-        cardapio.setData(data);
-
-        cardapioService.salvarCardapio(cardapio);
-
-        return "redirect:/usuario/tela-inicial-nutricionista";
+        try {
+            cardapioService.cadastrarCardapio(tipoCardapioString, tipoRefeicaoString, pratoPrincipal, acompanhamento, dataString);
+            return "redirect:/usuario/tela-inicial-nutricionista";
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("error", e.getMessage());
+            return "cadastrar-cardapio-nutricionista";
+        }
     }
+
+
+
 
 }
