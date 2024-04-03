@@ -27,10 +27,6 @@ public class Assistencia {
     @Column(name = "horario")
     private LocalTime horario;
 
-    @Column(name = "id_usuario")
-
-    private long id_usuario;
-
     public long getId() {
         return id;
     }

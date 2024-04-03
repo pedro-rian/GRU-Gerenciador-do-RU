@@ -56,6 +56,15 @@
 </div>
 
 <div class="texto">
+    <h2>Principal:</h2>
+    <ul>
+        <li th:each="cardapio : ${cardapios}">
+            <p><span th:text="${cardapio.tipoRefeicao}"></span> - <span th:text="${cardapio.pratoPrincipal}"></span></p>
+        </li>
+    </ul>
+</div>
+
+<div class="texto">
     <h1>Cardápio</h1>
     <table>
         <tr>

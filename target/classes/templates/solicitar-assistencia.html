@@ -21,7 +21,6 @@
         <button type="button" class="button btn-sair" id="sairButton">Sair</button>
     </div>
 
-
     <script>
         document.getElementById("homeButton").onclick = function () {
             window.location.href = "/cardapio/tela-inicial-comum";
@@ -43,6 +42,31 @@
         }
 
     </script>
+</div>
+<div class="texto">
+    <h1>Formulário de solicitação de assistência:</h1>
+    <form action="/usuario/solicitar-assistencia/solicitar-assistencia-form" method="post">
+        <label for="motivo">* Motivo da solicitação:</label>
+        <select name="motivo" id="motivo">
+            <option value="">--Selecione um motivo--</option>
+            <option value="Limitações de mobilidade">Limitações de mobilidade por conta de acidentes ou lesões</option>
+            <option value="Deficiência">Deficiência que impede a movimentação pelo espaço do restaurante</option>
+            <option value="Restrições alimentares">Restrições alimentares, sensibilidades e alergias</option>
+            <option value="Limitações da idade">Limitações relacionadas à idade</option>
+            <option value="Autismo ou outras condições">Autismo e/ou outras condições similares</option>
+            <option value="Motivo não listado">Outro motivo (descreva melhor abaixo)</option>
+        </select><br><br>
+        <label for="data">* Data de assistência:</label>
+        <input type="date" name="data" id="data"><br><br>
+        <label for="horario">* Horário de assistência:</label>
+        <input type="time" name="horario" id="horario"><br><br>
+        <label for="descricao">* Descrição da Solicitação:</label><br>
+        <textarea id="descricao" name="descricao" placeholder="Descreva aqui em detalhes o motivo da sua solicitação..." rows="10" cols="100"></textarea><br><br>
+
+        <p th:if="${error}" class="error" th:text="${error}"></p>
+
+        <button type="submit">Cadastrar solicitação de assistência</button>
+    </form>
 </div>
 </body>
 </html>

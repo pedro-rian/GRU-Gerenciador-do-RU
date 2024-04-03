@@ -56,14 +56,14 @@
 <div class="texto">
     <h1>Cadastro de Cardápio</h1>
     <form action="/cardapio/cadastrar-cardapio-nutricionista/cadastrar-cardapio" method="post">
-        <label for="tipo_cardapio">Tipo de cardápio:</label>
+        <label for="tipo_cardapio">* Tipo de cardápio:</label>
         <select name="tipo_cardapio" id="tipo_cardapio">
             <option value="">--Selecione uma opção--</option>
             <option value="PRINCIPAL">Principal</option>
             <option value="VEGETARIANO">Vegetariano</option>
         </select><br><br>
 
-        <label for="tipo_refeicao">Tipo de refeição:</label>
+        <label for="tipo_refeicao">* Tipo de refeição:</label>
         <select name="tipo_refeicao" id="tipo_refeicao">
             <option value="">--Selecione uma opção--</option>
             <option value="CAFE">Café</option>
@@ -71,13 +71,13 @@
             <option value="JANTAR">Jantar</option>
         </select><br><br>
 
-        <label for="prato_principal">Prato Principal:</label>
+        <label for="prato_principal">* Prato Principal:</label>
         <input type="text" id="prato_principal" name="prato_principal"><br><br>
 
-        <label for="acompanhamento">Acompanhamento:</label>
+        <label for="acompanhamento">* Acompanhamento:</label>
         <input type="text" id="acompanhamento" name="acompanhamento"><br><br>
 
-        <label for="data">Data do cardápio:</label>
+        <label for="data">* Data do cardápio:</label>
         <input type="date" id="data" name="data"><br><br>
 
         <p th:if="${error}" class="error" th:text="${error}"></p>
