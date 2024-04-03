@@ -80,8 +80,7 @@ public class UsuarioController {
     @GetMapping("/avaliacoes-nutricionista")
     public String avaliacoesNutricionista(){return "avaliacoes-nutricionista";}
 
-    @GetMapping("/cadastrar-aviso-nutricionista")
-    public String cadastrarAvisoNutricionista(){return "cadastrar-aviso-nutricionista";}
+
     @GetMapping("/solicitacoes-assistencia-nutricionista")
     public String solicitacoesAssistenciaNutricionista(){return "solicitacoes-assistencia-nutricionista";}
 

@@ -41,7 +41,7 @@
             window.location.href = "/cardapio/cadastrar-cardapio-nutricionista";
         }
         document.getElementById("cadastrarAvisoButton").onclick = function () {
-            window.location.href = "/usuario/cadastrar-aviso-nutricionista";
+            window.location.href = "/aviso/cadastrar-aviso-nutricionista";
         }
         document.getElementById("solicitacoesAssistenciaButton").onclick = function () {
             window.location.href = "/usuario/solicitacoes-assistencia-nutricionista";
@@ -54,7 +54,24 @@
 </div>
 
 <div class="texto">
-    CADASTRO DE AVISO - NUTRICIONISTA
+
+    <h1>Cadastro de Aviso</h1>
+    <form action="/aviso/cadastrar-aviso-nutricionista/cadastrar-aviso" method="post">
+
+
+        <label for="titulo">Titulo do aviso:</label>
+        <input type="text" id="titulo" name="titulo"><br><br>
+
+        <label for="descricao">Descrição do aviso:</label>
+        <input type="text" id="descricao" name="descricao"><br><br>
+
+        <label for="data">Data do cardápio:</label>
+        <input type="date" id="data" name="data"><br><br>
+
+        <p th:if="${error}" class="error" th:text="${error}"></p>
+
+        <button type="submit">Cadastrar aviso</button>
+    </form>
 </div>
 
 </body>
