@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/nav-bar.css">
+    <link rel="stylesheet" href="/cadastro-de-aviso.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
@@ -41,7 +42,7 @@
             window.location.href = "/cardapio/cadastrar-cardapio-nutricionista";
         }
         document.getElementById("cadastrarAvisoButton").onclick = function () {
-            window.location.href = "/usuario/cadastrar-aviso-nutricionista";
+            window.location.href = "/aviso/cadastrar-aviso-nutricionista";
         }
         document.getElementById("solicitacoesAssistenciaButton").onclick = function () {
             window.location.href = "/usuario/solicitacoes-assistencia-nutricionista";
@@ -54,7 +55,29 @@
 </div>
 
 <div class="texto">
-    CADASTRO DE AVISO - NUTRICIONISTA
+
+    <h1 class="tituloh1">Cadastro de aviso:</h1>
+    <div class="container">
+    <form action="/aviso/cadastrar-aviso-nutricionista/cadastrar-aviso" method="post">
+
+
+        <label for="titulo" class="subtitulo">Titulo do aviso:</label>
+        <br>
+        <input class="inputtext" type="text" id="titulo" name="titulo" placeholder="Digite o título do aviso"><br><br>
+
+        <label for="descricao" class="subtitulo">Descrição do aviso:</label><br>
+        <textarea class="inputdescricao" id="descricao" name="descricao" placeholder="Digite a descrição do aviso"></textarea><br>
+
+
+        <label for="data" class="subtitulo">Data do cardápio:</label>
+        <br>
+        <input type="date" id="data" name="data"><br><br>
+
+        <p th:if="${error}" class="alerta" th:text="${error}"></p>
+
+        <button type="submit" class="btn-primary-aviso button-aviso">Cadastrar aviso</button>
+    </form>
+    </div>
 </div>
 
 </body>

@@ -31,12 +31,9 @@ public class Aviso{
 
     @Column(name = "data", nullable = false)
     @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd") // Especifique o formato da data aqui
     private Date data;
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
-    private Usuario usuario;
 
     public long getId() {
         return id;
@@ -70,11 +67,4 @@ public class Aviso{
         this.data = data;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
 }
