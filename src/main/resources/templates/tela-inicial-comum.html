@@ -46,7 +46,7 @@
 
 </div>
 <div class="conteudo-pagina">
-    <h2>Aviso:</h2>
+    <h3 class="cabecalho">Aviso:</h3>
     <div th:if="${aviso != null}">
         <span th:text="${aviso.titulo}"></span> - <span th:text="${aviso.descricao}"></span>
     </div>
@@ -56,7 +56,7 @@
 </div>
 
 <div class="texto">
-    <h1>Cardápio</h1>
+    <h3 class="cabecalho">Cardápio: </h3>
     <table>
         <tr>
             <th>Tipo de Refeição</th>
@@ -69,6 +69,55 @@
             <td th:text="${cardapio.pratoPrincipal}"></td>
         </tr>
     </table>
+
+    <section>
+        <h3 class="cabecalho">Horário de funcionamento: </h3>
+
+        <h4>Unidade Central</h4>
+        <ul>
+            <li> Café da manhã (exclusivo para estudantes residentes)</li>
+            <p>
+                – Segunda à sexta das 6h30 às 7h30.
+                <br>
+                – Sábados, domingos e feriados das 7h30 às 8h30
+            </p>
+
+            <li>Almoço</li>
+            <p>
+                – Segunda à sexta das 10h30 às 13h30.
+                <br>
+                – Sábados, domingos e feriados das 11h às 13h.
+            </p>
+
+            <li>Jantar</li>
+            <p>
+                – Segunda à sexta das 17h até às 19h.
+                <br>
+                – Sábados, domingos e feriados das 17h às 18h.
+            </p>
+        </ul>
+
+
+        <h4>Unidade Biomédica</h4>
+        <ul>
+            <li>Almoço</li>
+            <p> – Todos os dias, das 11h às 13h.</p>
+
+            <li>Jantar</li>
+            <p>
+                – Segunda à sexta das 17h até às 18h45.
+                <br>
+                – Sábados, domingos e feriados das 17h às 18h.
+            </p>
+
+        </ul>
+
+        <h4> Unidade Tecnológica</h4>
+        <ul>
+            <li>Almoço</li>
+            <p> – Segunda à sexta das 11h às 13h.</p>
+        </ul>
+    </section>
 </div>
 
 </body>

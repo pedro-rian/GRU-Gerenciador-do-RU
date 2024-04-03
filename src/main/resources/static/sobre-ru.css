@@ -1,11 +1,11 @@
 #sobreRU {
     overflow: hidden;
     margin-left:300px;
-    font-family: "Inter", sans-serif;
     font-weight: 300;
 }
 
 .cabecalho {
+    font-family: "Inter", sans-serif;
     margin-bottom: 0px;
     color: #A71919;
     font-size: 2em;
