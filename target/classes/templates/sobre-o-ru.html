@@ -1,48 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/nav-bar.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/sobre-ru.css">
     <title>Sobre o Ru</title>
 </head>
+
 <body>
-<div class="navbar">
-    <h1 class="titulo">GRU</h1>
+    <div class="navbar">
+        <h1 class="titulo">GRU</h1>
 
-    <div class="button">
-        <button type="button" class="btn-primary button" id="homeButton">Home</button>
-        <button type="button" class="btn-primary button" id="sobreORuButton">Sobre o RU</button>
-        <button type="button" class="btn-primary button" id="meuPerfilButton">Meu Perfil</button>
-        <button type="button" class="btn-primary button" id="avaliaçõesButton">Avaliações</button>
-        <button type="button" class="btn-primary button" id="solicitarAssistenciaButton">Solicitar Assitência</button>
-        <button type="button" class="button btn-sair" id="sairButton">Sair</button>
+        <div class="button">
+            <button type="button" class="btn-primary button" id="homeButton">Home</button>
+            <button type="button" class="btn-primary button" id="sobreORuButton">Sobre o RU</button>
+            <button type="button" class="btn-primary button" id="meuPerfilButton">Meu Perfil</button>
+            <button type="button" class="btn-primary button" id="avaliaçõesButton">Avaliações</button>
+            <button type="button" class="btn-primary button" id="solicitarAssistenciaButton">Solicitar
+                Assitência</button>
+            <button type="button" class="button btn-sair" id="sairButton">Sair</button>
+        </div>
+
+
+        <script>
+            document.getElementById("homeButton").onclick = function () {
+                window.location.href = "/cardapio/tela-inicial-comum";
+            };
+            document.getElementById("sobreORuButton").onclick = function () {
+                window.location.href = "/usuario/sobre-o-ru";
+            };
+            document.getElementById("meuPerfilButton").onclick = function () {
+                window.location.href = "/usuario/meu-perfil";
+            }
+            document.getElementById("avaliaçõesButton").onclick = function () {
+                window.location.href = "/usuario/avaliacoes";
+            };
+            document.getElementById("solicitarAssistenciaButton").onclick = function () {
+                window.location.href = "/usuario/solicitar-assistencia";
+            }
+            document.getElementById("sairButton").onclick = function () {
+                window.location.href = "/usuario/login";
+            }
+
+        </script>
     </div>
+    <div id="sobreRU">
+        <section>
+            <h3 class="cabecalho">Sobre o RU:</h3>
+            <img id="fotoRU" src="../imgs/fotoRU.png" title="Pessoas almoçando no RU"></img>
+
+            <h4>Quem são os usuários do RU?</h4>
+            <p>
+                São usuários do Restaurante Universitário os integrantes do corpo discente (ensino básico, técnico e
+                tecnológico, graduação e pós-graduação), regularmente matriculados na UFRN, servidores
+                técnico-administrativos e docentes na Universidade Federal do Rio Grande do Norte em atividade
+                institucional.
+            </p>
+            <p>
+                Atenção! No momento, o atendimento aos servidores técnicos-administrativos e docentes está suspenso.
+            </p>
 
 
-    <script>
-        document.getElementById("homeButton").onclick = function () {
-            window.location.href = "/cardapio/tela-inicial-comum";
-        };
-        document.getElementById("sobreORuButton").onclick = function () {
-            window.location.href = "/usuario/sobre-o-ru";
-        };
-        document.getElementById("meuPerfilButton").onclick = function () {
-            window.location.href = "/usuario/meu-perfil";
-        }
-        document.getElementById("avaliaçõesButton").onclick = function () {
-            window.location.href = "/usuario/avaliacoes";
-        };
-        document.getElementById("solicitarAssistenciaButton").onclick = function () {
-            window.location.href = "/usuario/solicitar-assistencia";
-        }
-        document.getElementById("sairButton").onclick = function (){
-            window.location.href = "/usuario/login";
-        }
+            <h4>Como posso acessar o RU?</h4>
+            <p>
+                O acesso ao restaurante se dar por meio de um cartão RFID (carteira de estudante ou cartão de transporte
+                público). O cadastro do cartão é realizado diretamente no RU. É necessário apresentar documento com foto
+                e cartão RFID a ser cadastrado.
+            </p>
+            <p>
+                Ressaltamos que o cartão deve ser de propriedade do usuário a ser cadastrado. Além disso, não serão
+                aceitos cartões de crédito ou de instituições financeiras.
+                O cartão é de uso exclusivo do proprietário, ou seja, não pode ser utilizado por terceiros, sendo assim
+                intransferível e inalienável.
+                Só terá acesso às refeições do RU quem está com o cartão em mãos, por isso cuidado para não esquecê-lo.
+            </p>
 
-    </script>
-</div>
+            <h4> Qual o valor da refeição no RU? </h4>
+            <p>
+                O custo integral de cada refeição (almoço ou jantar) é de R$ 8,00 e se aplica a servidores (docentes e
+                técnicos administrativos) e a discentes que não se enquadram nos critérios da assistência estudantil. Os
+                alunos que se enquadram nesses critérios e que fazem adesão via edital da Pró-reitoria de Assuntos
+                Estudantis (PROAE), recebem o benefício integral ou parcial, ou seja, terão gratuidade total ou pagarão
+                metade do valor da refeição (R$ 4,00).
+            </p>
+            <h4> Onde recarregar o cartão do RU?</h4>
+            <p>
+                Os usuários devem efetuar a recarga do cartão do RU da UFRN com a geração de uma GRU (Guia de
+                Recolhimento da União), no SIGAA (discentes) ou no SIPAC (servidores). Para emitir uma GRU é fácil,
+                basta acessar no SIGAA o caminho: Menu Discente > Outros > Compra de Créditos e no SIPAC o caminho:
+                Portal administrativo > Outros > Restaurante > Compra de Créditos.
+            </p>
+            <p>
+                Atenção! Você pode gerar uma GRU com a quantidade de refeições que desejar e, imediatamente após a
+                compra, estarão disponíveis para uso um limite de até 8 créditos (refeições). Caso você compre um valor
+                superior a esta quantidade, as demais refeições serão creditadas somente após o pagamento da GRU.
+
+                As GRU deverão ser pagas, exclusivamente, em agências do Banco do Brasil (incluindo caixas eletrônicos e
+                aplicativo do banco) ou agências pague fácil. A falta de pagamento de GRU em atraso ocasionará o
+                bloqueio do cartão, impedindo o acesso do usuário ao RU até a regularização da situação.
+            </p>
+        </section>
+        <section>
+            <h3 class="cabecalho">História do RU:</h3>
+            <p>
+                O Restaurante Universitário da UFRN tem uma longa história, sempre unida aos avanços da universidade.
+                Brasília era a nova capital do país. A seleção canarinho havia conquistado o bicampeonato mundial de
+                futebol. A TV a cores invadia a casa dos brasileiros. E a juventude cada vez mais se organizava, lutando
+                pelos seus direitos e por mudanças no comportamento da sociedade. Em meio a esse contexto é que nasce o
+                nosso conhecido RU.
+            </p>
+            <p>
+                O Restaurante Universitário foi criado a partir da conquista dos estudantes universitários e do DCE da
+                época. Em 1963, na gestão do presidente Francisco Ginani, então estudante da Faculdade de Medicina da
+                UFRN, foi reivindicado um restaurante que atendesse às necessidades da classe estudantil. Esse fato
+                aconteceu durante o reitorado do Dr. Onofre Lopes, num período em que os alunos secundaristas faziam as
+                suas refeições na Casa do Estudante e precisavam de melhores condições de alimentação.
+            </p>
+            <p>
+                Reconhecendo essa necessidade, o então prefeito de Natal Djalma Maranhão cedeu um terreno no bairro de
+                Petrópolis para a implantação do RU, com a condição de que fosse construído dentro de um determinado
+                prazo. Devido à escassez de recursos e à resistência do reitor da época em aceitar edificar uma
+                instalação provisória o prazo expirou, o que fez com que o terreno voltasse a pertencer à prefeitura.
+                Hoje, neste local, está o Palácio dos Esportes da capital do estado.
+            </p>
+            <p>
+                A luta continuou por parte dos estudantes, culminando na Resolução nº 58/63-U. Com ela, o Conselho
+                Universitário da UFRN aprovou, em reunião no dia 16 de dezembro de 1963, a liberação da quantia de Cr$
+                150.000 mensais para o aluguel de um local destinado a funcionar como Restaurante Universitário. O RU
+                foi inaugurado em março de 1964, na Av. Deodoro, próximo ao Instituto Infantil Varela Santiago, com
+                capacidade para oferecer café, almoço e jantar a cerca de 200 universitários.
+            </p>
+            <p>
+                Nessa época não existia o campus central da UFRN. Os cursos funcionavam em prédios distintos, mas todos
+                próximos à região do Centro da cidade, Petrópolis e Tirol. Durante a década de 1970 foi iniciada a
+                construção do Campus Central no bairro de Lagoa Nova e, com isso, o CONSUNI, através da Resolução 70/72
+                – em 13 de novembro de 1972 – homologou o contrato entre a UFRN e uma empresa de construção civil, no
+                valor de Cr$ 624.877,50, para construir o Restaurante Universitário no Campus Central. Em março de 1973,
+                o Reitor Genário Alves da Fonseca proclamou a conclusão da obra perante assembleia universitária, em seu
+                relatório, e o RU permanece no mesmo local até hoje.
+            </p>
+            <p>
+                Com a saída do Restaurante Universitário do Centro da cidade, os estudantes da área médica que assistiam
+                aulas na Escola de Saúde e necessitavam do apoio das estruturas do refeitório seguiam para o RU do
+                campus central no ônibus da própria Universidade. Esse transporte ficou conhecido como “Upa neguinho”,
+                apelido que veio da música homônima composta por Gianfrancesco Guarnieri e Edu Lobo para a peça “Arena
+                conta Zumbi” e gravada por Elis Regina em 1966 (Upa neguinho na estrada / Upa pra lá e pra cá).
+            </p>
+            <p>
+                Com a crescente demanda dos estudantes de saúde, houve a necessidade da instalação de um refeitório que
+                atendesse à região. Por isso, foi criado um refeitório no Hospital Universitário Onofre Lopes que
+                alimenta cerca de 300 pessoas.
+            </p>
+            <p>
+                Devido ao aumento da demanda de alunos e buscando proporcionar maior conforto aos usuários, atualmente o
+                RU dispõe de 3 refeitórios no Campus Natal, sendo 1 localizado no Centro de Ciências da Saúde (em
+                Petrópolis, ao lado do HUOL) e 2 no Campus Central, a Unidade Central, construída em 1973, e a Unidade
+                Tecnológica, inaugurada em novembro de 2019.
+            </p>
+            <footer>
+                <h5>FONTES: </h5>
+                <address>
+                    <p> CAMPOS, Paulo Roberto Paiva. Entrevista sobre a história do RU. Entrevista
+                        concedida a Mauricio da Silva Oliveira Junior.</p>
+
+                    <p>MELO, Veríssimo de; CALADO, Carmen Lúcia de Araújo. Síntese Cronológica da UFRN:
+                        1958/2010. Natal: EDUFRN, 2011. 594 p.</p>
+
+                    <p>SILVA, Justina Iva de Araújo. Estudantes e Política: Estudo de um movimento (RN
+                        1960-1969). São Paulo: Cortez, 1989.</p>
+                </address>
+            </footer>
+        </section>
+        <section>
+            <h3 class="cabecalho">Horário de funcionamento: </h3>
+
+            <h4>Unidade Central</h4>
+            <ul>
+                <li> Café da manhã (exclusivo para estudantes residentes)</li>
+                <p>
+                    – Segunda à sexta das 6h30 às 7h30.
+                    <br>
+                    – Sábados, domingos e feriados das 7h30 às 8h30
+                </p>
+
+                <li>Almoço</li>
+                <p>
+                    – Segunda à sexta das 10h30 às 13h30.
+                    <br>
+                    – Sábados, domingos e feriados das 11h às 13h.
+                </p>
+
+                <li>Jantar</li>
+                <p>
+                    – Segunda à sexta das 17h até às 19h.
+                    <br>
+                    – Sábados, domingos e feriados das 17h às 18h.
+                </p>
+            </ul>
+
+
+            <h4>Unidade Biomédica</h4>
+            <ul>
+                <li>Almoço</li>
+                <p> – Todos os dias, das 11h às 13h.</p>
+
+                <li>Jantar</li>
+                <p>
+                    – Segunda à sexta das 17h até às 18h45.
+                    <br>
+                    – Sábados, domingos e feriados das 17h às 18h.
+                </p>
+
+            </ul>
+
+            <h4> Unidade Tecnológica</h4>
+            <ul>
+                <li>Almoço</li>
+                <p> – Segunda à sexta das 11h às 13h.</p>
+            </ul>
+
+        </section>
+        <section>
+            <h3 class="cabecalho">Localização: </h3>
+            <h4>Unidade Central</h4>
+            <p>Av. Sen. Salgado Filho, 3000 - Candelária, Natal - RN, 59078-970</p>
+            <h4>Unidade Biomédica</h4>
+            <p>Av. Nilo Peçanha, 619 - Praia do Meio, Natal - RN, 59012-300</p>
+            <h4> Unidade Tecnológica</h4>
+            <p>Situada no Campus Central (Campus Universitário, Lagoa Nova, Natal/RN, CEP 59078-970, Caixa postal 1524)
+                e localizada entre o Centro de Biociências (CB) e a Escola de Ciências e Tecnologia (ECT)</p>
+        </section>
+    </div>
 </body>
+
 </html>

@@ -1,0 +1,76 @@
+.tituloh1{
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    color: #A71919;
+    font-size: 2.5em;
+    margin-bottom: 1em;
+    margin-top: 1.5em;
+}
+.subtitulo{
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    font-size: 1em;
+    margin-bottom: 1em;
+    margin-top: 1.5em;
+}
+.container {
+    max-width: 30em;
+    padding: 30px;
+    background-color: #ffb284;
+    border-radius: 50px;
+}
+.inputtext{
+    width: 400px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    font-family: "Inter", sans-serif;
+}
+.inputdescricao{
+    width: 400px;
+    height: 200px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    font-family: "Inter", sans-serif;
+    margin-bottom:1em;
+}
+input[type="date"] {
+    width: 410px;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.button-aviso{
+    margin-bottom: 0.5em;
+    text-align: center;
+}
+.btn-primary-aviso {
+    text-align: center;
+    background-color: #A71919;
+    color: white;
+    border: none;
+    width: 200px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+}
+.btn-primary-aviso:hover {
+    background-color: #C3C3C3;
+    color: black;
+}
+.alerta{
+    color: #A71919;
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    font-size: 1em;
+    margin-top: 0.0001em;
+}
+
+

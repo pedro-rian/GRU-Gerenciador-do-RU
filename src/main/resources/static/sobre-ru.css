@@ -1,0 +1,18 @@
+#sobreRU {
+    overflow: hidden;
+    margin-left:300px;
+    font-weight: 300;
+}
+
+.cabecalho {
+    font-family: "Inter", sans-serif;
+    margin-bottom: 0px;
+    color: #A71919;
+    font-size: 2em;
+}
+
+#fotoRU {
+    width: 300px;
+    float: right;
+    padding: 0 15px 15px 15px;
+}
