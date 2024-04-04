@@ -29,8 +29,11 @@ public class CardapioService {
     public List<Cardapio> getCardapiosAtuais(LocalDate dataAtual) {
         return cardapioRepository.findByData(dataAtual);
     }
-    public void cadastrarCardapio(String tipoCardapioString, String tipoRefeicaoString, String pratoPrincipal,
-                                  String acompanhamento, String dataString) {
+    public void cadastrarCardapio(String tipoCardapioString,
+                                  String tipoRefeicaoString,
+                                  String pratoPrincipal,
+                                  String acompanhamento,
+                                  String dataString) {
         validarCamposObrigatorios(tipoCardapioString, tipoRefeicaoString, pratoPrincipal, acompanhamento, dataString);
         Date data = parseData(dataString);
 

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/nav-bar.css">
@@ -10,67 +11,71 @@
 
     <title>Avaliações</title>
 </head>
+
 <body>
-<div class="navbar">
-    <h1 class="titulo">GRU</h1>
+    <div class="navbar">
+        <h1 class="titulo">GRU</h1>
 
-    <div class="button">
-        <button type="button" class="btn-primary button" id="homeButton">Home</button>
-        <button type="button" class="btn-primary button" id="sobreORuButton">Sobre o RU</button>
-        <button type="button" class="btn-primary button" id="meuPerfilButton">Meu Perfil</button>
-        <button type="button" class="btn-primary button" id="avaliaçõesButton">Avaliações</button>
-        <button type="button" class="btn-primary button" id="solicitarAssistenciaButton">Solicitar Assitência</button>
-        <button type="button" class="button btn-sair" id="sairButton">Sair</button>
+        <div class="button">
+            <button type="button" class="btn-primary button" id="homeButton">Home</button>
+            <button type="button" class="btn-primary button" id="sobreORuButton">Sobre o RU</button>
+            <button type="button" class="btn-primary button" id="meuPerfilButton">Meu Perfil</button>
+            <button type="button" class="btn-primary button" id="avaliaçõesButton">Avaliações</button>
+            <button type="button" class="btn-primary button" id="solicitarAssistenciaButton">Solicitar
+                Assitência</button>
+            <button type="button" class="button btn-sair" id="sairButton">Sair</button>
+        </div>
+
+
+        <script>
+            document.getElementById("homeButton").onclick = function () {
+                window.location.href = "/cardapio/tela-inicial-comum";
+            };
+            document.getElementById("sobreORuButton").onclick = function () {
+                window.location.href = "/usuario/sobre-o-ru";
+            };
+            document.getElementById("meuPerfilButton").onclick = function () {
+                window.location.href = "/usuario/meu-perfil";
+            }
+            document.getElementById("avaliaçõesButton").onclick = function () {
+                window.location.href = "/usuario/avaliacoes";
+            };
+            document.getElementById("solicitarAssistenciaButton").onclick = function () {
+                window.location.href = "/usuario/solicitar-assistencia";
+            }
+            document.getElementById("sairButton").onclick = function () {
+                window.location.href = "/usuario/login";
+            }
+
+        </script>
     </div>
 
-
-    <script>
-        document.getElementById("homeButton").onclick = function () {
-            window.location.href = "/cardapio/tela-inicial-comum";
-        };
-        document.getElementById("sobreORuButton").onclick = function () {
-            window.location.href = "/usuario/sobre-o-ru";
-        };
-        document.getElementById("meuPerfilButton").onclick = function () {
-            window.location.href = "/usuario/meu-perfil";
-        }
-        document.getElementById("avaliaçõesButton").onclick = function () {
-            window.location.href = "/usuario/avaliacoes";
-        };
-        document.getElementById("solicitarAssistenciaButton").onclick = function () {
-            window.location.href = "/usuario/solicitar-assistencia";
-        }
-        document.getElementById("sairButton").onclick = function (){
-            window.location.href = "/usuario/login";
-        }
-
-    </script>
-</div>
-
-<div class="container">
-    <h1 id="tituloForm">Sugestões</h1>
-    <br>
-    <form id="form" th:action="@{/avaliacao/cadastrar}" method="post">
-        <label for="nome" class="subtitulo">Nome:</label>
-        <input type="text" name="nome" id="nome" class="form-control" placeholder="Digite seu nome..."/>
-        <br><br>
-        <label for="email" class="subtitulo">Email:</label>
-        <input type="text" name="email" id="email" class="form-control" placeholder="Digite seu email..."/>
-        <br><br>
-        <div class="mb-3">
-            <label for="descricao" class="form-label subtitulo" style="float: left;">Descrição:</label>
-            <textarea class="form-control" id="descricao" name="descricao" rows="3" placeholder="Digite a sugestão..."></textarea>
-        </div>
+    <div class="container">
+        <h1 id="tituloForm">Sugestões</h1>
         <br>
-        <div class="button-container">
-            <button type="submit" class="btn-primary button subtitulo" id="button-container">Salvar</button>
+        <form id="form" th:action="@{/avaliacao/cadastrar}" method="post">
+            <label for="nome" class="subtitulo">Nome:</label>
+            <input type="text" name="nome" id="nome" class="form-control" placeholder="Digite seu nome..." />
+            <br><br>
+            <label for="email" class="subtitulo">Email:</label>
+            <input type="text" name="email" id="email" class="form-control" placeholder="Digite seu email..." />
+            <br><br>
+            <div class="mb-3">
+                <label for="descricao" class="form-label subtitulo" style="float: left;">Descrição:</label>
+                <textarea class="form-control" id="descricao" name="descricao" rows="3"
+                    placeholder="Digite a sugestão..."></textarea>
+            </div>
+            <br>
+            <div class="button-container">
+                <button type="submit" class="btn-primary button subtitulo" id="button-container">Salvar</button>
+            </div>
+        </form>
+        <br>
+        <div class="msg">
+            <span th:if="${error != null}" th:text="${error}" class="alerta-error" role="alert"></span>
+            <span th:if="${success != null}" th:text="${success}" class="alerta-success" role="alert"></span>
         </div>
-    </form>
-    <br>
-    <div class="msg">
-        <span th:if="${error != null}" th:text="${error}" class="alerta-error" role="alert"></span>
-        <span th:if="${success != null}" th:text="${success}" class="alerta-success" role="alert"></span>
     </div>
-</div>
 </body>
+
 </html>

@@ -1,16 +1,19 @@
 package br.com.ufrn.imd.gru.controller;
 
+import br.com.ufrn.imd.gru.model.Assistencia;
 import br.com.ufrn.imd.gru.model.TipoUsuario;
 import br.com.ufrn.imd.gru.model.Usuario;
 
+import br.com.ufrn.imd.gru.repository.AssistenciaRepository;
 import br.com.ufrn.imd.gru.service.UsuarioService;
+import br.com.ufrn.imd.gru.service.AssistenciaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalTime;
 
 @Controller
 @CrossOrigin("*")
@@ -18,10 +21,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class UsuarioController {
 
     private UsuarioService usuarioService;
+    private AssistenciaService assistenciaService;
+    private AssistenciaRepository assistenciaRepository;
 
     @Autowired
-    public UsuarioController(UsuarioService usuarioService) {
+    public UsuarioController(UsuarioService usuarioService, AssistenciaService assistenciaService) {
         this.usuarioService = usuarioService;
+        this.assistenciaService = assistenciaService;
     }
 
     @GetMapping("/login")
@@ -83,6 +89,22 @@ public class UsuarioController {
 
     @GetMapping("/solicitacoes-assistencia-nutricionista")
     public String solicitacoesAssistenciaNutricionista(){return "solicitacoes-assistencia-nutricionista";}
+
+    @PostMapping("/solicitar-assistencia/solicitar-assistencia-form")
+    public String cadastrarCardapio(@RequestParam("motivo") String motivo,
+                                    @RequestParam("descricao") String descricao,
+                                    @RequestParam(value = "data", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") String dataString,
+                                    @RequestParam("horario") String horarioString,
+                                    Model model) {
+
+        try {
+            assistenciaService.cadastrarAssistencia(motivo, descricao, dataString, horarioString);
+            return "redirect:/cardapio/tela-inicial-comum";
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("error", e.getMessage());
+            return "solicitar-assistencia";
+        }
+    }
 
 
 }
