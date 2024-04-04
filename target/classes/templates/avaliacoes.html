@@ -6,6 +6,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/avaliacao.css">
+
     <title>Avaliações</title>
 </head>
 <body>
@@ -43,6 +45,32 @@
         }
 
     </script>
+</div>
+
+<div class="container">
+    <h1 id="tituloForm">Sugestões</h1>
+    <br>
+    <form id="form" th:action="@{/avaliacao/cadastrar}" method="post">
+        <label for="nome" class="subtitulo">Nome:</label>
+        <input type="text" name="nome" id="nome" class="form-control" placeholder="Digite seu nome..."/>
+        <br><br>
+        <label for="email" class="subtitulo">Email:</label>
+        <input type="text" name="email" id="email" class="form-control" placeholder="Digite seu email..."/>
+        <br><br>
+        <div class="mb-3">
+            <label for="descricao" class="form-label subtitulo" style="float: left;">Descrição:</label>
+            <textarea class="form-control" id="descricao" name="descricao" rows="3" placeholder="Digite a sugestão..."></textarea>
+        </div>
+        <br>
+        <div class="button-container">
+            <button type="submit" class="btn-primary button subtitulo" id="button-container">Salvar</button>
+        </div>
+    </form>
+    <br>
+    <div class="msg">
+        <span th:if="${error != null}" th:text="${error}" class="alerta-error" role="alert"></span>
+        <span th:if="${success != null}" th:text="${success}" class="alerta-success" role="alert"></span>
+    </div>
 </div>
 </body>
 </html>
