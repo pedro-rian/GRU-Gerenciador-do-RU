@@ -44,7 +44,6 @@ input[type="text"], input[type="password"] {
 }
 .button{
     margin-top: 3em;
-    margin-bottom: 3em;
     text-align: center;
 }
 .btn-primary {
@@ -60,4 +59,19 @@ input[type="text"], input[type="password"] {
 
 .btn-primary:hover {
     background-color: #6c0a0a;
+}
+.cadastrar-button{
+    margin-top: 1em;
+    margin-bottom: 4em;
+    text-align: center;
+}
+.cadastrar-button-primary{
+    background-color:#EEEEEE;;
+    color: #000000;
+    border: none;
+    width: 200px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
 }

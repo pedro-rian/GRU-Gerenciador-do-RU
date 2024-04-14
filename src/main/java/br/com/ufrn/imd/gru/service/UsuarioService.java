@@ -18,5 +18,7 @@ public class UsuarioService {
     public Usuario autenticarUsuario(String email, String senha) {
         return usuarioRepository.autenticar(email, senha);
     }
-
+    public void salvarUsuario(Usuario usuario) {
+        usuarioRepository.save(usuario);
+    }
 }
