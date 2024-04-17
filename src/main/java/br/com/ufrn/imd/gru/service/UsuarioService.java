@@ -15,6 +15,10 @@ public class UsuarioService {
         this.usuarioRepository = usuarioRepository;
     }
 
+    public boolean existeUsuarioComEmail(String email) {
+        Usuario usuario = usuarioRepository.findByEmail(email);
+        return usuario != null;
+    }
     public Usuario autenticarUsuario(String email, String senha) {
         return usuarioRepository.autenticar(email, senha);
     }

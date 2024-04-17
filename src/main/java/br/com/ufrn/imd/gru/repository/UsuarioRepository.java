@@ -10,4 +10,6 @@ import org.springframework.stereotype.Repository;
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     @Query(value ="select *from  usuario where email =:email and senha =:senha", nativeQuery = true)
     public Usuario autenticar(String email, String senha);
+
+    public Usuario findByEmail(String email);
 }

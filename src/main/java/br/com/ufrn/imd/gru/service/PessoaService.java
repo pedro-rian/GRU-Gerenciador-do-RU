@@ -19,7 +19,9 @@ public class PessoaService {
     public double calcularIMC(Pessoa pessoa) {
         return pessoa.getPeso() / (pessoa.getAltura() * pessoa.getAltura());
     }
-
+    public boolean existeUsuarioComEmail(String email) {
+        return usuarioService.existeUsuarioComEmail(email);
+    }
     public void salvarDadosEIMC(Pessoa pessoa) {
         if (pessoa.getUsuario() == null) {
             Usuario novoUsuario = new Usuario();

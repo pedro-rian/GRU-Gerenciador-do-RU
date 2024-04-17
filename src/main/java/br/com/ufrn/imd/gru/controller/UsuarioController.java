@@ -1,6 +1,5 @@
 package br.com.ufrn.imd.gru.controller;
 
-import br.com.ufrn.imd.gru.model.Assistencia;
 import br.com.ufrn.imd.gru.model.TipoUsuario;
 import br.com.ufrn.imd.gru.model.Usuario;
 

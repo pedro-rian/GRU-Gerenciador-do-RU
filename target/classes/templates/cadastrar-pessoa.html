@@ -42,7 +42,10 @@
                 <input type="password" class="form-control rounded-pill px-4" id="senha" name="senha" required>
             </div>
         </div>
-        <div th:if="${erro != null}" th:text="${erro}" class="alerta" role="alert"></div>
+        <div id="mensagemErro" class="alerta" role="alert"></div>
+        <div id="sucessMessage" class="alerta" role="alert"></div>
+
+
         <div class="button">
             <button type="button" id="cadastrarButton" class="btn-primary">Cadastrar</button>
         </div>
@@ -51,7 +54,7 @@
         <button type="button" class="cadastrar-button-primary" id="fazerLogin">Voltar</button>
     </div>
     <script>
-        document.getElementById("cadastrarButton").onclick = function() {
+        document.getElementById("cadastrarButton").onclick = function () {
             // Captura dos valores dos campos do formulário
             const nome = document.getElementById("nome").value;
             const idade = parseInt(document.getElementById("idade").value);
@@ -60,13 +63,6 @@
             const email = document.getElementById("email").value;
             const senha = document.getElementById("senha").value;
 
-            // Exibe os valores no console
-            console.log("Nome:", nome);
-            console.log("Idade:", idade);
-            console.log("Peso:", peso);
-            console.log("Altura:", altura);
-            console.log("Email:", email);
-            console.log("Senha:", senha);
 
             // Envio dos dados para o servidor
             fetch('/pessoa/salvar', {
@@ -83,13 +79,17 @@
                     senha: senha
                 })
             })
-                .then(response => response.json())
-                .then(data => console.log(data))
-                .catch(error => console.error('Error:', error));
+                .then(response => {
+                    if (!response.ok) {
+                        return response.text().then(errorMessage => {
+                            document.getElementById("mensagemErro").innerText = errorMessage;
+                        });
+                    }
+                })
         };
-
-
-
+        document.getElementById("fazerLogin").onclick = function () {
+            window.location.href = '/usuario/login';
+        };
     </script>
 </div>
 </body>
