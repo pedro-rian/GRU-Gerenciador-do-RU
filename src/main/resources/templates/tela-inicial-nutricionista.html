@@ -4,23 +4,24 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/nav-bar.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="/webjars/bootstrap/4.6.0/css/bootstrap.min.css">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
     <title>Tela Inicial</title>
 </head>
 <body>
-<div class="navbar">
+<div class="navbarstyle">
     <h1 class="titulo">GRU</h1>
 
-    <div class="button">
-        <button type="button" class="btn-primary button" id="homeButton">Home</button>
-        <button type="button" class="btn-primary button" id="meuPerfilButton">Meu perfil</button>
-        <button type="button" class="btn-primary button" id="estatisticasButton">Estatísticas</button>
-        <button type="button" class="btn-primary button" id="verAvaliacoesButton">Ver avaliações</button>
-        <button type="button" class="btn-primary button" id="cadastrarCardapioButton">Cadastrar cardápio</button>
-        <button type="button" class="btn-primary button" id="cadastrarAvisoButton">Cadastrar aviso</button>
-        <button type="button" class="btn-primary button" id="solicitacoesAssistenciaButton">Solicitações de Assitência</button>
-        <button type="button" class="button btn-sair" id="sairButton">Sair</button>
+    <div class="button2">
+        <button type="button" class="btn-primarystyle button2" id="homeButton">Home</button>
+        <button type="button" class="btn-primarystyle button2" id="meuPerfilButton">Meu perfil</button>
+        <button type="button" class="btn-primarystyle button2" id="estatisticasButton">Estatísticas</button>
+        <button type="button" class="btn-primarystyle button2" id="verAvaliacoesButton">Ver avaliações</button>
+        <button type="button" class="btn-primarystyle button2" id="cadastrarCardapioButton">Cadastrar cardápio</button>
+        <button type="button" class="btn-primarystyle button2" id="cadastrarAvisoButton">Cadastrar aviso</button>
+        <button type="button" class="btn-primarystyle button2" id="solicitacoesAssistenciaButton">Solicitações de Assitência</button>
+        <button type="button" class="button2 btn-sair" id="sairButton">Sair</button>
     </div>
 
 
@@ -52,9 +53,26 @@
 
     </script>
 </div>
-
 <div class="texto">
-    PÁGINA INICIAL DO USUÁRIO NUTRICIONISTA
+<div class="table-responsive mt-3">
+    <table class="table">
+        <thead class="bg-light">
+        <tr class="rounded-top">
+            <th scope="col">Nome</th>
+            <th scope="col" class="email-column">E-mail</th>
+            <th scope="col">IMC</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pessoa : ${pessoas}">
+            <td th:text="${pessoa.nome}"></td>
+            <td th:text="${pessoa.usuario.email}"></td>
+            <td th:text="${pessoa.imc}"></td>
+        </tr>
+        </tbody>
+
+    </table>
+</div>
 </div>
 
 </body>

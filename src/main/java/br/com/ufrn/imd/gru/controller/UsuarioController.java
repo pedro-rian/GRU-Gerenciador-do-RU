@@ -1,9 +1,11 @@
 package br.com.ufrn.imd.gru.controller;
 
+import br.com.ufrn.imd.gru.model.Pessoa;
 import br.com.ufrn.imd.gru.model.TipoUsuario;
 import br.com.ufrn.imd.gru.model.Usuario;
 
 import br.com.ufrn.imd.gru.repository.AssistenciaRepository;
+import br.com.ufrn.imd.gru.service.PessoaService;
 import br.com.ufrn.imd.gru.service.UsuarioService;
 import br.com.ufrn.imd.gru.service.AssistenciaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @CrossOrigin("*")
@@ -21,12 +24,14 @@ public class UsuarioController {
 
     private UsuarioService usuarioService;
     private AssistenciaService assistenciaService;
-    private AssistenciaRepository assistenciaRepository;
+
+    private PessoaService pessoaService;
 
     @Autowired
-    public UsuarioController(UsuarioService usuarioService, AssistenciaService assistenciaService) {
+    public UsuarioController(UsuarioService usuarioService, AssistenciaService assistenciaService, PessoaService pessoaService) {
         this.usuarioService = usuarioService;
         this.assistenciaService = assistenciaService;
+        this.pessoaService = pessoaService;
     }
 
     @GetMapping("/login")
@@ -53,9 +58,25 @@ public class UsuarioController {
             return "login";
         }
     }
+    @GetMapping("/tela-inicial-nutricionista")
+    public String listarConsumidores(Model model) {
+        List<Usuario> consumidores = usuarioService.listarConsumidores();
+        List<Pessoa> pessoas = new ArrayList<>();
+
+        for (Usuario consumidor : consumidores) {
+            Long usuarioId = consumidor.getId();
+            Pessoa pessoa = pessoaService.buscarPorIdDoUsuario(usuarioId);
+            if (pessoa != null) {
+                pessoas.add(pessoa);
+            }
+        }
+
+        model.addAttribute("consumidores", consumidores);
+        model.addAttribute("pessoas", pessoas);
+        return "tela-inicial-nutricionista";
+    }
 
 
-    //Mapeamento das páginas de CONSUMIDOR:
     @GetMapping("/sobre-o-ru")
     public String sobreORu() {
         return "sobre-o-ru";
@@ -75,9 +96,6 @@ public class UsuarioController {
         return "solicitar-assistencia";
     }
 
-    //Mapeamento das páginas de NUTRICIONISTA:
-    @GetMapping("/tela-inicial-nutricionista")
-    public String telaInicialNutricionista(){return "tela-inicial-nutricionista";}
     @GetMapping("/meu-perfil-nutricionista")
     public String meuPerfilNutricionista(){return "meu-perfil-nutricionista";}
     @GetMapping("/estatisticas-nutricionista")

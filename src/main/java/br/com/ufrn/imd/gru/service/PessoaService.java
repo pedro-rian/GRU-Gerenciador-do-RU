@@ -6,6 +6,8 @@ import br.com.ufrn.imd.gru.model.Usuario;
 import br.com.ufrn.imd.gru.repository.PessoaRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class PessoaService {
     private final PessoaRepository pessoaRepository;
@@ -40,7 +42,12 @@ public class PessoaService {
         } else {
         }
         pessoaRepository.save(pessoa);
-        System.out.println("Usuário e dados da pessoa salvos com sucesso. IMC: " + imc);
+    }
+
+
+    public Pessoa buscarPorIdDoUsuario(Long idUsuario) {
+        Optional<Pessoa> optionalPessoa = pessoaRepository.findByUsuarioId(idUsuario);
+        return optionalPessoa.orElse(null);
     }
 
 

@@ -1,4 +1,4 @@
-.navbar {
+.navbarstyle {
     height: 100%;
     width: 15em;
     position: fixed;
@@ -31,7 +31,11 @@
     margin-bottom: 0.5em;
     text-align: center;
 }
-.btn-primary {
+.button2{
+    margin-bottom: 0.5em;
+    text-align: center;
+}
+.btn-primarystyle {
     text-align: center;
     background-color: #EEEEEE;
     color: black;
@@ -54,11 +58,17 @@
     font-size: 18px;
 }
 
-.btn-primary:hover {
+.btn-primarystyle:hover {
     background-color: #C3C3C3;
     color: black;
 }
 
 .texto{
     margin-left: 300px;
+}
+button, input, optgroup, select, textarea {
+    margin: initial; /* ou 0, se preferir */
+    font-family: initial; /* ou inherit, se preferir */
+    font-size: initial; /* ou inherit, se preferir */
+    line-height: initial; /* ou inherit, se preferir */
 }
