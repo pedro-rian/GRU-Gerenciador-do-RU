@@ -84,6 +84,8 @@
                         return response.text().then(errorMessage => {
                             document.getElementById("mensagemErro").innerText = errorMessage;
                         });
+                    } else{
+                        window.location.href = '/usuario/login';
                     }
                 })
         };
