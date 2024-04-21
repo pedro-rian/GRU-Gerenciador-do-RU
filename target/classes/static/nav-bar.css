@@ -66,9 +66,14 @@
 .texto{
     margin-left: 300px;
 }
+
 button, input, optgroup, select, textarea {
     margin: initial; /* ou 0, se preferir */
     font-family: initial; /* ou inherit, se preferir */
     font-size: initial; /* ou inherit, se preferir */
     line-height: initial; /* ou inherit, se preferir */
+}
+
+.table{
+    width: 30em;
 }

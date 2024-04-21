@@ -53,10 +53,60 @@
 
     </script>
 </div>
-
 <div class="texto">
-    VISUALIZAÇÃO DE ESTATÍSTICAS - NUTRICIONISTA
+    <h3>Dados de contagem:</h3>
+    <div class="table-responsive mt-3">
+        <table class="table">
+            <tr class="rounded-top">
+                <th scope="col">Total de usuários cadastrados:</th>
+                <th scope="col" class="email-column"><span th:text="${total_usuarios}"></span></th>
+            </tr>
+            <tr class="rounded-top">
+                <th scope="col">Total de assistências solicitadas:</th>
+                <th scope="col" class="email-column"><span th:text="${total_assistencias}"></span></th>
+            </tr>
+            <tr class="rounded-top">
+                <th scope="col">Total de avisos cadastrados:</th>
+                <th scope="col" class="email-column"><span th:text="${total_avisos}"></span></th>
+            </tr>
+            <tr class="rounded-top">
+                <th scope="col">Total de cardápios cadastrados:</th>
+                <th scope="col" class="email-column"><span th:text="${total_cardapios}"></span></th>
+            </tr>
+        </table>
+    </div>
+    <h3>Médias relacionadas:</h3>
+    <div class="table-responsive mt-3">
+        <table class="table">
+            <tr class="rounded-top">
+                <th scope="col">Média do IMC dos usuários:</th>
+                <th scope="col" class="email-column"><span th:text="${media_imc}"></span></th>
+            </tr>
+            <tr class="rounded-top">
+                <th scope="col">Média do peso dos usuários:</th>
+                <th scope="col" class="email-column"><span th:text="${media_peso}"></span></th>
+            </tr>
+        </table>
+    </div>
+    <h3>Percentuais gerais:</h3>
+    <div class="table-responsive mt-3">
+        <table class="table">
+            <thead class="rounded-top">
+                <th scope="col"></th>
+                <th scope="col">Abaixo do peso</th>
+                <th scope="col">Peso normal</th>
+                <th scope="col">Sobrepeso</th>
+                <th scope="col">Obesidade</th>
+            </thead>
+            <tr class="rounded-top">
+                <th scope="col">Percentuais dos IMCs:</th>
+                <th scope="col" class="email-column"><span th:text="${baixo}"></span></th>
+                <th scope="col" class="email-column"><span th:text="${normal}"></span></th>
+                <th scope="col" class="email-column"><span th:text="${sobrepeso}"></span></th>
+                <th scope="col" class="email-column"><span th:text="${obesidade}"></span></th>
+            </tr>
+        </table>
+    </div>
 </div>
-
 </body>
 </html>
