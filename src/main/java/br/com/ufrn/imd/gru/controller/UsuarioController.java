@@ -5,10 +5,7 @@ import br.com.ufrn.imd.gru.model.Pessoa;
 import br.com.ufrn.imd.gru.model.TipoUsuario;
 import br.com.ufrn.imd.gru.model.Usuario;
 
-import br.com.ufrn.imd.gru.repository.AssistenciaRepository;
-import br.com.ufrn.imd.gru.repository.AvisoRepository;
-import br.com.ufrn.imd.gru.repository.CardapioRepository;
-import br.com.ufrn.imd.gru.repository.PessoaRepository;
+import br.com.ufrn.imd.gru.repository.*;
 import br.com.ufrn.imd.gru.service.PessoaService;
 import br.com.ufrn.imd.gru.service.UsuarioService;
 import br.com.ufrn.imd.gru.service.AssistenciaService;
@@ -35,12 +32,13 @@ public class UsuarioController {
     private PessoaRepository pessoaRepository;
     private AvisoRepository avisoRepository;
     private CardapioRepository cardapioRepository;
+    private AvaliacaoRepository avaliacaoRepository;
 
     @Autowired
     public UsuarioController(UsuarioService usuarioService, AssistenciaService assistenciaService,
                              PessoaService pessoaService, PessoaRepository pessoaRepository,
                              AssistenciaRepository assistenciaRepository, AvisoRepository avisoRepository,
-                             CardapioRepository cardapioRepository) {
+                             CardapioRepository cardapioRepository, AvaliacaoRepository avaliacaoRepository) {
         this.usuarioService = usuarioService;
         this.assistenciaService = assistenciaService;
         this.assistenciaRepository = assistenciaRepository;
@@ -48,6 +46,7 @@ public class UsuarioController {
         this.pessoaRepository = pessoaRepository;
         this.avisoRepository = avisoRepository;
         this.cardapioRepository = cardapioRepository;
+        this.avaliacaoRepository = avaliacaoRepository;
     }
 
     @GetMapping("/login")
@@ -126,14 +125,20 @@ public class UsuarioController {
         //Total de cardapios:
         long total_cardapios = cardapioRepository.count();
         model.addAttribute("total_cardapios", total_cardapios);
+        //Total de avaliacoes:
+        long total_avaliacoes = avaliacaoRepository.count();
+        model.addAttribute("total_avaliacoes", total_avaliacoes);
         //Media dos IMCs:
         double media_imc = mediaIMC();
         model.addAttribute("media_imc", media_imc);
         //Media dos pesos:
         double media_peso = mediaPeso();
         model.addAttribute("media_peso", media_peso);
+        //Media dos pesos:
+        double media_altura = mediaAltura();
+        model.addAttribute("media_altura", media_altura);
         //Percentuais dos IMCs:
-        String[] percentuais_imc = percentualIMC();
+        double[] percentuais_imc = percentualIMC();
         model.addAttribute("baixo", percentuais_imc[0]);
         model.addAttribute("normal", percentuais_imc[1]);
         model.addAttribute("sobrepeso", percentuais_imc[2]);
@@ -192,10 +197,23 @@ public class UsuarioController {
         return mediaPeso;
     }
 
-    private String[] percentualIMC(){
+    private double mediaAltura(){
+        List<Pessoa> pessoas = pessoaRepository.findAll();
+        if(pessoas.isEmpty())
+            return 0.0;
+
+        double somaAltura = 0.0;
+        for(Pessoa p : pessoas)
+            somaAltura += p.getAltura();
+
+        double mediaAltura = somaAltura/pessoaRepository.count();
+        return mediaAltura;
+    }
+
+    private double[] percentualIMC(){
         List<Pessoa> pessoas = pessoaRepository.findAll();
         if(pessoas.isEmpty()){
-            String[] zeros = {"0", "0", "0", "0"};
+            double[] zeros = {0, 0, 0, 0};
             return zeros;
         }
         double[] listaPercentualIMC = {0, 0, 0, 0};
@@ -215,11 +233,8 @@ public class UsuarioController {
         for(int i = 0; i < listaPercentualIMC.length; i++){
             percentuais[i] = (listaPercentualIMC[i]/total)*100;
         }
-        String[] percentuaisString = {"", "", "", ""};
-        for(int i = 0; i < percentuais.length; i++){
-            percentuaisString[i] = Double.toString(percentuais[i]) + "%";
-        }
-        return percentuaisString;
+
+        return percentuais;
     }
 
 

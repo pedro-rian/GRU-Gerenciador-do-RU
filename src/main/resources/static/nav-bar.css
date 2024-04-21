@@ -74,6 +74,22 @@ button, input, optgroup, select, textarea {
     line-height: initial; /* ou inherit, se preferir */
 }
 
-.table{
-    width: 30em;
+.table-responsive{
+    width: 90%;
+}
+
+.imc-baixo {
+    background-color: #7785E0;
+}
+
+.imc-normal {
+    background-color: #A6E144;
+}
+
+.imc-alto {
+    background-color: #E1D842;
+}
+
+.obesidade {
+    background-color: #E07F5C;
 }

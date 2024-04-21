@@ -73,6 +73,10 @@
                 <th scope="col">Total de cardápios cadastrados:</th>
                 <th scope="col" class="email-column"><span th:text="${total_cardapios}"></span></th>
             </tr>
+            <tr class="rounded-top">
+                <th scope="col">Total de avaliações enviadas:</th>
+                <th scope="col" class="email-column"><span th:text="${total_avaliacoes}"></span></th>
+            </tr>
         </table>
     </div>
     <h3>Médias relacionadas:</h3>
@@ -84,7 +88,11 @@
             </tr>
             <tr class="rounded-top">
                 <th scope="col">Média do peso dos usuários:</th>
-                <th scope="col" class="email-column"><span th:text="${media_peso}"></span></th>
+                <th scope="col" class="email-column"><span th:text="${media_peso + ' Kg'}"></span></th>
+            </tr>
+            <tr class="rounded-top">
+                <th scope="col">Média da altura dos usuários:</th>
+                <th scope="col" class="email-column"><span th:text="${media_altura + ' m'}"></span></th>
             </tr>
         </table>
     </div>
@@ -93,17 +101,17 @@
         <table class="table">
             <thead class="rounded-top">
                 <th scope="col"></th>
-                <th scope="col">Abaixo do peso</th>
-                <th scope="col">Peso normal</th>
-                <th scope="col">Sobrepeso</th>
-                <th scope="col">Obesidade</th>
+                <th scope="col" class="imc-baixo">Abaixo do peso</th>
+                <th scope="col" class="imc-normal">Peso normal</th>
+                <th scope="col" class="imc-alto">Sobrepeso</th>
+                <th scope="col" class="obesidade">Obesidade</th>
             </thead>
             <tr class="rounded-top">
                 <th scope="col">Percentuais dos IMCs:</th>
-                <th scope="col" class="email-column"><span th:text="${baixo}"></span></th>
-                <th scope="col" class="email-column"><span th:text="${normal}"></span></th>
-                <th scope="col" class="email-column"><span th:text="${sobrepeso}"></span></th>
-                <th scope="col" class="email-column"><span th:text="${obesidade}"></span></th>
+                <th scope="col" class="email-column"><span th:text="${baixo + '%'}"></span></th>
+                <th scope="col" class="email-column"><span th:text="${normal + '%'}"></span></th>
+                <th scope="col" class="email-column"><span th:text="${sobrepeso + '%'}"></span></th>
+                <th scope="col" class="email-column"><span th:text="${obesidade + '%'}"></span></th>
             </tr>
         </table>
     </div>

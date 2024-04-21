@@ -67,7 +67,7 @@
         <tr th:each="pessoa : ${pessoas}">
             <td th:text="${pessoa.nome}"></td>
             <td th:text="${pessoa.usuario.email}"></td>
-            <td th:text="${pessoa.imc}"></td>
+            <td th:text="${pessoa.imc}" th:class="${pessoa.imc &lt; 20 ? 'imc-baixo' : (pessoa.imc &lt; 25 ? 'imc-normal' : (pessoa.imc &lt; 30 ? 'imc-alto' : 'obesidade'))}"></td>
         </tr>
         </tbody>
 
