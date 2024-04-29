@@ -28,12 +28,9 @@ public class PessoaController {
     @PostMapping("/salvar")
     public ResponseEntity<String>salvarDadosEPeso(Model model, @RequestBody PessoaDTO pessoaDTO) {
 
-        if (pessoaDTO.getNome() == null || pessoaDTO.getNome() == ""  || pessoaDTO.getEmail() == null || pessoaDTO.getEmail() == "" ||  pessoaDTO.getIdade() == 0 ||
-                pessoaDTO.getPeso() == 0 || pessoaDTO.getAltura() == 0 || pessoaDTO.getSenha() == null || pessoaDTO.getSenha() == ""){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Preencha todos os campos");
-        }
-        if (pessoaService.existeUsuarioComEmail(pessoaDTO.getEmail())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Já existe um usuário com esse email.");
+        ResponseEntity<String> response = pessoaService.validarPessoa(pessoaDTO);
+        if (response != null) {
+            return response;
         }
 
         Pessoa pessoa = new Pessoa();

@@ -24,7 +24,6 @@ public class AssistenciaService {
     @Autowired
     public AssistenciaService(AssistenciaRepository assistenciaRepository){this.assistenciaRepository = assistenciaRepository;}
 
-    public List<Assistencia> getAssistenciasAtuais(LocalDate dataAtual){ return assistenciaRepository.findByData(dataAtual); }
     public void cadastrarAssistencia(String motivo,
                                 String descricao,
                                 String dataString,

@@ -1,9 +1,12 @@
 package br.com.ufrn.imd.gru.service;
 
+import br.com.ufrn.imd.gru.dto.PessoaDTO;
 import br.com.ufrn.imd.gru.model.Pessoa;
 import br.com.ufrn.imd.gru.model.TipoUsuario;
 import br.com.ufrn.imd.gru.model.Usuario;
 import br.com.ufrn.imd.gru.repository.PessoaRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -20,6 +23,22 @@ public class PessoaService {
 
     public double calcularIMC(Pessoa pessoa) {
         return pessoa.getPeso() / (pessoa.getAltura() * pessoa.getAltura());
+    }
+
+    public ResponseEntity<String> validarPessoa(PessoaDTO pessoaDTO) {
+
+        if (pessoaDTO.getNome() == null || pessoaDTO.getNome().isEmpty() ||
+                pessoaDTO.getEmail() == null || pessoaDTO.getEmail().isEmpty() ||
+                pessoaDTO.getIdade() == 0 ||
+                pessoaDTO.getPeso() == 0 ||
+                pessoaDTO.getAltura() == 0 ||
+                pessoaDTO.getSenha() == null || pessoaDTO.getSenha().isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Preencha todos os campos obrigatórios.");
+        }
+        else if (existeUsuarioComEmail(pessoaDTO.getEmail())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Já existe um usuário com esse email.");
+        }
+        return null;
     }
     public boolean existeUsuarioComEmail(String email) {
         return usuarioService.existeUsuarioComEmail(email);
@@ -49,6 +68,7 @@ public class PessoaService {
         Optional<Pessoa> optionalPessoa = pessoaRepository.findByUsuarioId(idUsuario);
         return optionalPessoa.orElse(null);
     }
+
 
 
 }
