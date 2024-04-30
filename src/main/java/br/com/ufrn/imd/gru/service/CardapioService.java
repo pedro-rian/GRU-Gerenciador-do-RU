@@ -29,6 +29,15 @@ public class CardapioService {
     public List<Cardapio> getCardapiosAtuais(LocalDate dataAtual) {
         return cardapioRepository.findByData(dataAtual);
     }
+
+    public List<Cardapio> getCardapiosConvencionais(LocalDate dataAtual) {
+        return cardapioRepository.findByDataAndTipoCardapio(dataAtual, TipoCardapio.PRINCIPAL);
+    }
+
+    public List<Cardapio> getCardapiosVegetarianos(LocalDate dataAtual) {
+        return cardapioRepository.findByDataAndTipoCardapio(dataAtual, TipoCardapio.VEGETARIANO);
+    }
+
     public void cadastrarCardapio(String tipoCardapioString,
                                   String tipoRefeicaoString,
                                   String pratoPrincipal,

@@ -38,8 +38,12 @@ public class CardapioController {
         LocalDate dataAtual = LocalDate.now();
         Aviso aviso = avisoService.getAvisoDoDia(dataAtual);
         model.addAttribute("aviso", aviso);
-        List<Cardapio> cardapios = cardapioService.getCardapiosAtuais(dataAtual);
-        model.addAttribute("cardapios", cardapios);
+        List<Cardapio> cardapiosAtuais = cardapioService.getCardapiosAtuais(dataAtual);
+        List<Cardapio> cardapiosConvencionais = cardapioService.getCardapiosConvencionais(dataAtual);
+        List<Cardapio> cardapiosVegetarianos = cardapioService.getCardapiosVegetarianos(dataAtual);
+        model.addAttribute("cardapiosAtuais", cardapiosAtuais);
+        model.addAttribute("cardapiosConvencionais", cardapiosConvencionais);
+        model.addAttribute("cardapiosVegetarianos", cardapiosVegetarianos);
         return "tela-inicial-comum";
     }
 
