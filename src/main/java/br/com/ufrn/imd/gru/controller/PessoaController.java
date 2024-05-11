@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @CrossOrigin("*")
 @RequestMapping("/pessoa")
@@ -26,11 +28,11 @@ public class PessoaController {
     }
 
     @PostMapping("/salvar")
-    public ResponseEntity<String>salvarDadosEPeso(Model model, @RequestBody PessoaDTO pessoaDTO) {
+    public ResponseEntity<Object> salvarDadosEPeso(Model model, @RequestBody PessoaDTO pessoaDTO) {
+        ResponseEntity<List<String>> validationResponse = pessoaService.validarPessoa(pessoaDTO);
 
-        ResponseEntity<String> response = pessoaService.validarPessoa(pessoaDTO);
-        if (response != null) {
-            return response;
+        if (validationResponse.getStatusCode() != HttpStatus.OK) {
+            return ResponseEntity.badRequest().body(validationResponse.getBody());
         }
 
         Pessoa pessoa = new Pessoa();
@@ -43,11 +45,11 @@ public class PessoaController {
         usuario.setEmail(pessoaDTO.getEmail());
         usuario.setSenha(pessoaDTO.getSenha());
 
-
         pessoa.setUsuario(usuario);
 
         pessoaService.salvarDadosEIMC(pessoa);
         String successMessage = "Usuário e dados salvos com sucesso.";
         return ResponseEntity.ok(successMessage);
     }
+
 }
