@@ -64,7 +64,14 @@
 }
 
 .texto{
-    margin-left: 300px;
+    margin-left: 20em;
+}
+
+.texto-meu-perfil{
+    margin-left: 20em;
+    width: 60em;
+    border-radius: 20px;
+    background-color: #FF9F66
 }
 
 button, input, optgroup, select, textarea {

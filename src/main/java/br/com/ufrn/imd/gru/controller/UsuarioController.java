@@ -1,9 +1,6 @@
 package br.com.ufrn.imd.gru.controller;
 
-import br.com.ufrn.imd.gru.model.Aviso;
-import br.com.ufrn.imd.gru.model.Pessoa;
-import br.com.ufrn.imd.gru.model.TipoUsuario;
-import br.com.ufrn.imd.gru.model.Usuario;
+import br.com.ufrn.imd.gru.model.*;
 
 import br.com.ufrn.imd.gru.repository.*;
 import br.com.ufrn.imd.gru.service.PessoaService;
@@ -18,15 +15,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @CrossOrigin("*")
 @RequestMapping("/usuario")
 public class UsuarioController {
 
+    private final UsuarioRepository usuarioRepository;
     private UsuarioService usuarioService;
     private AssistenciaService assistenciaService;
     private PessoaService pessoaService;
+    private UsuarioLogado usuarioLogado;
 
     private AssistenciaRepository assistenciaRepository;
     private PessoaRepository pessoaRepository;
@@ -38,7 +38,8 @@ public class UsuarioController {
     public UsuarioController(UsuarioService usuarioService, AssistenciaService assistenciaService,
                              PessoaService pessoaService, PessoaRepository pessoaRepository,
                              AssistenciaRepository assistenciaRepository, AvisoRepository avisoRepository,
-                             CardapioRepository cardapioRepository, AvaliacaoRepository avaliacaoRepository) {
+                             CardapioRepository cardapioRepository, AvaliacaoRepository avaliacaoRepository,
+                             UsuarioLogado usuarioLogado, UsuarioRepository usuarioRepository) {
         this.usuarioService = usuarioService;
         this.assistenciaService = assistenciaService;
         this.assistenciaRepository = assistenciaRepository;
@@ -47,6 +48,13 @@ public class UsuarioController {
         this.avisoRepository = avisoRepository;
         this.cardapioRepository = cardapioRepository;
         this.avaliacaoRepository = avaliacaoRepository;
+        this.usuarioLogado = usuarioLogado;
+        this.usuarioRepository = usuarioRepository;
+    }
+
+    public Pessoa getPessoaByUsuarioId(Long usuarioId) {
+        Optional<Pessoa> pessoa = this.pessoaRepository.findByUsuarioId(usuarioId);
+        return pessoa.orElse(null);
     }
 
     @GetMapping("/login")
@@ -58,6 +66,15 @@ public class UsuarioController {
     public String logar(Model model, String email, String senha){
         Usuario usuario = usuarioService.autenticarUsuario(email, senha);
         if (usuario != null) {
+            Usuario u = usuarioRepository.findByEmail(email);
+            usuarioLogado.setEmail(email);
+            usuarioLogado.setSenha(senha);
+            Pessoa p = getPessoaByUsuarioId(u.getId());
+            usuarioLogado.setNome(p.getNome());
+            usuarioLogado.setIdade(p.getIdade());
+            usuarioLogado.setPeso(p.getPeso());
+            usuarioLogado.setAltura(p.getAltura());
+
             if (usuario.getTipo().equals(TipoUsuario.ADMINISTRADOR)) {
                 return "redirect:/usuario/tela-inicial-administrador";
             } else if (usuario.getTipo().equals(TipoUsuario.CONSUMIDOR)) {
@@ -97,7 +114,13 @@ public class UsuarioController {
         return "sobre-o-ru";
     }
     @GetMapping("/meu-perfil")
-    public String meuPerfil() {
+    public String meuPerfil(Model model) {
+        model.addAttribute("email", usuarioLogado.getEmail());
+        model.addAttribute("senha", usuarioLogado.getSenha());
+        model.addAttribute("nome", usuarioLogado.getNome());
+        model.addAttribute("idade", usuarioLogado.getIdade());
+        model.addAttribute("peso", usuarioLogado.getPeso());
+        model.addAttribute("altura", usuarioLogado.getAltura());
         return "meu-perfil";
     }
     @GetMapping("/avaliacoes")
