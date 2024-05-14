@@ -123,6 +123,13 @@ public class UsuarioController {
         model.addAttribute("altura", usuarioLogado.getAltura());
         return "meu-perfil";
     }
+
+    @PostMapping("meu-perfil/apagar-conta")
+    public String apagarConta(){
+        usuarioService.desativarUsuario(usuarioLogado);
+        return "redirect:/usuario/login";
+    }
+
     @GetMapping("/avaliacoes")
     public String avaliacoes() {
         return "avaliacoes";

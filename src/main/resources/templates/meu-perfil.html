@@ -47,14 +47,12 @@
 </div>
 <div class="texto-meu-perfil">
     <div class="conteudo-meu-perfil">
-        <p><b>Nome: </b><span th:text="${nome}"></span></p>
-        <p><b>Email: </b><span th:text="${email}"></span></p>
-        <p><b>Senha: </b><span th:text="${senha}"></span></p>
-        <p><b>Idade: </b><span th:text="${idade}"></span></p>
-        <p><b>Peso: </b><span th:text="${peso}"></span></p>
-        <p><b>Altura: </b><span th:text="${altura}"></span></p>
-        <button>Editar dados</button>
-        <button>Apagar conta</button>
+        <p id="nome-meu-perfil"><b>Nome: </b><span th:text="${nome}"></span></p>
+        <p><b>Email: </b><span th:text="${email}"></span> <span class="bar-meu-perfil">|</span> <b>Senha: </b>•••••••• <span class="bar-meu-perfil">|</span> <b>Idade: </b><span th:text="${idade}"></span> <span class="bar-meu-perfil">|</span> <b>Peso: </b><span th:text="${peso}"></span> <span class="bar-meu-perfil">|</span> <b>Altura: </b><span th:text="${altura}"></span></p>
+            <button>Editar dados</button>
+        <form action="meu-perfil/apagar-conta" method="post">
+            <button type="submit" class="danger">Apagar conta</button>
+        </form>
     </div>
 </div>
 </body>

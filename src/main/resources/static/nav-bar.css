@@ -68,10 +68,25 @@
 }
 
 .texto-meu-perfil{
+    padding: 3em;
+    margin-top: 3em;
     margin-left: 20em;
     width: 60em;
     border-radius: 20px;
     background-color: #FF9F66
+}
+
+#nome-meu-perfil{
+    font-size: 40px;
+}
+
+.bar-meu-perfil{
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+
+.danger{
+    background-color: lightcoral;
 }
 
 button, input, optgroup, select, textarea {

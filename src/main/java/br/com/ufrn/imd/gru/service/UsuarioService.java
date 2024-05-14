@@ -2,11 +2,13 @@
 package br.com.ufrn.imd.gru.service;
 import br.com.ufrn.imd.gru.model.TipoUsuario;
 import br.com.ufrn.imd.gru.model.Usuario;
+import br.com.ufrn.imd.gru.model.UsuarioLogado;
 import br.com.ufrn.imd.gru.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UsuarioService {
@@ -26,6 +28,12 @@ public class UsuarioService {
         return usuarioRepository.autenticar(email, senha);
     }
     public void salvarUsuario(Usuario usuario) {
+        usuarioRepository.save(usuario);
+    }
+
+    public void desativarUsuario(UsuarioLogado usuarioLogado){
+        Usuario usuario = usuarioRepository.findByEmail(usuarioLogado.getEmail());
+        usuario.setAtivo(false);
         usuarioRepository.save(usuario);
     }
 
