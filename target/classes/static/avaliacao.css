@@ -1,5 +1,7 @@
 .container {
-    margin-left: 300px;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 2rem 1rem;
 }
 
 #form {
@@ -76,3 +78,164 @@ textarea.form-control {
     border-radius: 5px;
     padding: 10px;
 }
+
+.formulario-card {
+    min-height: 35em;
+    background-color: #fff;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    max-width: 400px;
+    border: 0.3em dashed #A71919;
+    border-radius: 4px;
+}
+
+.formulario-card:hover{
+    background-color: #FCA15F;
+    border: 0.3em dashed white;
+    border-radius: 4px;
+    h3{
+        color: #A71919;
+    }
+}
+
+.filled i {
+    color: gold;
+}
+
+
+
+
+
+.custom-textarea {
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    padding: 10px 15px;
+    font-size: 16px;
+    line-height: 1.25;
+    color: #333;
+    background-color: #fff;
+    background-clip: padding-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+    resize: vertical;
+}
+
+.custom-textarea:focus {
+    border-color: #A71919;
+    box-shadow: 0 0 5px rgb(128, 0, 45);
+    outline: none;
+}
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px 15px;
+    font-size: 16px;
+    line-height: 1.25;
+    color: #333;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+}
+.select-container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+/* Add a drop-down arrow */
+.select-container::after {
+    content: '\25BC'; /* Unicode for down arrow */
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    pointer-events: none;
+    transform: translateY(-50%);
+    color: #333;
+}
+
+.select-container label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.text-principal {
+    color: #A71919;
+    font-size: 0.7em;
+}
+
+.text-acompanhamento {
+    color: #00FF00;
+    font-size: 0.7em;
+}
+.text-dados{
+    color: #000000;
+    font-size: 0.7em;
+}
+.titulocard{
+    font-family: "Inter", sans-serif;
+    color: #FCA15F;
+    font-size: 1.7em;
+    font-weight: 700;
+    text-align: center;
+}
+
+.button-cadastrar-avaliacao{
+    text-align: center;
+}
+.btn-cadastrar-avaliacao{
+    background-color: #A71919;
+    color: white;
+    text-align: center;
+    border: none;
+    width: 8em;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+}
+.data{
+    font-size: 0.7em;
+    text-align: center;
+}
+.titulo-pagina{
+    font-family: "Inter", sans-serif;
+    color: #A71919;
+    font-size: 2em;
+    font-weight: 700;
+    margin-bottom: 0.5em;
+}
+
+.estrelas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.estrelas label {
+    font-size: 2em;
+    cursor: pointer;
+    margin: 0 0.1em;
+}
+
+.estrelas label i.fa:before {
+    content: '\f005';
+    color: #CCC;
+    transition: color 0.3s ease;
+}
+
+.estrelas label.filled i.fa:before {
+    color: #FC0;
+}
+
+
+

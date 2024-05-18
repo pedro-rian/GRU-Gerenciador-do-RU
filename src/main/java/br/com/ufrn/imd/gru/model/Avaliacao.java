@@ -11,14 +11,11 @@ public class Avaliacao {
     @Column(name = "id")
     private long id;
 
+    @Column(name = "quantidadeEstrelas", length = 100, nullable = false)
+    private long quantidadeEstrelas;
     @Column(name = "descricao", length = 500, nullable = true)
     private String descricao;
 
-    @Column(name = "nome", length = 200, nullable = true)
-    private String nome;
-
-    @Column(name = "email", length = 50, nullable = true)
-    private String email;
     @ManyToOne(optional = true)
     @JoinColumn(name = "id_cardapio")
     private Cardapio cardapio;
@@ -39,20 +36,12 @@ public class Avaliacao {
         this.descricao = descricao;
     }
 
-    public String getNome() {
-        return nome;
+    public long getQuantidadeEstrelas() {
+        return quantidadeEstrelas;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setQuantidadeEstrelas(long quantidadeEstrelas) {
+        this.quantidadeEstrelas = quantidadeEstrelas;
     }
 
     public Cardapio getCardapio() {

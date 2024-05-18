@@ -16,34 +16,42 @@
             <div class="form-group">
                 <label for="nome">Nome:</label>
                 <input type="text" class="form-control rounded-pill px-4" id="nome" name="nome" required>
+                <div>
+                <div id="mensagemErroNome" class="alerta" role="alert"></div>
+                </div>
             </div>
+
             <div class="form-group">
                 <label for="email">E-mail:</label>
                 <input type="email" class="form-control rounded-pill px-4" id="email" name="email" required>
+                <div id="mensagemErroEmail" class="alerta" role="alert"></div>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group">
                 <label for="idade">Idade:</label>
                 <input type="number" class="form-control rounded-pill px-4" id="idade" name="idade" required>
+                <div id="mensagemErroIdade" class="alerta" role="alert"></div>
             </div>
             <div class="form-group">
                 <label for="altura">Altura:</label>
                 <input type="text" class="form-control rounded-pill px-4" id="altura" name="altura" required>
+                <div id="mensagemErroAltura" class="alerta" role="alert"></div>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group">
                 <label for="peso">Peso:</label>
                 <input type="number" class="form-control rounded-pill px-4" id="peso" name="peso" step="any" required>
+                <div id="mensagemErroPeso" class="alerta" role="alert"></div>
             </div>
             <div class="form-group">
                 <label for="senha">Senha:</label>
                 <input type="password" class="form-control rounded-pill px-4" id="senha" name="senha" required>
+                <div id="mensagemErroSenha" class="alerta" role="alert"></div>
             </div>
         </div>
-        <div id="mensagemErro" class="alerta" role="alert"></div>
-        <div id="sucessMessage" class="alerta" role="alert"></div>
+
 
 
         <div class="button">
@@ -64,6 +72,15 @@
             const senha = document.getElementById("senha").value;
 
 
+            document.getElementById("mensagemErroNome").innerText = "";
+            document.getElementById("mensagemErroEmail").innerText = "";
+            document.getElementById("mensagemErroIdade").innerText = "";
+            document.getElementById("mensagemErroPeso").innerText = "";
+            document.getElementById("mensagemErroAltura").innerText = "";
+            document.getElementById("mensagemErroSenha").innerText = "";
+            document.getElementById("mensagemErro").innerText = "";
+
+
             // Envio dos dados para o servidor
             fetch('/pessoa/salvar', {
                 method: 'POST',
@@ -81,8 +98,34 @@
             })
                 .then(response => {
                     if (!response.ok) {
-                        return response.text().then(errorMessage => {
-                            document.getElementById("mensagemErro").innerText = errorMessage;
+                        return response.json().then(errors => {
+                            errors.forEach(error => {
+                                switch (error) {
+                                    case "Nome é um campo obrigatório.":
+                                        document.getElementById("mensagemErroNome").innerText = error;
+                                        break;
+                                    case "E-mail é um campo obrigatório.":
+                                        document.getElementById("mensagemErroEmail").innerText = error;
+                                        break;
+                                    case "Já existe um usuário com esse e-mail.":
+                                        document.getElementById("mensagemErroEmail").innerText = error;
+                                        break;
+                                    case "Idade é um campo obrigatório.":
+                                        document.getElementById("mensagemErroIdade").innerText = error;
+                                        break;
+                                    case "Peso é um campo obrigatório.":
+                                        document.getElementById("mensagemErroPeso").innerText = error;
+                                        break;
+                                    case "Altura é um campo obrigatório.":
+                                        document.getElementById("mensagemErroAltura").innerText = error;
+                                        break;
+                                    case "Senha é um campo obrigatório.":
+                                        document.getElementById("mensagemErroSenha").innerText = error;
+                                        break;
+                                    default:
+                                        document.getElementById("mensagemErro").innerText = error;
+                                }
+                            });
                         });
                     } else{
                         window.location.href = '/usuario/login';
