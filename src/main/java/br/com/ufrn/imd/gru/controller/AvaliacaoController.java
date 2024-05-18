@@ -36,8 +36,10 @@ public class AvaliacaoController {
     public String telaInicialComum(Model model) {
         LocalDate dataAtual = LocalDate.now();
         List<Cardapio> cardapios = cardapioService.getCardapiosAtuais(dataAtual);
+        List<Avaliacao> avaliacoes = avaliacaoService.getAvaliacoesAtuais();
         model.addAttribute("cardapios", cardapios);
-        model.addAttribute("novaAvaliacao", new Avaliacao()); // Adiciona uma nova avaliação para o formulário
+        model.addAttribute("avaliacoes", avaliacoes);
+        model.addAttribute("novaAvaliacao", new Avaliacao());
         return "avaliacoes";
     }
 

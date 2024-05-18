@@ -23,12 +23,10 @@
         <button type="button" class="btn-primarystyle button" id="sobreORuButton">Sobre o RU</button>
         <button type="button" class="btn-primarystyle button" id="meuPerfilButton">Meu Perfil</button>
         <button type="button" class="btn-primarystyle button" id="avaliaçõesButton">Avaliações</button>
-        <button type="button" class="btn-primarystyle button" id="solicitarAssistenciaButton">Solicitar
-            Assitência
+        <button type="button" class="btn-primarystyle button" id="solicitarAssistenciaButton">Solicitar Assistência
         </button>
         <button type="button" class="button btn-sair" id="sairButton">Sair</button>
     </div>
-
 
     <script>
         document.getElementById("homeButton").onclick = function () {
@@ -39,120 +37,122 @@
         };
         document.getElementById("meuPerfilButton").onclick = function () {
             window.location.href = "/usuario/meu-perfil";
-        }
+        };
         document.getElementById("avaliaçõesButton").onclick = function () {
             window.location.href = "/avaliacao/cadastrar";
         };
         document.getElementById("solicitarAssistenciaButton").onclick = function () {
             window.location.href = "/usuario/solicitar-assistencia";
-        }
+        };
         document.getElementById("sairButton").onclick = function () {
             window.location.href = "/usuario/login";
-        }
-
-        function enviarAvaliacao(cardapioId) {
-            const avaliacao = document.getElementById("avaliacao_" + cardapioId).value;
-
-            fetch('/avaliacao/cadastrar', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    cardapioId: cardapioId,
-                    descricao: avaliacao
-                })
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Erro ao enviar a avaliação');
-                    }
-                    alert('Avaliação enviada com sucesso!');
-                })
-                .catch(error => {
-                    console.error('Erro:', error);
-                    alert('Erro ao enviar a avaliação. Por favor, tente novamente.');
-                });
-        }
-    </script>
-
+        };
     </script>
 </div>
 
 <div class="texto">
-    <div>
-        <h3 class="cabecalho">Cardápio: </h3>
-        <table>
-            <tr>
-                <th>Tipo de Refeição</th>
-                <th>Acompanhamento</th>
-                <th>Prato Principal</th>
-                <th>Tipo Cardapio</th>
-            </tr>
-            <tr th:each="cardapio : ${cardapios}">
-                <td th:text="${cardapio.tipoRefeicao}"></td>
-                <td th:text="${cardapio.acompanhamento}"></td>
-                <td th:text="${cardapio.pratoPrincipal}"></td>
-                <td th:text="${cardapio.tipoCardapio}"></td>
-            </tr>
-        </table>
-    </div>
-    <div class="formulario">
-        <h3 class="cabecalho">Cadastrar Avaliação:</h3>
-        <form action="/avaliacao/cadastrar" method="post">
-            <label for="cardapioId">Selecione o Cardápio:</label>
-            <select name="cardapioId" id="cardapioId">
-                <option value="">Selecione...</option>
-                <th:block th:each="cardapio : ${cardapios}">
-                    <option th:value="${cardapio.id}"
-                            th:text="${cardapio.tipoRefeicao + '-' + cardapio.tipoCardapio}"></option>
-                </th:block>
-            </select>
-            <br>
-            <div class="estrelas">
-                <input type="radio" id="cm_star-empty" name="fb" value="" checked/>
-                <label for="cm_star-1"><i class="fa"></i></label>
-                <input type="radio" id="cm_star-1" name="fb" value="1"/>
-                <label for="cm_star-2"><i class="fa"></i></label>
-                <input type="radio" id="cm_star-2" name="fb" value="2"/>
-                <label for="cm_star-3"><i class="fa"></i></label>
-                <input type="radio" id="cm_star-3" name="fb" value="3"/>
-                <label for="cm_star-4"><i class="fa"></i></label>
-                <input type="radio" id="cm_star-4" name="fb" value="4"/>
-                <label for="cm_star-5"><i class="fa"></i></label>
-                <input type="radio" id="cm_star-5" name="fb" value="5"/>
+
+    <div class="container mt-5">
+        <h2 class="titulo-pagina">Refeições para avaliações</h2>
+        <div class="row col-12">
+            <div th:each="cardapio : ${cardapios}" class="col-md-2 mb-4">
+                <div class="card formulario-card">
+                    <div class="formulario p-2">
+                        <h5 class="data" th:text="${cardapio.data}"></h5>
+
+                        <h3 class="titulocard" th:text="${cardapio.tipoRefeicao + ' ' + cardapio.tipoCardapio}"></h3>
+                        <h5>
+                            <span class="text-principal">Prato principal: </span>
+                            <span class="text-dados" th:text="${cardapio.getPratoPrincipal()}"></span>
+                            <div>
+                                <span class="text-principal">Acompanhamentos: </span>
+                                <span class="text-dados" th:text="${cardapio.getAcompanhamento()}"></span>
+                            </div>
+                        </h5>
+                        <form action="/avaliacao/cadastrar" method="post">
+                            <div class="form-group">
+                                <label>Quantidade de Estrelas:</label>
+                                <select class="form-control custom-select" name="quantidadeEstrelas">
+                                    <option value="1">1 Estrela</option>
+                                    <option value="2">2 Estrelas</option>
+                                    <option value="3">3 Estrelas</option>
+                                    <option value="4">4 Estrelas</option>
+                                    <option value="5">5 Estrelas</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="descricao_${cardapio.id}">Descrição:</label>
+                                <textarea class="form-control custom-textarea" id="descricao_${cardapio.id}"
+                                          name="descricao" rows="4"></textarea>
+                            </div>
+                            <input type="hidden" name="data" value="">
+                            <input type="hidden" name="tipoRefeicao" th:value="${cardapio.tipoRefeicao}">
+                            <input type="hidden" name="tipoCardapio" th:value="${cardapio.tipoCardapio}">
+                            <input type="hidden" name="quantidadeEstrelas" id="quantidadeEstrelas_${cardapio.id}"
+                                   value="">
+                            <div class="form-group text-center">
+                                <input type="submit" class="button-cadastrar-avaliacao btn-cadastrar-avaliacao"
+                                       value="Cadastrar">
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <br>
-            <label for="descricao">Descrição:</label><br>
-            <textarea id="descricao" name="descricao" rows="4" cols="50"></textarea>
-            <br>
-            <!-- Adicione campos hidden para enviar os dados -->
-            <input type="hidden" id="data" name="data" value="">
-            <input type="hidden" id="tipoRefeicao" name="tipoRefeicao" value="">
-            <input type="hidden" id="tipoCardapio" name="tipoCardapio" value="">
-            <input type="hidden" id="quantidadeEstrelas" name="quantidadeEstrelas" value="">
-            <!-- Script para preencher os campos hidden com os valores selecionados -->
-            <script>
-                document.getElementById("cardapioId").addEventListener("change", function() {
-                    var selectedOption = this.options[this.selectedIndex];
-                    var cardapioInfo = selectedOption.text.split('-');
-                    document.getElementById("tipoRefeicao").value = cardapioInfo[0].trim();
-                    document.getElementById("tipoCardapio").value = cardapioInfo[1].trim();
+        </div>
+
+        <h2 class="titulo-pagina">Histórico de avaliações</h2>
+        <div class="row col-12">
+            <div th:each="avaliacao : ${avaliacoes}" class="col-md-4 mb-4">
+                <div class="">
+                    <div class="p-2">
+                        <div>
+                            <h4 th:text="${avaliacao.cardapio.tipoRefeicao + ' - ' + avaliacao.cardapio.tipoCardapio + ' - ' + avaliacao.cardapio.data}" ></h4>
+                            <h5>
+                                <span class="text-principal">Prato principal: </span>
+                                <span class="text-dados" th:text="${avaliacao.cardapio.pratoPrincipal}"></span>
+                                <div>
+                                    <span class="text-principal">Acompanhamentos: </span>
+                                    <span class="text-dados" th:text="${avaliacao.cardapio.acompanhamento}"></span>
+                                </div>
+                                <span class="text-principal">Descrição:</span>
+                                <span class="text-dados" th:text="${avaliacao.descricao}"></span>
+                            </h5>
+
+                        </div>
+                        <div class="estrelas">
+                            <label th:each="star : ${#numbers.sequence(1,5)}" th:class="${avaliacao.quantidadeEstrelas >= star} ? 'filled' : ''"><i class="fa"></i></label>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <script>
+            document.querySelectorAll('.formulario-card').forEach((card) => {
+                const cardId = card.id.split('_')[1];
+                const selectElement = card.querySelector('select');
+
+                if (selectElement) {
+                    selectElement.addEventListener("change", function () {
+                        document.getElementById(`cardapioId_${cardId}`).value = this.value;
+                    });
+                }
+
+                card.querySelectorAll('input[name^="fb_"]').forEach((input) => {
+                    input.addEventListener("change", function () {
+                        document.getElementById(`quantidadeEstrelas_${cardId}`).value = this.value || "0";
+                    });
                 });
 
-                document.getElementById("descricao").addEventListener("input", function() {
-                    document.getElementById("quantidadeEstrelas").value = document.querySelector('input[name="fb"]:checked').value;
+                card.querySelector('textarea[id^="descricao_"]').addEventListener("input", function () {
+                    document.getElementById(`quantidadeEstrelas_${cardId}`).value = card.querySelector(`input[name="fb_${cardId}"]:checked`).value || "0";
                 });
+            });
 
-                document.getElementById("data").value = new Date().toISOString().slice(0, 10);
-            </script>
-            <input type="submit" value="Cadastrar">
-        </form>
+        </script>
 
     </div>
 </div>
-
-
 </body>
-
-</html>
