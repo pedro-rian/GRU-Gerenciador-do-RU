@@ -15,4 +15,5 @@ public interface CardapioRepository extends JpaRepository<Cardapio, Long> {
 
     boolean existsByDataAndTipoCardapioAndTipoRefeicao(LocalDate data, TipoCardapio tipoCardapio, TipoRefeicao tipoRefeicao);
 
+    Cardapio findByTipoCardapioAndTipoRefeicaoAndData(TipoCardapio tipoCardapio, TipoRefeicao tipoRefeicao, LocalDate date);
 }

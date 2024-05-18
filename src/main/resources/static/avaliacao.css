@@ -76,3 +76,18 @@ textarea.form-control {
     border-radius: 5px;
     padding: 10px;
 }
+
+
+
+
+
+.estrelas input[type=radio] {
+    display: none;
+}
+.estrelas label i.fa:before {
+    content:'\f005';
+    color: #FC0;
+}
+.estrelas input[type=radio]:checked ~ label i.fa:before {
+    color: #CCC;
+}

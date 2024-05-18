@@ -1,7 +1,5 @@
 package br.com.ufrn.imd.gru.dto;
 
-import br.com.ufrn.imd.gru.model.TipoUsuario;
-
 public class PessoaDTO {
     private String nome;
     private int idade;

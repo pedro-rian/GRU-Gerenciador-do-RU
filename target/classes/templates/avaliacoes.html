@@ -8,75 +8,151 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/avaliacao.css">
 
     <title>Avaliações</title>
 </head>
 
 <body>
-    <div class="navbarstyle">
-        <h1 class="titulo">GRU</h1>
+<div class="navbarstyle">
+    <h1 class="titulo">GRU</h1>
 
-        <div class="button">
-            <button type="button" class="btn-primarystyle button" id="homeButton">Home</button>
-            <button type="button" class="btn-primarystyle button" id="sobreORuButton">Sobre o RU</button>
-            <button type="button" class="btn-primarystyle button" id="meuPerfilButton">Meu Perfil</button>
-            <button type="button" class="btn-primarystyle button" id="avaliaçõesButton">Avaliações</button>
-            <button type="button" class="btn-primarystyle button" id="solicitarAssistenciaButton">Solicitar
-                Assitência</button>
-            <button type="button" class="button btn-sair" id="sairButton">Sair</button>
-        </div>
-
-
-        <script>
-            document.getElementById("homeButton").onclick = function () {
-                window.location.href = "/cardapio/tela-inicial-comum";
-            };
-            document.getElementById("sobreORuButton").onclick = function () {
-                window.location.href = "/usuario/sobre-o-ru";
-            };
-            document.getElementById("meuPerfilButton").onclick = function () {
-                window.location.href = "/usuario/meu-perfil";
-            }
-            document.getElementById("avaliaçõesButton").onclick = function () {
-                window.location.href = "/usuario/avaliacoes";
-            };
-            document.getElementById("solicitarAssistenciaButton").onclick = function () {
-                window.location.href = "/usuario/solicitar-assistencia";
-            }
-            document.getElementById("sairButton").onclick = function () {
-                window.location.href = "/usuario/login";
-            }
-
-        </script>
+    <div class="button">
+        <button type="button" class="btn-primarystyle button" id="homeButton">Home</button>
+        <button type="button" class="btn-primarystyle button" id="sobreORuButton">Sobre o RU</button>
+        <button type="button" class="btn-primarystyle button" id="meuPerfilButton">Meu Perfil</button>
+        <button type="button" class="btn-primarystyle button" id="avaliaçõesButton">Avaliações</button>
+        <button type="button" class="btn-primarystyle button" id="solicitarAssistenciaButton">Solicitar
+            Assitência
+        </button>
+        <button type="button" class="button btn-sair" id="sairButton">Sair</button>
     </div>
 
-    <div class="container">
-        <h1 id="tituloForm">Sugestões</h1>
-        <br>
-        <form id="form" th:action="@{/avaliacao/cadastrar}" method="post">
-            <label for="nome" class="subtitulo">Nome:</label>
-            <input type="text" name="nome" id="nome" class="form-control" placeholder="Digite seu nome..." />
-            <br><br>
-            <label for="email" class="subtitulo">Email:</label>
-            <input type="text" name="email" id="email" class="form-control" placeholder="Digite seu email..." />
-            <br><br>
-            <div class="mb-3">
-                <label for="descricao" class="form-label subtitulo" style="float: left;">Descrição:</label>
-                <textarea class="form-control" id="descricao" name="descricao" rows="3"
-                    placeholder="Digite a sugestão..."></textarea>
+
+    <script>
+        document.getElementById("homeButton").onclick = function () {
+            window.location.href = "/cardapio/tela-inicial-comum";
+        };
+        document.getElementById("sobreORuButton").onclick = function () {
+            window.location.href = "/usuario/sobre-o-ru";
+        };
+        document.getElementById("meuPerfilButton").onclick = function () {
+            window.location.href = "/usuario/meu-perfil";
+        }
+        document.getElementById("avaliaçõesButton").onclick = function () {
+            window.location.href = "/avaliacao/cadastrar";
+        };
+        document.getElementById("solicitarAssistenciaButton").onclick = function () {
+            window.location.href = "/usuario/solicitar-assistencia";
+        }
+        document.getElementById("sairButton").onclick = function () {
+            window.location.href = "/usuario/login";
+        }
+
+        function enviarAvaliacao(cardapioId) {
+            const avaliacao = document.getElementById("avaliacao_" + cardapioId).value;
+
+            fetch('/avaliacao/cadastrar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    cardapioId: cardapioId,
+                    descricao: avaliacao
+                })
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erro ao enviar a avaliação');
+                    }
+                    alert('Avaliação enviada com sucesso!');
+                })
+                .catch(error => {
+                    console.error('Erro:', error);
+                    alert('Erro ao enviar a avaliação. Por favor, tente novamente.');
+                });
+        }
+    </script>
+
+    </script>
+</div>
+
+<div class="texto">
+    <div>
+        <h3 class="cabecalho">Cardápio: </h3>
+        <table>
+            <tr>
+                <th>Tipo de Refeição</th>
+                <th>Acompanhamento</th>
+                <th>Prato Principal</th>
+                <th>Tipo Cardapio</th>
+            </tr>
+            <tr th:each="cardapio : ${cardapios}">
+                <td th:text="${cardapio.tipoRefeicao}"></td>
+                <td th:text="${cardapio.acompanhamento}"></td>
+                <td th:text="${cardapio.pratoPrincipal}"></td>
+                <td th:text="${cardapio.tipoCardapio}"></td>
+            </tr>
+        </table>
+    </div>
+    <div class="formulario">
+        <h3 class="cabecalho">Cadastrar Avaliação:</h3>
+        <form action="/avaliacao/cadastrar" method="post">
+            <label for="cardapioId">Selecione o Cardápio:</label>
+            <select name="cardapioId" id="cardapioId">
+                <option value="">Selecione...</option>
+                <th:block th:each="cardapio : ${cardapios}">
+                    <option th:value="${cardapio.id}"
+                            th:text="${cardapio.tipoRefeicao + '-' + cardapio.tipoCardapio}"></option>
+                </th:block>
+            </select>
+            <br>
+            <div class="estrelas">
+                <input type="radio" id="cm_star-empty" name="fb" value="" checked/>
+                <label for="cm_star-1"><i class="fa"></i></label>
+                <input type="radio" id="cm_star-1" name="fb" value="1"/>
+                <label for="cm_star-2"><i class="fa"></i></label>
+                <input type="radio" id="cm_star-2" name="fb" value="2"/>
+                <label for="cm_star-3"><i class="fa"></i></label>
+                <input type="radio" id="cm_star-3" name="fb" value="3"/>
+                <label for="cm_star-4"><i class="fa"></i></label>
+                <input type="radio" id="cm_star-4" name="fb" value="4"/>
+                <label for="cm_star-5"><i class="fa"></i></label>
+                <input type="radio" id="cm_star-5" name="fb" value="5"/>
             </div>
             <br>
-            <div class="button-container">
-                <button type="submit" class="btn-primarystyle button subtitulo" id="button-container">Salvar</button>
-            </div>
+            <label for="descricao">Descrição:</label><br>
+            <textarea id="descricao" name="descricao" rows="4" cols="50"></textarea>
+            <br>
+            <!-- Adicione campos hidden para enviar os dados -->
+            <input type="hidden" id="data" name="data" value="">
+            <input type="hidden" id="tipoRefeicao" name="tipoRefeicao" value="">
+            <input type="hidden" id="tipoCardapio" name="tipoCardapio" value="">
+            <input type="hidden" id="quantidadeEstrelas" name="quantidadeEstrelas" value="">
+            <!-- Script para preencher os campos hidden com os valores selecionados -->
+            <script>
+                document.getElementById("cardapioId").addEventListener("change", function() {
+                    var selectedOption = this.options[this.selectedIndex];
+                    var cardapioInfo = selectedOption.text.split('-');
+                    document.getElementById("tipoRefeicao").value = cardapioInfo[0].trim();
+                    document.getElementById("tipoCardapio").value = cardapioInfo[1].trim();
+                });
+
+                document.getElementById("descricao").addEventListener("input", function() {
+                    document.getElementById("quantidadeEstrelas").value = document.querySelector('input[name="fb"]:checked').value;
+                });
+
+                document.getElementById("data").value = new Date().toISOString().slice(0, 10);
+            </script>
+            <input type="submit" value="Cadastrar">
         </form>
-        <br>
-        <div class="msg">
-            <span th:if="${error != null}" th:text="${error}" class="alerta-error" role="alert"></span>
-            <span th:if="${success != null}" th:text="${success}" class="alerta-success" role="alert"></span>
-        </div>
+
     </div>
+</div>
+
+
 </body>
 
 </html>

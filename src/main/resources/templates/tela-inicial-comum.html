@@ -34,7 +34,7 @@
             window.location.href = "/usuario/meu-perfil";
         }
         document.getElementById("avaliaçõesButton").onclick = function () {
-            window.location.href = "/usuario/avaliacoes";
+            window.location.href = "/avaliacao/cadastrar";
         };
         document.getElementById("solicitarAssistenciaButton").onclick = function () {
             window.location.href = "/usuario/solicitar-assistencia";
@@ -72,12 +72,15 @@
             <th>Tipo de Refeição</th>
             <th>Acompanhamento</th>
             <th>Prato Principal</th>
+            <th>Tipo Cardapio</th>
         </tr>
         <tr th:each="cardapio : ${cardapios}">
             <td th:text="${cardapio.tipoRefeicao}"></td>
             <td th:text="${cardapio.acompanhamento}"></td>
             <td th:text="${cardapio.pratoPrincipal}"></td>
+            <td th:text="${cardapio.tipoCardapio}"></td>
         </tr>
     </table>
+</div>
 </body>
 </html>
