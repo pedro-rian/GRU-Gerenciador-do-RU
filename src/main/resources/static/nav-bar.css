@@ -78,6 +78,18 @@ button, input, optgroup, select, textarea {
     width: 90%;
 }
 
+.tabelas-cardapio{
+    display: flex;
+}
+
+.th, td{
+    padding: 10px;
+}
+
+.tabela-vegetariano{
+    margin-left: 100px;
+}
+
 .imc-baixo {
     background-color: #7785E0;
 }

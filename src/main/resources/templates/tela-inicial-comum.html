@@ -57,30 +57,44 @@
 </div>
 
 <div class="texto">
-    <h2>Principal:</h2>
+    <h2>Pratos pricipais do dia:</h2>
     <ul>
-        <li th:each="cardapio : ${cardapios}">
-            <p><span th:text="${cardapio.tipoRefeicao}"></span> - <span th:text="${cardapio.pratoPrincipal}"></span></p>
+        <li th:each="cardapio : ${cardapiosAtuais}">
+            <p><span th:text="${cardapio.tipoRefeicao}"></span> <span th:text="${cardapio.tipoCardapio}"></span> - <span th:text="${cardapio.pratoPrincipal}"></span></p>
         </li>
     </ul>
 </div>
-
-<div class="texto">
-    <h3 class="cabecalho">Cardápio: </h3>
-    <table>
-        <tr>
-            <th>Tipo de Refeição</th>
-            <th>Acompanhamento</th>
-            <th>Prato Principal</th>
-            <th>Tipo Cardapio</th>
-        </tr>
-        <tr th:each="cardapio : ${cardapios}">
-            <td th:text="${cardapio.tipoRefeicao}"></td>
-            <td th:text="${cardapio.acompanhamento}"></td>
-            <td th:text="${cardapio.pratoPrincipal}"></td>
-            <td th:text="${cardapio.tipoCardapio}"></td>
-        </tr>
-    </table>
+<div class="tabelas-cardapio texto">
+    <div class="tabela-convencional">
+        <h3 class="cabecalho">Cardápio convencional: </h3>
+        <table class="tabelas">
+            <tr>
+                <th>Tipo de Refeição</th>
+                <th>Acompanhamento</th>
+                <th>Prato Principal</th>
+            </tr>
+            <tr th:each="cardapio : ${cardapiosConvencionais}">
+                <td th:text="${cardapio.tipoRefeicao}"></td>
+                <td th:text="${cardapio.pratoPrincipal}"></td>
+                <td th:text="${cardapio.acompanhamento}"></td>
+            </tr>
+        </table>
+    </div>
+    <div class="tabela-vegetariano">
+        <h3 class="cabecalho">Cardápio vegetariano: </h3>
+        <table class="tabelas">
+            <tr>
+                <th>Tipo de Refeição</th>
+                <th>Acompanhamento</th>
+                <th>Prato Principal</th>
+            </tr>
+            <tr th:each="cardapio : ${cardapiosVegetarianos}">
+                <td th:text="${cardapio.tipoRefeicao}"></td>
+                <td th:text="${cardapio.pratoPrincipal}"></td>
+                <td th:text="${cardapio.acompanhamento}"></td>
+            </tr>
+        </table>
+    </div>
 </div>
 </body>
 </html>

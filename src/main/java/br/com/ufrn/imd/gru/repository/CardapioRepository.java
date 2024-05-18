@@ -12,6 +12,7 @@ import java.util.List;
 @Repository
 public interface CardapioRepository extends JpaRepository<Cardapio, Long> {
     List<Cardapio> findByData(LocalDate data);
+    List<Cardapio> findByDataAndTipoCardapio(LocalDate data, TipoCardapio tipoCardapio);
 
     boolean existsByDataAndTipoCardapioAndTipoRefeicao(LocalDate data, TipoCardapio tipoCardapio, TipoRefeicao tipoRefeicao);
 
