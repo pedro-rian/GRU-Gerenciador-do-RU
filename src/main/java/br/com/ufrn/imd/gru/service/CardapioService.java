@@ -92,4 +92,8 @@ public class CardapioService {
         return cardapioRepository.findByTipoCardapioAndTipoRefeicaoAndData(tipoCardapio, tipoRefeicao, date);
     }
 
+    public List<Cardapio> getCardapios() {
+        return cardapioRepository.findAll();
+    }
+
 }

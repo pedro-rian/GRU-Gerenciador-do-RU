@@ -12,8 +12,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 
 @Entity
 @Table(name = "avisos")
@@ -31,7 +29,7 @@ public class Aviso{
 
     @Column(name = "data", nullable = false)
     @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "yyyy-MM-dd") // Especifique o formato da data aqui
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date data;
 
 

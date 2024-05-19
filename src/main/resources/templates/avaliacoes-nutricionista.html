@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="/webjars/bootstrap/4.6.0/css/bootstrap.min.css">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/avaliacao.css">
     <title>Avaliações</title>
 </head>
 <body>
@@ -36,7 +38,7 @@
             window.location.href = "/usuario/estatisticas-nutricionista";
         }
         document.getElementById("verAvaliacoesButton").onclick = function () {
-            window.location.href = "/usuario/avaliacoes-nutricionista";
+            window.location.href = "/avaliacao/visualizar";
         };
         document.getElementById("cadastrarCardapioButton").onclick = function () {
             window.location.href = "/cardapio/cadastrar-cardapio-nutricionista";
@@ -55,7 +57,59 @@
 </div>
 
 <div class="texto">
-    VISUALIZAÇÃO DE AVALIAÇÕES - NUTRICIONISTA
+
+    <h2 class="titulo-pagina">Histórico de avaliações</h2>
+    <div class="row col-12">
+        <div th:each="avaliacao : ${avaliacoes}" class="col-md-4 mb-4">
+            <div class="">
+                <div class="p-2">
+                    <div>
+                        <h4 th:text="${avaliacao.cardapio.tipoRefeicao + ' - ' + avaliacao.cardapio.tipoCardapio + ' - ' + avaliacao.cardapio.data}" ></h4>
+                        <h5>
+                            <span class="text-principal">Prato principal: </span>
+                            <span class="text-dados" th:text="${avaliacao.cardapio.pratoPrincipal}"></span>
+                            <div>
+                                <span class="text-principal">Acompanhamentos: </span>
+                                <span class="text-dados" th:text="${avaliacao.cardapio.acompanhamento}"></span>
+                            </div>
+                            <span class="text-principal">Descrição:</span>
+                            <span class="text-dados" th:text="${avaliacao.descricao}"></span>
+                        </h5>
+
+                    </div>
+                    <div class="estrelas">
+                        <label th:each="star : ${#numbers.sequence(1,5)}" th:class="${avaliacao.quantidadeEstrelas >= star} ? 'filled' : ''"><i class="fa"></i></label>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        document.querySelectorAll('.formulario-card').forEach((card) => {
+            const cardId = card.id.split('_')[1];
+            const selectElement = card.querySelector('select');
+
+            if (selectElement) {
+                selectElement.addEventListener("change", function () {
+                    document.getElementById(`cardapioId_${cardId}`).value = this.value;
+                });
+            }
+
+            card.querySelectorAll('input[name^="fb_"]').forEach((input) => {
+                input.addEventListener("change", function () {
+                    document.getElementById(`quantidadeEstrelas_${cardId}`).value = this.value || "0";
+                });
+            });
+
+            card.querySelector('textarea[id^="descricao_"]').addEventListener("input", function () {
+                document.getElementById(`quantidadeEstrelas_${cardId}`).value = card.querySelector(`input[name="fb_${cardId}"]:checked`).value || "0";
+            });
+        });
+
+    </script>
 </div>
 
 </body>

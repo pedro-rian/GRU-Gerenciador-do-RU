@@ -43,6 +43,17 @@ public class AvaliacaoController {
         return "avaliacoes";
     }
 
+    @GetMapping("/visualizar")
+    public String telaAvaliacaoNutricionista(Model model) {
+        LocalDate dataAtual = LocalDate.now();
+        List<Cardapio> cardapios = cardapioService.getCardapiosAtuais(dataAtual);
+        List<Avaliacao> avaliacoes = avaliacaoService.getAvaliacoesAtuais();
+        model.addAttribute("cardapios", cardapios);
+        model.addAttribute("avaliacoes", avaliacoes);
+        model.addAttribute("novaAvaliacao", new Avaliacao());
+        return "avaliacoes-nutricionista";
+    }
+
     @PostMapping("/cadastrar")
     public String cadastrarAvaliacao(AvaliacaoDTO novaAvaliacao, Model model) {
         LocalDate dataAtual = LocalDate.now();

@@ -36,7 +36,7 @@ public class PessoaService {
         if (pessoaDTO.getEmail() == null || pessoaDTO.getEmail().isEmpty()) {
             errors.add("E-mail é um campo obrigatório.");
         } else if (existeUsuarioComEmail(pessoaDTO.getEmail())) {
-            errors.add("Já existe um usuário com esse e-mail.");
+            errors.add("Já existe um usuário com esse e-mailyu.");
         }
         if (pessoaDTO.getIdade() == 0) {
             errors.add("Idade é um campo obrigatório.");

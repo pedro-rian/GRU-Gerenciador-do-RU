@@ -48,7 +48,11 @@ public class CardapioController {
     }
 
     @GetMapping("/cadastrar-cardapio-nutricionista")
-    public String cadastrarCardapioNutricionista(){return "cadastrar-cardapio-nutricionista";}
+    public String cadastrarCardapioNutricionista(Model model){
+        List<Cardapio> cardapios = cardapioService.getCardapios();
+        model.addAttribute("cardapios", cardapios);
+        return "cadastrar-cardapio-nutricionista";
+    }
 
     @PostMapping("/cadastrar-cardapio-nutricionista/cadastrar-cardapio")
     public String cadastrarCardapio(@RequestParam("tipo_cardapio") String tipoCardapioString,

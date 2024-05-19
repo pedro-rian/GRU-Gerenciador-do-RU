@@ -146,11 +146,6 @@ public class UsuarioController {
 
         return "estatisticas-nutricionista";
     }
-
-    @GetMapping("/avaliacoes-nutricionista")
-    public String avaliacoesNutricionista(){return "avaliacoes-nutricionista";}
-
-
     @GetMapping("/solicitacoes-assistencia-nutricionista")
     public String solicitacoesAssistenciaNutricionista(){return "solicitacoes-assistencia-nutricionista";}
 

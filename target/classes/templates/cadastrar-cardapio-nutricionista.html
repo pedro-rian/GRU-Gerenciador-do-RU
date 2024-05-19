@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/webjars/bootstrap/4.6.0/css/bootstrap.min.css">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/cadastro-de-cardapio.css">
     <title>Cadastro de cardápio</title>
 </head>
 <body>
@@ -36,7 +37,7 @@
             window.location.href = "/usuario/estatisticas-nutricionista";
         }
         document.getElementById("verAvaliacoesButton").onclick = function () {
-            window.location.href = "/usuario/avaliacoes-nutricionista";
+            window.location.href = "/avaliacao/visualizar";
         };
         document.getElementById("cadastrarCardapioButton").onclick = function () {
             window.location.href = "/cardapio/cadastrar-cardapio-nutricionista";
@@ -85,6 +86,28 @@
 
         <button type="submit">Cadastrar cardápio</button>
     </form>
+
+    <h2 class="titulo-pagina">Histórico de cardapios</h2>
+    <div class="row col-12">
+        <div th:each="cardapio : ${cardapios}" class="col-md-4 mb-4">
+            <div class="">
+                <div class="p-2">
+                    <div>
+                        <h4 th:text="${cardapio.tipoRefeicao + ' - ' + cardapio.tipoCardapio + ' - ' + cardapio.data}" ></h4>
+                        <h5>
+                            <span class="text-principal">Prato principal: </span>
+                            <span class="text-dados" th:text="${cardapio.pratoPrincipal}"></span>
+                            <div>
+                                <span class="text-principal">Acompanhamentos: </span>
+                                <span class="text-dados" th:text="${cardapio.acompanhamento}"></span>
+                            </div>
+                        </h5>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 </body>

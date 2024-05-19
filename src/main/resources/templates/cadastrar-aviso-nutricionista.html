@@ -37,7 +37,7 @@
             window.location.href = "/usuario/estatisticas-nutricionista";
         }
         document.getElementById("verAvaliacoesButton").onclick = function () {
-            window.location.href = "/usuario/avaliacoes-nutricionista";
+            window.location.href = "/avaliacao/visualizar";
         };
         document.getElementById("cadastrarCardapioButton").onclick = function () {
             window.location.href = "/cardapio/cadastrar-cardapio-nutricionista";
@@ -57,7 +57,7 @@
 
 <div class="texto">
 
-    <h1 class="tituloh1">Cadastro de aviso:</h1>
+    <h1 class="titulo-pagina">Cadastro de aviso:</h1>
     <div class="containerstyle">
     <form action="/aviso/cadastrar-aviso-nutricionista/cadastrar-aviso" method="post">
 
@@ -65,21 +65,43 @@
         <label for="titulo" class="subtitulo">Titulo do aviso:</label>
         <br>
         <input class="inputtext" type="text" id="titulo" name="titulo" placeholder="Digite o título do aviso"><br><br>
+        <div id="mensagemErroTitulo" class="alerta" role="alert"></div>
+
 
         <label for="descricao" class="subtitulo">Descrição do aviso:</label><br>
         <textarea class="inputdescricao" id="descricao" name="descricao" placeholder="Digite a descrição do aviso"></textarea><br>
+        <div id="mensagemErroDescricao" class="alerta" role="alert"></div>
 
 
         <label for="data" class="subtitulo">Data do aviso:</label>
         <br>
         <input type="date" id="data" name="data"><br><br>
 
-        <p th:if="${error}" class="alerta" th:text="${error}"></p>
-
         <button type="submit" class="btn-primary-aviso button-aviso">Cadastrar aviso</button>
     </form>
     </div>
+
+
+
+
+    <h2 class="titulo-pagina">Histórico de avisos</h2>
+    <div class="row col-12">
+        <div th:each="aviso : ${avisos}" class="col-md-4 mb-4">
+            <div class="">
+                <div class="p-2">
+                    <div>
+                        <h4 th:text="${aviso.data + ' - ' + aviso.titulo}" ></h4>
+                        <h5>
+                            <span class="text-principal">Descrição:</span>
+                            <span class="text-dados" th:text="${aviso.descricao}"></span>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
 
 </body>
 </html>
