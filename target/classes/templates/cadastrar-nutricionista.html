@@ -1,23 +1,71 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <title>Cadastro de consumidor - Gerenciador do RU</title>
+    <title>Cadastro de Nutricionista - Gerenciador do RU</title>
     <link rel="stylesheet" href="/cadastro.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/nav-bar.css">
 </head>
 <body>
-<div class="login-container">
+<div class="navbarstyle">
     <h1 class="titulo">GRU</h1>
-    <h3 class="subtitulo">Gerenciador do RU</h3>
+
+    <div class="button2">
+        <button type="button" class="btn-primarystyle button2" id="homeButton">Home</button>
+        <button type="button" class="btn-primarystyle button2" id="meuPerfilButton">Meu perfil</button>
+        <button type="button" class="btn-primarystyle button2" id="estatisticasButton">Estatísticas</button>
+        <button type="button" class="btn-primarystyle button2" id="verAvaliacoesButton">Ver avaliações</button>
+        <button type="button" class="btn-primarystyle button2" id="cadastrarCardapioButton">Cadastrar cardápio</button>
+        <button type="button" class="btn-primarystyle button2" id="cadastrarAvisoButton">Cadastrar aviso</button>
+        <button type="button" class="btn-primarystyle button2" id="cadastrarNutricionistaButton">Cadastrar Nutricionista</button>
+        <button type="button" class="btn-primarystyle button2" id="solicitacoesAssistenciaButton">Solicitações de Assitência</button>
+        <button type="button" class="button2 btn-sair" id="sairButton">Sair</button>
+    </div>
+
+
+    <script>
+        document.getElementById("homeButton").onclick = function () {
+            window.location.href = "/usuario/tela-inicial-nutricionista";
+        };
+        document.getElementById("meuPerfilButton").onclick = function () {
+            window.location.href = "/usuario/meu-perfil-nutricionista";
+        };
+        document.getElementById("estatisticasButton").onclick = function () {
+            window.location.href = "/usuario/estatisticas-nutricionista";
+        }
+        document.getElementById("verAvaliacoesButton").onclick = function () {
+            window.location.href = "/avaliacao/visualizar";
+        };
+        document.getElementById("cadastrarCardapioButton").onclick = function () {
+            window.location.href = "/cardapio/cadastrar-cardapio-nutricionista";
+        }
+        document.getElementById("cadastrarAvisoButton").onclick = function () {
+            window.location.href = "/aviso/cadastrar-aviso-nutricionista";
+        }
+        document.getElementById("solicitacoesAssistenciaButton").onclick = function () {
+            window.location.href = "/usuario/solicitacoes-assistencia-nutricionista";
+        }
+        document.getElementById("cadastrarNutricionistaButton").onclick = function () {
+            window.location.href = "/usuario/cadastrar-nutricionista";
+        }
+        document.getElementById("sairButton").onclick = function (){
+            window.location.href = "/usuario/login";
+        }
+
+
+    </script>
+    </div>
+<div class="login-container">
+    <h3 class="subtitulo">Cadastrar Nutricionista</h3>
     <form id="cadastroForm">
         <div class="form-row">
             <div class="form-group">
                 <label for="nome">Nome:</label>
                 <input type="text" class="form-control rounded-pill px-4" id="nome" name="nome" required>
                 <div>
-                <div id="mensagemErroNome" class="alerta" role="alert"></div>
+                    <div id="mensagemErroNome" class="alerta" role="alert"></div>
                 </div>
             </div>
 
@@ -70,7 +118,7 @@
             const altura = parseFloat(document.getElementById("altura").value);
             const email = document.getElementById("email").value;
             const senha = document.getElementById("senha").value;
-            const tipoUsuario = "CONSUMIDOR";
+            const tipoUsuario = "NUTRICIONISTA";
 
 
             document.getElementById("mensagemErroNome").innerText = "";
@@ -129,12 +177,12 @@
                             });
                         });
                     } else{
-                        window.location.href = '/usuario/login';
+                        window.location.href = '/usuario/tela-inicial-nutricionista';
                     }
                 })
         };
         document.getElementById("fazerLogin").onclick = function () {
-            window.location.href = '/usuario/login';
+            window.location.href = '/usuario/tela-inicial-nutricionista';
         };
     </script>
 </div>
