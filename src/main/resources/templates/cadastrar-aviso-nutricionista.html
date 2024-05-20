@@ -21,6 +21,7 @@
         <button type="button" class="btn-primarystyle button" id="verAvaliacoesButton">Ver avaliações</button>
         <button type="button" class="btn-primarystyle button" id="cadastrarCardapioButton">Cadastrar cardápio</button>
         <button type="button" class="btn-primarystyle button" id="cadastrarAvisoButton">Cadastrar aviso</button>
+        <button type="button" class="btn-primarystyle button2" id="cadastrarNutricionistaButton">Cadastrar Nutricionista</button>
         <button type="button" class="btn-primarystyle button" id="solicitacoesAssistenciaButton">Solicitações de
             Assitência
         </button>
@@ -48,6 +49,9 @@
         }
         document.getElementById("solicitacoesAssistenciaButton").onclick = function () {
             window.location.href = "/usuario/solicitacoes-assistencia-nutricionista";
+        }
+        document.getElementById("cadastrarNutricionistaButton").onclick = function () {
+            window.location.href = "/usuario/cadastrar-nutricionista";
         }
         document.getElementById("sairButton").onclick = function () {
             window.location.href = "/usuario/login";

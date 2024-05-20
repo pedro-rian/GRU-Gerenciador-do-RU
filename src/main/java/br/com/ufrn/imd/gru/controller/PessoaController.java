@@ -44,6 +44,7 @@ public class PessoaController {
         Usuario usuario = new Usuario();
         usuario.setEmail(pessoaDTO.getEmail());
         usuario.setSenha(pessoaDTO.getSenha());
+        usuario.setTipo(pessoaDTO.getTipoUsuario());
 
         pessoa.setUsuario(usuario);
 

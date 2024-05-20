@@ -70,7 +70,6 @@ public class PessoaService {
         double imc = calcularIMC(pessoa);
         pessoa.setImc(imc);
 
-        pessoa.getUsuario().setTipo(TipoUsuario.CONSUMIDOR);
         pessoa.getUsuario().setAtivo(true);
 
         Usuario usuario = pessoa.getUsuario();

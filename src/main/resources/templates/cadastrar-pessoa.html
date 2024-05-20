@@ -70,6 +70,7 @@
             const altura = parseFloat(document.getElementById("altura").value);
             const email = document.getElementById("email").value;
             const senha = document.getElementById("senha").value;
+            const tipoUsuario = "CONSUMIDOR";
 
 
             document.getElementById("mensagemErroNome").innerText = "";
@@ -92,7 +93,8 @@
                     peso: peso,
                     altura: altura,
                     email: email,
-                    senha: senha
+                    senha: senha,
+                    tipoUsuario: tipoUsuario
                 })
             })
                 .then(response => {

@@ -149,6 +149,9 @@ public class UsuarioController {
     @GetMapping("/solicitacoes-assistencia-nutricionista")
     public String solicitacoesAssistenciaNutricionista(){return "solicitacoes-assistencia-nutricionista";}
 
+    @GetMapping("/cadastrar-nutricionista")
+    public String cadastrarNutricionista(){return "cadastrar-nutricionista";}
+
     @PostMapping("/solicitar-assistencia/solicitar-assistencia-form")
     public String cadastrarCardapio(@RequestParam("motivo") String motivo,
                                     @RequestParam("descricao") String descricao,
