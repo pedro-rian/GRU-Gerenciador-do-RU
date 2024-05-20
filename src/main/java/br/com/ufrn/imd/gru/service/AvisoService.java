@@ -2,7 +2,6 @@ package br.com.ufrn.imd.gru.service;
 
 import br.com.ufrn.imd.gru.dto.AvisoDTO;
 import br.com.ufrn.imd.gru.model.Aviso;
-import br.com.ufrn.imd.gru.model.Cardapio;
 import br.com.ufrn.imd.gru.repository.AvisoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -28,29 +28,41 @@ public class AvisoService {
     public List<Aviso> getAvisos() {
         return avisoRepository.findAll();
     }
-    public void cadastrarAviso(AvisoDTO avisoDTO){
+
+    public void cadastrarAviso(AvisoDTO avisoDTO) {
+        List<String> errors = new ArrayList<>();
+
+        if (avisoDTO.getTitulo() == null || avisoDTO.getTitulo().isEmpty()) {
+            errors.add("Título é um campo obrigatório.");
+        }
+        if (avisoDTO.getDescricao() == null || avisoDTO.getDescricao().isEmpty()) {
+            errors.add("Descrição é um campo obrigatório.");
+        }
+        if (avisoDTO.getData() == null) {
+            errors.add("Data é um campo obrigatório.");
+        } else {
+            Date data = parseData(avisoDTO.getData().toString());
+            LocalDate localDate = data.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            if (avisoJaCadastrado(localDate)) {
+                errors.add("Aviso já cadastrado para essa data.");
+            }
+        }
+
+        if (!errors.isEmpty()) {
+            throw new IllegalArgumentException(String.join(", ", errors));
+        }
 
         Date data = parseData(avisoDTO.getData().toString());
-
 
         Aviso aviso = new Aviso();
         aviso.setTitulo(avisoDTO.getTitulo());
         aviso.setDescricao(avisoDTO.getDescricao());
         aviso.setData(data);
 
-        if (aviso.getTitulo() == null || aviso.getTitulo().isEmpty() ||
-                aviso.getDescricao() == null || aviso.getDescricao().isEmpty()) {
-            throw new IllegalArgumentException("Preencha todos os campos");
-        } else if (avisoJaCadastrado(aviso)) {
-            throw new IllegalArgumentException("Aviso já cadastrado para essa data");
-        }
-
         avisoRepository.save(aviso);
     }
+
     private Date parseData(String dataString) {
-        if (dataString == null || dataString.isEmpty()) {
-            throw new IllegalArgumentException("Data inválida. O campo data está vazio.");
-        }
         try {
             SimpleDateFormat format = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
             return format.parse(dataString);
@@ -60,9 +72,7 @@ public class AvisoService {
     }
 
 
-    private boolean avisoJaCadastrado(Aviso aviso) {
-        LocalDate data = aviso.getData().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-
+    private boolean avisoJaCadastrado(LocalDate data) {
         return avisoRepository.existsAviso(data);
     }
 }

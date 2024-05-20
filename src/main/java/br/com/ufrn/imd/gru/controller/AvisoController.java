@@ -4,7 +4,6 @@ import br.com.ufrn.imd.gru.dto.AvisoDTO;
 import br.com.ufrn.imd.gru.model.Aviso;
 import br.com.ufrn.imd.gru.service.AvisoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +27,7 @@ public class AvisoController {
         model.addAttribute("avisos", avisos);
         return "cadastrar-aviso-nutricionista";
     }
+
     @PostMapping("/cadastrar-aviso-nutricionista/cadastrar-aviso")
     public String cadastrarAviso(@ModelAttribute AvisoDTO avisoDTO, Model model) {
         try {
@@ -35,6 +35,8 @@ public class AvisoController {
             return "redirect:/usuario/tela-inicial-nutricionista";
         } catch (IllegalArgumentException e) {
             model.addAttribute("error", e.getMessage());
+            model.addAttribute("avisoDTO", avisoDTO);
+
             return "cadastrar-aviso-nutricionista";
         }
     }
