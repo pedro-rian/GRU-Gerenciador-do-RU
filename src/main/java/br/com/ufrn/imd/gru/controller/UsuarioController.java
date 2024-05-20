@@ -130,6 +130,25 @@ public class UsuarioController {
         return "redirect:/usuario/login";
     }
 
+    @GetMapping("meu-perfil/editar-dados")
+    public String editarDados(Model model) {
+        model.addAttribute("email", usuarioLogado.getEmail());
+        model.addAttribute("nome", usuarioLogado.getNome());
+        model.addAttribute("idade", usuarioLogado.getIdade());
+        model.addAttribute("peso", usuarioLogado.getPeso());
+        model.addAttribute("altura", usuarioLogado.getAltura());
+        return "editar-dados";
+    }
+
+    @PostMapping("/salvar-dados")
+    public String salvarDados(@RequestParam String nome, @RequestParam String email,
+                              @RequestParam int idade, @RequestParam double peso,
+                              @RequestParam double altura){
+        Usuario usuario = usuarioRepository.findByEmail(usuarioLogado.getEmail());
+        usuarioService.atualizarDadosUsuario(usuario ,nome, email, idade, peso, altura);
+        return "redirect:/usuario/login";
+    }
+
     @GetMapping("/avaliacoes")
     public String avaliacoes() {
         return "avaliacoes";

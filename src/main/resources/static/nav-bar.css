@@ -67,6 +67,11 @@
     margin-left: 20em;
 }
 
+.botoes{
+    padding-top: 3em;
+    display: flex;
+}
+
 .texto-meu-perfil{
     padding: 3em;
     margin-top: 3em;
@@ -74,6 +79,46 @@
     width: 60em;
     border-radius: 20px;
     background-color: #FF9F66
+}
+
+.form-editar-dados{
+    padding: 3em;
+    margin-top: 3em;
+    margin-left: 20em;
+    width: 35em;
+    border-radius: 20px;
+    background-color: #FF9F66
+}
+
+.inputs-alinhados{
+    margin-top: 2em;
+    display: flex;
+}
+
+.filho-ia{
+    margin-right: 2em;
+
+}
+
+.campo-edicao{
+    width: 5em;
+    padding: 5px;
+    border: 0;
+    border-radius: 10px;
+}
+
+#campoNome{
+    width: 28em;
+    padding: 5px;
+    border: 0;
+    border-radius: 10px;
+}
+
+#campoEmail{
+    width: 28em;
+    padding: 5px;
+    border: 0;
+    border-radius: 10px;
 }
 
 #nome-meu-perfil{
@@ -85,8 +130,53 @@
     margin-right: 0.5em;
 }
 
-.danger{
-    background-color: lightcoral;
+#botao-editar{
+    border: 0;
+    padding: 5px 20px 5px 20px;
+    border-radius: 10px;
+}
+
+#botao-editar:hover{
+    background-color: #C3C3C3;
+}
+
+#botao-confirmar{
+    border: 0;
+    padding: 5px 20px 5px 20px;
+    border-radius: 10px;
+    margin-right: 1em;
+}
+
+#botao-confirmar:hover{
+    background-color: darkseagreen;
+}
+
+#botao-cancelar{
+    border: 0;
+    padding: 5px 20px 5px 20px;
+    border-radius: 10px;
+    color: white;
+    background-color: #A71919;
+}
+
+#botao-senha{
+    border: 0;
+    padding: 5px 20px 5px 20px;
+    border-radius: 10px;
+    margin-left: 2em;
+}
+
+#botao-senha:hover{
+    background-color: #C3C3C3;
+}
+
+#botao-apagar{
+    border: 0;
+    padding: 5px 20px 5px 20px;
+    border-radius: 10px;
+    margin-left: 2em;
+    color: white;
+    background-color: #A71919;
 }
 
 button, input, optgroup, select, textarea {
