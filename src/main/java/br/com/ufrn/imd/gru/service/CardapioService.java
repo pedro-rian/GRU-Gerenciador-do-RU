@@ -88,4 +88,12 @@ public class CardapioService {
         );
     }
 
+    public Cardapio findByCardapio(TipoCardapio tipoCardapio, TipoRefeicao tipoRefeicao, LocalDate date) {
+        return cardapioRepository.findByTipoCardapioAndTipoRefeicaoAndData(tipoCardapio, tipoRefeicao, date);
+    }
+
+    public List<Cardapio> getCardapios() {
+        return cardapioRepository.findAll();
+    }
+
 }

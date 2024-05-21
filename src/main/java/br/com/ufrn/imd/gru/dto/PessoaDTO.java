@@ -9,6 +9,7 @@ public class PessoaDTO {
     private double altura;
     private String email;
     private String senha;
+    private TipoUsuario tipoUsuario;
 
     public String getNome() {
         return nome;
@@ -58,5 +59,13 @@ public class PessoaDTO {
         this.senha = senha;
     }
 
+    public TipoUsuario getTipoUsuario() {
+        return tipoUsuario;
+    }
 
+    public void setTipoUsuario(TipoUsuario tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
+    }
 }
+
+
