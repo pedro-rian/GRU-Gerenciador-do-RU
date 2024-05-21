@@ -2,11 +2,13 @@
 <html lang="pt-br">
 <head>
     <title>Cadastro de Nutricionista - Gerenciador do RU</title>
+
+    <link rel="stylesheet" href="/nav-bar.css">
+    <link rel="stylesheet" href="/webjars/bootstrap/4.6.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="/cadastro.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/nav-bar.css">
 </head>
 <body>
 <div class="navbarstyle">
@@ -19,8 +21,8 @@
         <button type="button" class="btn-primarystyle button2" id="verAvaliacoesButton">Ver avaliações</button>
         <button type="button" class="btn-primarystyle button2" id="cadastrarCardapioButton">Cadastrar cardápio</button>
         <button type="button" class="btn-primarystyle button2" id="cadastrarAvisoButton">Cadastrar aviso</button>
-        <button type="button" class="btn-primarystyle button2" id="cadastrarNutricionistaButton">Cadastrar Nutricionista</button>
         <button type="button" class="btn-primarystyle button2" id="solicitacoesAssistenciaButton">Solicitações de Assitência</button>
+        <button type="button" class="btn-primarystyle button2" id="cadastrarNutricionistaButton">Cadastrar Nutricionista</button>
         <button type="button" class="button2 btn-sair" id="sairButton">Sair</button>
     </div>
 
@@ -57,43 +59,45 @@
 
     </script>
     </div>
+
+<div class="texto">
 <div class="login-container">
     <h3 class="subtitulo">Cadastrar Nutricionista</h3>
     <form id="cadastroForm">
-        <div class="form-row">
-            <div class="form-group">
+        <div class="form-row2">
+            <div class="form-group2">
                 <label for="nome">Nome:</label>
-                <input type="text" class="form-control rounded-pill px-4" id="nome" name="nome" required>
+                <input type="text" class="form-control rounded-pill px-4 " id="nome" name="nome" required>
                 <div>
                     <div id="mensagemErroNome" class="alerta" role="alert"></div>
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group2">
                 <label for="email">E-mail:</label>
                 <input type="email" class="form-control rounded-pill px-4" id="email" name="email" required>
                 <div id="mensagemErroEmail" class="alerta" role="alert"></div>
             </div>
         </div>
-        <div class="form-row">
-            <div class="form-group">
+        <div class="form-row2">
+            <div class="form-group2">
                 <label for="idade">Idade:</label>
                 <input type="number" class="form-control rounded-pill px-4" id="idade" name="idade" required>
                 <div id="mensagemErroIdade" class="alerta" role="alert"></div>
             </div>
-            <div class="form-group">
+            <div class="form-group2">
                 <label for="altura">Altura:</label>
                 <input type="text" class="form-control rounded-pill px-4" id="altura" name="altura" required>
                 <div id="mensagemErroAltura" class="alerta" role="alert"></div>
             </div>
         </div>
-        <div class="form-row">
-            <div class="form-group">
+        <div class="form-row2">
+            <div class="form-group2">
                 <label for="peso">Peso:</label>
                 <input type="number" class="form-control rounded-pill px-4" id="peso" name="peso" step="any" required>
                 <div id="mensagemErroPeso" class="alerta" role="alert"></div>
             </div>
-            <div class="form-group">
+            <div class="form-group2">
                 <label for="senha">Senha:</label>
                 <input type="password" class="form-control rounded-pill px-4" id="senha" name="senha" required>
                 <div id="mensagemErroSenha" class="alerta" role="alert"></div>
@@ -185,6 +189,7 @@
             window.location.href = '/usuario/tela-inicial-nutricionista';
         };
     </script>
+</div>
 </div>
 </body>
 </html>
