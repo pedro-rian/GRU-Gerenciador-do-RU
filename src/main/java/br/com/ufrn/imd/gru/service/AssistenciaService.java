@@ -1,5 +1,6 @@
 package br.com.ufrn.imd.gru.service;
 
+import br.com.ufrn.imd.gru.dto.AssistenciaDTO;
 import br.com.ufrn.imd.gru.model.Assistencia;
 import br.com.ufrn.imd.gru.repository.AssistenciaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,22 +25,8 @@ public class AssistenciaService {
     @Autowired
     public AssistenciaService(AssistenciaRepository assistenciaRepository){this.assistenciaRepository = assistenciaRepository;}
 
-    public void cadastrarAssistencia(String motivo,
-                                String descricao,
-                                String dataString,
-                                String horarioString){
-        validarCamposObrigatorios(motivo, descricao, dataString, horarioString);
-
-        Date data = parseData(dataString);
-        LocalTime horario = parseHorario(horarioString);
-
-        Assistencia assistencia = new Assistencia();
-
-        assistencia.setMotivo(motivo);
-        assistencia.setDescricao(descricao);
-        assistencia.setData(data);
-        assistencia.setHorario(horario);
-
+    public void cadastrarAssistencia(AssistenciaDTO assistenciaDTO){
+        Assistencia assistencia = toEntity(assistenciaDTO);
         assistenciaRepository.save(assistencia);
     }
 
@@ -66,5 +53,22 @@ public class AssistenciaService {
         } catch (DateTimeParseException e) {
             throw new IllegalArgumentException("Formato de horaŕio inválido.");
         }
+    }
+
+    private Assistencia toEntity(AssistenciaDTO assistenciaDTO) {
+        validarCamposObrigatorios(assistenciaDTO.getMotivo(), assistenciaDTO.getDescricao(),
+                assistenciaDTO.getData(), assistenciaDTO.getHorario());
+
+        Date data = parseData(assistenciaDTO.getData());
+        LocalTime horario = parseHorario(assistenciaDTO.getHorario());
+
+        Assistencia assistencia = new Assistencia();
+
+        assistencia.setMotivo(assistenciaDTO.getMotivo());
+        assistencia.setDescricao(assistenciaDTO.getDescricao());
+        assistencia.setData(data);
+        assistencia.setHorario(horario);
+
+        return assistencia;
     }
 }

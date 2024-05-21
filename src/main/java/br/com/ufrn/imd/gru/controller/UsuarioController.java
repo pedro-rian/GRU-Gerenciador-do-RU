@@ -65,16 +65,17 @@ public class UsuarioController {
     @PostMapping("/logar")
     public String logar(Model model, String email, String senha){
         Usuario usuario = usuarioService.autenticarUsuario(email, senha);
+        Usuario u = usuarioRepository.findByEmail(email);
         if (usuario != null) {
-            Usuario u = usuarioRepository.findByEmail(email);
-            usuarioLogado.setEmail(email);
-            usuarioLogado.setSenha(senha);
-            Pessoa p = getPessoaByUsuarioId(u.getId());
-            usuarioLogado.setNome(p.getNome());
-            usuarioLogado.setIdade(p.getIdade());
-            usuarioLogado.setPeso(p.getPeso());
-            usuarioLogado.setAltura(p.getAltura());
-
+            if (u.getTipo() == TipoUsuario.CONSUMIDOR){
+                usuarioLogado.setEmail(email);
+                usuarioLogado.setSenha(senha);
+                Pessoa p = getPessoaByUsuarioId(u.getId());
+                usuarioLogado.setNome(p.getNome());
+                usuarioLogado.setIdade(p.getIdade());
+                usuarioLogado.setPeso(p.getPeso());
+                usuarioLogado.setAltura(p.getAltura());
+            }
             if (usuario.getTipo().equals(TipoUsuario.ADMINISTRADOR)) {
                 return "redirect:/usuario/tela-inicial-administrador";
             } else if (usuario.getTipo().equals(TipoUsuario.CONSUMIDOR)) {
@@ -200,22 +201,6 @@ public class UsuarioController {
 
     @GetMapping("/cadastrar-nutricionista")
     public String cadastrarNutricionista(){return "cadastrar-nutricionista";}
-
-    @PostMapping("/solicitar-assistencia/solicitar-assistencia-form")
-    public String cadastrarCardapio(@RequestParam("motivo") String motivo,
-                                    @RequestParam("descricao") String descricao,
-                                    @RequestParam(value = "data", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") String dataString,
-                                    @RequestParam("horario") String horarioString,
-                                    Model model) {
-
-        try {
-            assistenciaService.cadastrarAssistencia(motivo, descricao, dataString, horarioString);
-            return "redirect:/cardapio/tela-inicial-comum";
-        } catch (IllegalArgumentException e) {
-            model.addAttribute("error", e.getMessage());
-            return "solicitar-assistencia";
-        }
-    }
 
     //Funcoes para estatisticas:
     private double mediaIMC(){
