@@ -1,9 +1,6 @@
 package br.com.ufrn.imd.gru.controller;
 
-import br.com.ufrn.imd.gru.model.Aviso;
-import br.com.ufrn.imd.gru.model.Pessoa;
-import br.com.ufrn.imd.gru.model.TipoUsuario;
-import br.com.ufrn.imd.gru.model.Usuario;
+import br.com.ufrn.imd.gru.model.*;
 
 import br.com.ufrn.imd.gru.repository.*;
 import br.com.ufrn.imd.gru.service.PessoaService;
@@ -18,15 +15,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @CrossOrigin("*")
 @RequestMapping("/usuario")
 public class UsuarioController {
 
+    private final UsuarioRepository usuarioRepository;
     private UsuarioService usuarioService;
     private AssistenciaService assistenciaService;
     private PessoaService pessoaService;
+    private UsuarioLogado usuarioLogado;
 
     private AssistenciaRepository assistenciaRepository;
     private PessoaRepository pessoaRepository;
@@ -38,7 +38,8 @@ public class UsuarioController {
     public UsuarioController(UsuarioService usuarioService, AssistenciaService assistenciaService,
                              PessoaService pessoaService, PessoaRepository pessoaRepository,
                              AssistenciaRepository assistenciaRepository, AvisoRepository avisoRepository,
-                             CardapioRepository cardapioRepository, AvaliacaoRepository avaliacaoRepository) {
+                             CardapioRepository cardapioRepository, AvaliacaoRepository avaliacaoRepository,
+                             UsuarioLogado usuarioLogado, UsuarioRepository usuarioRepository) {
         this.usuarioService = usuarioService;
         this.assistenciaService = assistenciaService;
         this.assistenciaRepository = assistenciaRepository;
@@ -47,6 +48,13 @@ public class UsuarioController {
         this.avisoRepository = avisoRepository;
         this.cardapioRepository = cardapioRepository;
         this.avaliacaoRepository = avaliacaoRepository;
+        this.usuarioLogado = usuarioLogado;
+        this.usuarioRepository = usuarioRepository;
+    }
+
+    public Pessoa getPessoaByUsuarioId(Long usuarioId) {
+        Optional<Pessoa> pessoa = this.pessoaRepository.findByUsuarioId(usuarioId);
+        return pessoa.orElse(null);
     }
 
     @GetMapping("/login")
@@ -57,7 +65,17 @@ public class UsuarioController {
     @PostMapping("/logar")
     public String logar(Model model, String email, String senha){
         Usuario usuario = usuarioService.autenticarUsuario(email, senha);
+        Usuario u = usuarioRepository.findByEmail(email);
         if (usuario != null) {
+            if (u.getTipo() == TipoUsuario.CONSUMIDOR){
+                usuarioLogado.setEmail(email);
+                usuarioLogado.setSenha(senha);
+                Pessoa p = getPessoaByUsuarioId(u.getId());
+                usuarioLogado.setNome(p.getNome());
+                usuarioLogado.setIdade(p.getIdade());
+                usuarioLogado.setPeso(p.getPeso());
+                usuarioLogado.setAltura(p.getAltura());
+            }
             if (usuario.getTipo().equals(TipoUsuario.CONSUMIDOR)) {
                 return "redirect:/cardapio/tela-inicial-comum";
             } else if (usuario.getTipo().equals(TipoUsuario.NUTRICIONISTA)) {
@@ -95,9 +113,41 @@ public class UsuarioController {
         return "sobre-o-ru";
     }
     @GetMapping("/meu-perfil")
-    public String meuPerfil() {
+    public String meuPerfil(Model model) {
+        model.addAttribute("email", usuarioLogado.getEmail());
+        model.addAttribute("senha", usuarioLogado.getSenha());
+        model.addAttribute("nome", usuarioLogado.getNome());
+        model.addAttribute("idade", usuarioLogado.getIdade());
+        model.addAttribute("peso", usuarioLogado.getPeso());
+        model.addAttribute("altura", usuarioLogado.getAltura());
         return "meu-perfil";
     }
+
+    @PostMapping("meu-perfil/apagar-conta")
+    public String apagarConta(){
+        usuarioService.desativarUsuario(usuarioLogado);
+        return "redirect:/usuario/login";
+    }
+
+    @GetMapping("meu-perfil/editar-dados")
+    public String editarDados(Model model) {
+        model.addAttribute("email", usuarioLogado.getEmail());
+        model.addAttribute("nome", usuarioLogado.getNome());
+        model.addAttribute("idade", usuarioLogado.getIdade());
+        model.addAttribute("peso", usuarioLogado.getPeso());
+        model.addAttribute("altura", usuarioLogado.getAltura());
+        return "editar-dados";
+    }
+
+    @PostMapping("/salvar-dados")
+    public String salvarDados(@RequestParam String nome, @RequestParam String email,
+                              @RequestParam int idade, @RequestParam double peso,
+                              @RequestParam double altura){
+        Usuario usuario = usuarioRepository.findByEmail(usuarioLogado.getEmail());
+        usuarioService.atualizarDadosUsuario(usuario ,nome, email, idade, peso, altura);
+        return "redirect:/usuario/login";
+    }
+
     @GetMapping("/avaliacoes")
     public String avaliacoes() {
         return "avaliacoes";
@@ -144,27 +194,9 @@ public class UsuarioController {
 
         return "estatisticas-nutricionista";
     }
-    @GetMapping("/solicitacoes-assistencia-nutricionista")
-    public String solicitacoesAssistenciaNutricionista(){return "solicitacoes-assistencia-nutricionista";}
 
     @GetMapping("/cadastrar-nutricionista")
     public String cadastrarNutricionista(){return "cadastrar-nutricionista";}
-
-    @PostMapping("/solicitar-assistencia/solicitar-assistencia-form")
-    public String cadastrarCardapio(@RequestParam("motivo") String motivo,
-                                    @RequestParam("descricao") String descricao,
-                                    @RequestParam(value = "data", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") String dataString,
-                                    @RequestParam("horario") String horarioString,
-                                    Model model) {
-
-        try {
-            assistenciaService.cadastrarAssistencia(motivo, descricao, dataString, horarioString);
-            return "redirect:/cardapio/tela-inicial-comum";
-        } catch (IllegalArgumentException e) {
-            model.addAttribute("error", e.getMessage());
-            return "solicitar-assistencia";
-        }
-    }
 
     //Funcoes para estatisticas:
     private double mediaIMC(){

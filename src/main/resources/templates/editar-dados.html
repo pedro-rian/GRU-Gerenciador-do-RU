@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/nav-bar.css">
     <link rel="stylesheet" href="/webjars/bootstrap/4.6.0/css/bootstrap.min.css">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-    <title>Solicitar assistência</title>
+    <title>Editar dados</title>
 </head>
 <body>
 <div class="navbarstyle">
@@ -23,6 +22,7 @@
         <button type="button" class="button btn-sair" id="sairButton">Sair</button>
     </div>
 
+
     <script>
         document.getElementById("homeButton").onclick = function () {
             window.location.href = "/cardapio/tela-inicial-comum";
@@ -34,7 +34,7 @@
             window.location.href = "/usuario/meu-perfil";
         }
         document.getElementById("avaliaçõesButton").onclick = function () {
-            window.location.href = "/avaliacao/cadastrar";
+            window.location.href = "/usuario/avaliacoes";
         };
         document.getElementById("solicitarAssistenciaButton").onclick = function () {
             window.location.href = "/usuario/solicitar-assistencia";
@@ -45,30 +45,41 @@
 
     </script>
 </div>
-<div class="texto">
-    <h1>Formulário de solicitação de assistência:</h1>
-    <form action="/assistencia/solicitar-assistencia" method="post">
-        <label for="motivo">* Motivo da solicitação:</label>
-        <select name="motivo" id="motivo">
-            <option value="">--Selecione um motivo--</option>
-            <option value="Limitações de mobilidade">Limitações de mobilidade por conta de acidentes ou lesões</option>
-            <option value="Deficiência">Deficiência que impede a movimentação pelo espaço do restaurante</option>
-            <option value="Restrições alimentares">Restrições alimentares, sensibilidades e alergias</option>
-            <option value="Limitações da idade">Limitações relacionadas à idade</option>
-            <option value="Autismo ou outras condições">Autismo e/ou outras condições similares</option>
-            <option value="Motivo não listado">Outro motivo (descreva melhor abaixo)</option>
-        </select><br><br>
-        <label for="data">* Data de assistência:</label>
-        <input type="date" name="data" id="data"><br><br>
-        <label for="horario">* Horário de assistência:</label>
-        <input type="time" name="horario" id="horario"><br><br>
-        <label for="descricao">* Descrição da Solicitação:</label><br>
-        <textarea id="descricao" name="descricao" placeholder="Descreva aqui em detalhes o motivo da sua solicitação..." rows="10" cols="100"></textarea><br><br>
-
-        <p th:if="${error}" class="error" th:text="${error}"></p>
-
-        <button type="submit">Cadastrar solicitação de assistência</button>
+<div class="form-editar-dados">
+    <h2>Edição de dados pessoais</h2>
+    <p>Confira os seus dados abaixo e confirme a edição para alterá-los.</p>
+    <form action="/usuario/salvar-dados" method="post">
+        <label>Nome completo:</label><br>
+        <input id="campoNome" name="nome" type="text" th:value="${nome}"><br><br>
+        <label>Email:</label><br>
+        <input id="campoEmail" name="email" type="email" th:value="${email}">
+        <div class="inputs-alinhados">
+            <div class="filho-ia">
+                <label>Idade:</label> <br>
+                <input id="campoIdade" name="idade" class="campo-edicao" type="number" th:value="${idade}"> anos
+            </div>
+            <div class="filho-ia">
+                <label>Peso:</label> <br>
+                <input id="campoPeso" name="peso" class="campo-edicao" type="number" th:value="${peso}"> Kg
+            </div>
+            <div class="filho-ia">
+                <label>Altura:</label> <br>
+                <input id="campoAltura" name="altura" class="campo-edicao" type="number" th:value="${altura}"> m
+            </div>
+        </div>
+        <div class="botoes">
+            <input id="botao-confirmar" type="submit" value="Confirmar Alterações">
+            <button id="botao-cancelar">Cancelar</button>
+        </div>
     </form>
+
+    <script>
+        document.getElementById("botao-cancelar").onclick = function (event){
+            event.preventDefault()
+            window.history.back();
+        }
+    </script>
+</div>
 </div>
 </body>
 </html>

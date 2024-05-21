@@ -16,7 +16,6 @@
 
     <div class="button2">
         <button type="button" class="btn-primarystyle button2" id="homeButton">Home</button>
-        <button type="button" class="btn-primarystyle button2" id="meuPerfilButton">Meu perfil</button>
         <button type="button" class="btn-primarystyle button2" id="estatisticasButton">Estatísticas</button>
         <button type="button" class="btn-primarystyle button2" id="verAvaliacoesButton">Ver avaliações</button>
         <button type="button" class="btn-primarystyle button2" id="cadastrarCardapioButton">Cadastrar cardápio</button>
@@ -31,9 +30,6 @@
         document.getElementById("homeButton").onclick = function () {
             window.location.href = "/usuario/tela-inicial-nutricionista";
         };
-        document.getElementById("meuPerfilButton").onclick = function () {
-            window.location.href = "/usuario/meu-perfil-nutricionista";
-        };
         document.getElementById("estatisticasButton").onclick = function () {
             window.location.href = "/usuario/estatisticas-nutricionista";
         }
@@ -47,7 +43,7 @@
             window.location.href = "/aviso/cadastrar-aviso-nutricionista";
         }
         document.getElementById("solicitacoesAssistenciaButton").onclick = function () {
-            window.location.href = "/usuario/solicitacoes-assistencia-nutricionista";
+            window.location.href = "/assistencia/solicitacoes-assistencia-nutricionista";
         }
         document.getElementById("cadastrarNutricionistaButton").onclick = function () {
             window.location.href = "/usuario/cadastrar-nutricionista";

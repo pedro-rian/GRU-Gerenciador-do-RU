@@ -45,5 +45,45 @@
 
     </script>
 </div>
+<div class="texto-meu-perfil">
+    <div class="conteudo-meu-perfil">
+        <p id="nome-meu-perfil"><b>Nome: </b><span th:text="${nome}"></span></p>
+        <p><b>Email: </b><span th:text="${email}"></span> <span class="bar-meu-perfil">|</span> <b>Senha: </b>•••••••• <span class="bar-meu-perfil">|</span> <b>Idade: </b><span th:text="${idade}+' anos'"></span> <span class="bar-meu-perfil">|</span> <b>Peso: </b><span th:text="${peso}+' Kg'"></span> <span class="bar-meu-perfil">|</span> <b>Altura: </b><span th:text="${altura}+' m'"></span></p>
+        <div class="botoes">
+            <button id="botao-editar">Editar dados</button>
+            <button id="botao-apagar" data-toggle="modal" data-target="#confirmDeleteModal">Apagar conta</button>
+            <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar apagar conta?</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Você tem certeza que deseja apagar sua conta? Esta ação não pode ser desfeita.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <form action="meu-perfil/apagar-conta" method="post" style="display: inline;">
+                                <button type="submit" class="btn btn-danger">Apagar Conta</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script>
+            document.getElementById("botao-editar").onclick = function (){
+                window.location.href = "/usuario/meu-perfil/editar-dados";
+            }
+        </script>
+    </div>
+</div>
 </body>
 </html>

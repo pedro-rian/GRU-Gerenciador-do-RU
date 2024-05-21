@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/nav-bar.css">
-
+    <link rel="stylesheet" href="/tela-inicial-comum.css">
     <link rel="stylesheet" href="/webjars/bootstrap/4.6.0/css/bootstrap.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,7 +16,6 @@
 
     <div class="button">
         <button type="button" class="btn-primarystyle button" id="homeButton">Home</button>
-        <button type="button" class="btn-primarystyle button" id="meuPerfilButton">Meu perfil</button>
         <button type="button" class="btn-primarystyle button" id="estatisticasButton">Estatísticas</button>
         <button type="button" class="btn-primarystyle button" id="verAvaliacoesButton">Ver avaliações</button>
         <button type="button" class="btn-primarystyle button" id="cadastrarCardapioButton">Cadastrar cardápio</button>
@@ -31,9 +30,6 @@
         document.getElementById("homeButton").onclick = function () {
             window.location.href = "/usuario/tela-inicial-nutricionista";
         };
-        document.getElementById("meuPerfilButton").onclick = function () {
-            window.location.href = "/usuario/meu-perfil-nutricionista";
-        };
         document.getElementById("estatisticasButton").onclick = function () {
             window.location.href = "/usuario/estatisticas-nutricionista";
         }
@@ -47,7 +43,7 @@
             window.location.href = "/aviso/cadastrar-aviso-nutricionista";
         }
         document.getElementById("solicitacoesAssistenciaButton").onclick = function () {
-            window.location.href = "/usuario/solicitacoes-assistencia-nutricionista";
+            window.location.href = "/assistencia/solicitacoes-assistencia-nutricionista";
         }
         document.getElementById("cadastrarNutricionistaButton").onclick = function () {
             window.location.href = "/usuario/cadastrar-nutricionista";
@@ -58,9 +54,40 @@
 
     </script>
 </div>
-
 <div class="texto">
-    VISUALIZAÇÃO DE SOLICITAÇÕES DE ASSISTÊNCIA
+    <h3 class="cabecalho"> Solicitações de assistência para hoje: </h3>
+    <table class="tabelas">
+        <tr>
+            <th>Motivo da solicitação</th>
+            <th>Descrição da solicitação</th>
+            <th>Data para auxílio</th>
+            <th>Horário para auxílio</th>
+        </tr>
+        <tr th:each="assistencia : ${assistenciasHoje}">
+            <td th:text="${assistencia.motivo}"></td>
+            <td th:text="${assistencia.descricao}"></td>
+            <td th:text="${assistencia.data}"></td>
+            <td th:text="${assistencia.horario}"></td>
+        </tr>
+    </table>
+</div>
+<br><br><br>
+<div class="texto">
+    <h3 class="cabecalho"> Todas as solicitação de assistência: </h3>
+    <table class="tabelas">
+        <tr>
+            <th>Motivo da solicitação</th>
+            <th>Descrição da solicitação</th>
+            <th>Data para auxílio</th>
+            <th>Horário para auxílio</th>
+        </tr>
+        <tr th:each="assistencia : ${assistencias}">
+            <td th:text="${assistencia.motivo}"></td>
+            <td th:text="${assistencia.descricao}"></td>
+            <td th:text="${assistencia.data}"></td>
+            <td th:text="${assistencia.horario}"></td>
+        </tr>
+    </table>
 </div>
 
 </body>
