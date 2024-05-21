@@ -4,6 +4,7 @@ import br.com.ufrn.imd.gru.dto.PessoaDTO;
 import br.com.ufrn.imd.gru.model.Pessoa;
 import br.com.ufrn.imd.gru.model.Usuario;
 import br.com.ufrn.imd.gru.service.PessoaService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import java.util.List;
 public class PessoaController {
     private final PessoaService pessoaService;
 
+    @Autowired
     public PessoaController(PessoaService pessoaService) {
         this.pessoaService = pessoaService;
     }
@@ -28,7 +30,7 @@ public class PessoaController {
     }
 
     @PostMapping("/salvar")
-    public ResponseEntity<Object> salvarDadosEPeso(Model model, @RequestBody PessoaDTO pessoaDTO) {
+    public ResponseEntity<Object> salvarDadosEPeso(@RequestBody PessoaDTO pessoaDTO) {
         ResponseEntity<List<String>> validationResponse = pessoaService.validarPessoa(pessoaDTO);
 
         if (validationResponse.getStatusCode() != HttpStatus.OK) {

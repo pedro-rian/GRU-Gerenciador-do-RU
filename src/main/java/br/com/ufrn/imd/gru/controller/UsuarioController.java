@@ -58,9 +58,7 @@ public class UsuarioController {
     public String logar(Model model, String email, String senha){
         Usuario usuario = usuarioService.autenticarUsuario(email, senha);
         if (usuario != null) {
-            if (usuario.getTipo().equals(TipoUsuario.ADMINISTRADOR)) {
-                return "redirect:/usuario/tela-inicial-administrador";
-            } else if (usuario.getTipo().equals(TipoUsuario.CONSUMIDOR)) {
+            if (usuario.getTipo().equals(TipoUsuario.CONSUMIDOR)) {
                 return "redirect:/cardapio/tela-inicial-comum";
             } else if (usuario.getTipo().equals(TipoUsuario.NUTRICIONISTA)) {
                 return "redirect:/usuario/tela-inicial-nutricionista";
