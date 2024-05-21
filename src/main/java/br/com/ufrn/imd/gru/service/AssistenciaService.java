@@ -15,6 +15,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
@@ -30,7 +31,18 @@ public class AssistenciaService {
         assistenciaRepository.save(assistencia);
     }
 
-    private void validarCamposObrigatorios(String motivo,
+    public List<AssistenciaDTO> listarAssistenciasDaDataAtual(){
+        LocalDate hoje = LocalDate.now();
+        List<Assistencia> assistencias = assistenciaRepository.findByData(hoje);
+        return assistencias.stream().map(this::toDTO).collect(Collectors.toList());
+    }
+
+    public List<AssistenciaDTO> listarTodasAssistencias(){
+        List<Assistencia> assistencias = assistenciaRepository.findAll();
+        return assistencias.stream().map(this::toDTO).collect(Collectors.toList());
+    }
+
+    public void validarCamposObrigatorios(String motivo,
                                            String descricao,
                                            String dataString,
                                            String horarioString) {
@@ -39,7 +51,7 @@ public class AssistenciaService {
         }
     }
 
-    private Date parseData(String dataString) {
+    public Date parseData(String dataString) {
         try {
             return new SimpleDateFormat("yyyy-MM-dd").parse(dataString);
         } catch (ParseException e) {
@@ -47,7 +59,7 @@ public class AssistenciaService {
         }
     }
 
-    private LocalTime parseHorario(String horarioString) {
+    public LocalTime parseHorario(String horarioString) {
         try {
             return LocalTime.parse(horarioString, DateTimeFormatter.ofPattern("HH:mm"));
         } catch (DateTimeParseException e) {
@@ -55,7 +67,7 @@ public class AssistenciaService {
         }
     }
 
-    private Assistencia toEntity(AssistenciaDTO assistenciaDTO) {
+    public Assistencia toEntity(AssistenciaDTO assistenciaDTO) {
         validarCamposObrigatorios(assistenciaDTO.getMotivo(), assistenciaDTO.getDescricao(),
                 assistenciaDTO.getData(), assistenciaDTO.getHorario());
 
@@ -70,5 +82,14 @@ public class AssistenciaService {
         assistencia.setHorario(horario);
 
         return assistencia;
+    }
+
+    public AssistenciaDTO toDTO(Assistencia assistencia){
+        AssistenciaDTO assistenciaDTO = new AssistenciaDTO();
+        assistenciaDTO.setMotivo(assistencia.getMotivo());
+        assistenciaDTO.setDescricao(assistencia.getDescricao());
+        assistenciaDTO.setData(assistencia.getData().toString());
+        assistenciaDTO.setHorario(assistencia.getHorario().toString());
+        return assistenciaDTO;
     }
 }

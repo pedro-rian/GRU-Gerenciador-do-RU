@@ -76,9 +76,7 @@ public class UsuarioController {
                 usuarioLogado.setPeso(p.getPeso());
                 usuarioLogado.setAltura(p.getAltura());
             }
-            if (usuario.getTipo().equals(TipoUsuario.ADMINISTRADOR)) {
-                return "redirect:/usuario/tela-inicial-administrador";
-            } else if (usuario.getTipo().equals(TipoUsuario.CONSUMIDOR)) {
+            if (usuario.getTipo().equals(TipoUsuario.CONSUMIDOR)) {
                 return "redirect:/cardapio/tela-inicial-comum";
             } else if (usuario.getTipo().equals(TipoUsuario.NUTRICIONISTA)) {
                 return "redirect:/usuario/tela-inicial-nutricionista";
@@ -196,8 +194,6 @@ public class UsuarioController {
 
         return "estatisticas-nutricionista";
     }
-    @GetMapping("/solicitacoes-assistencia-nutricionista")
-    public String solicitacoesAssistenciaNutricionista(){return "solicitacoes-assistencia-nutricionista";}
 
     @GetMapping("/cadastrar-nutricionista")
     public String cadastrarNutricionista(){return "cadastrar-nutricionista";}

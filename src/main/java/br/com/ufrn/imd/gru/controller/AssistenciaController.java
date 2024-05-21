@@ -7,6 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @Controller
 @RequestMapping("/assistencia")
 public class AssistenciaController {
@@ -18,10 +21,6 @@ public class AssistenciaController {
 
     @PostMapping("/solicitar-assistencia")
     public String cadastrarSolicitacao(@ModelAttribute AssistenciaDTO assistenciaDTO, Model model) {
-        System.out.println("Motivo: " + assistenciaDTO.getMotivo());
-        System.out.println("Descricao: " + assistenciaDTO.getDescricao());
-        System.out.println("Data: " + assistenciaDTO.getData());
-        System.out.println("Horario: " + assistenciaDTO.getHorario());
         try {
             assistenciaService.cadastrarAssistencia(assistenciaDTO);
             return "redirect:/cardapio/tela-inicial-comum";
@@ -29,5 +28,14 @@ public class AssistenciaController {
             model.addAttribute("error", e.getMessage());
             return "solicitar-assistencia";
         }
+    }
+
+    @GetMapping("/solicitacoes-assistencia-nutricionista")
+    public String solicitacoesAssistenciaNutricionista(Model model) {
+        List<AssistenciaDTO> assistenciasHoje = assistenciaService.listarAssistenciasDaDataAtual();
+        List<AssistenciaDTO> assistencias = assistenciaService.listarTodasAssistencias();
+        model.addAttribute("assistenciasHoje", assistenciasHoje);
+        model.addAttribute("assistencias", assistencias);
+        return "solicitacoes-assistencia-nutricionista";
     }
 }
