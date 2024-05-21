@@ -5,6 +5,7 @@ import br.com.ufrn.imd.gru.model.Pessoa;
 import br.com.ufrn.imd.gru.model.TipoUsuario;
 import br.com.ufrn.imd.gru.model.Usuario;
 import br.com.ufrn.imd.gru.repository.PessoaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -16,8 +17,9 @@ import java.util.Optional;
 @Service
 public class PessoaService {
     private final PessoaRepository pessoaRepository;
-    private final  UsuarioService usuarioService;
+    private final UsuarioService usuarioService;
 
+    @Autowired
     public PessoaService(PessoaRepository pessoaRepository, UsuarioService usuarioService) {
         this.pessoaRepository = pessoaRepository;
         this.usuarioService = usuarioService;
@@ -62,6 +64,7 @@ public class PessoaService {
     public boolean existeUsuarioComEmail(String email) {
         return usuarioService.existeUsuarioComEmail(email);
     }
+
     public void salvarDadosEIMC(Pessoa pessoa) {
         if (pessoa.getUsuario() == null) {
             Usuario novoUsuario = new Usuario();
@@ -86,7 +89,6 @@ public class PessoaService {
         Optional<Pessoa> optionalPessoa = pessoaRepository.findByUsuarioId(idUsuario);
         return optionalPessoa.orElse(null);
     }
-
 
 
 }
