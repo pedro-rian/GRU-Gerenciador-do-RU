@@ -21,10 +21,8 @@
         <button type="button" class="btn-primarystyle button" id="verAvaliacoesButton">Ver avaliações</button>
         <button type="button" class="btn-primarystyle button" id="cadastrarCardapioButton">Cadastrar cardápio</button>
         <button type="button" class="btn-primarystyle button" id="cadastrarAvisoButton">Cadastrar aviso</button>
+        <button type="button" class="btn-primarystyle button" id="solicitacoesAssistenciaButton">Solicitações de Assitência</button>
         <button type="button" class="btn-primarystyle button2" id="cadastrarNutricionistaButton">Cadastrar Nutricionista</button>
-        <button type="button" class="btn-primarystyle button" id="solicitacoesAssistenciaButton">Solicitações de
-            Assitência
-        </button>
         <button type="button" class="button btn-sair" id="sairButton">Sair</button>
     </div>
 
@@ -106,44 +104,7 @@
 </div>
 
 <script>
-    document.querySelector('form').onsubmit = function (event) {
-        let isValid = true;
-        const titulo = document.getElementById('titulo').value.trim();
-        const descricao = document.getElementById('descricao').value.trim();
-        const data = document.getElementById('data').value.trim();
 
-
-        if (!titulo) {
-            document.getElementById('mensagemErroTitulo').innerText = 'Título é um campo obrigatório.';
-            isValid = false;
-        } else {
-            document.getElementById('mensagemErroTitulo').innerText = '';
-        }
-
-        if (!descricao) {
-            document.getElementById('mensagemErroDescricao').innerText = 'Descrição é um campo obrigatório.';
-            isValid = false;
-        } else {
-            document.getElementById('mensagemErroDescricao').innerText = '';
-        }
-
-        if (!data) {
-            document.getElementById('mensagemErroData').innerText = 'Data é um campo obrigatório.';
-            isValid = false;
-        } else {
-            document.getElementById('mensagemErroData').innerText = '';
-        }
-
-        if (document.getElementById('mensagemErroJaTemAvisoCadastradoNestaData').innerText !== ''){
-            document.getElementById('mensagemErroJaTemAvisoCadastradoNestaData').innerText = 'Aviso já cadastrado para essa data.';
-            isValid = false;
-        } else {
-            document.getElementById('mensagemErroJaTemAvisoCadastradoNestaData').innerText = '';
-        }
-        if (!isValid) {
-            event.preventDefault();
-        }
-    };
 </script>
 </body>
 </html>
