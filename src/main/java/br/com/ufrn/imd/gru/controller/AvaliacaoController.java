@@ -2,7 +2,6 @@ package br.com.ufrn.imd.gru.controller;
 
 import br.com.ufrn.imd.gru.dto.AvaliacaoDTO;
 import br.com.ufrn.imd.gru.model.Avaliacao;
-import br.com.ufrn.imd.gru.model.Aviso;
 import br.com.ufrn.imd.gru.model.Cardapio;
 import br.com.ufrn.imd.gru.service.AvaliacaoService;
 import br.com.ufrn.imd.gru.service.CardapioService;
@@ -12,11 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.List;
 
 @Controller
