@@ -57,7 +57,7 @@
     <div class="container mt-5">
         <h2 class="titulo-pagina">Refeições para avaliações</h2>
         <div class="row col-12">
-            <div th:each="cardapio : ${cardapios}" class="col-md-2 mb-4">
+            <div class="col-md-6 mb-4">
                 <div class="card formulario-card">
                     <div class="formulario p-2">
                         <h5 class="data" th:text="${cardapio.data}"></h5>
@@ -71,7 +71,8 @@
                                 <span class="text-dados" th:text="${cardapio.getAcompanhamento()}"></span>
                             </div>
                         </h5>
-                        <form action="/avaliacao/cadastrar" method="post">
+                        <form action="/avaliacao/atualizar" method="post">
+                            <input type="hidden" name="id_avaliacao" th:value="${avaliacao.id}"/>
                             <div class="form-group">
                                 <label>Quantidade de Estrelas:</label>
                                 <select class="form-control custom-select" name="quantidadeEstrelas">
@@ -85,7 +86,7 @@
                             <div class="form-group">
                                 <label for="descricao_${cardapio.id}">Descrição:</label>
                                 <textarea class="form-control custom-textarea" id="descricao_${cardapio.id}"
-                                          name="descricao" rows="4"></textarea>
+                                          name="descricao" rows="4" th:text="${avaliacao.descricao}"></textarea>
                             </div>
                             <input type="hidden" name="data" value="">
                             <input type="hidden" name="tipoRefeicao" th:value="${cardapio.tipoRefeicao}">
@@ -94,72 +95,13 @@
                                    value="">
                             <div class="form-group text-center">
                                 <input type="submit" class="button-cadastrar-avaliacao btn-cadastrar-avaliacao"
-                                       value="Cadastrar">
+                                       value="Atualizar">
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-
-        <h2 class="titulo-pagina">Histórico de avaliações</h2>
-        <div class="row col-12">
-            <div th:each="avaliacao : ${avaliacoes}" class="col-md-4 mb-4">
-                <div class="">
-                    <div class="p-2">
-                        <div>
-                            <h4 th:text="${avaliacao.cardapio.tipoRefeicao + ' - ' + avaliacao.cardapio.tipoCardapio + ' - ' + avaliacao.cardapio.data}" ></h4>
-                            <h5>
-                                <span class="text-principal">Prato principal: </span>
-                                <span class="text-dados" th:text="${avaliacao.cardapio.pratoPrincipal}"></span>
-                                <div>
-                                    <span class="text-principal">Acompanhamentos: </span>
-                                    <span class="text-dados" th:text="${avaliacao.cardapio.acompanhamento}"></span>
-                                </div>
-                                <span class="text-principal">Descrição:</span>
-                                <span class="text-dados" th:text="${avaliacao.descricao}"></span>
-                            </h5>
-
-                        </div>
-                        <div class="estrelas">
-                            <label th:each="star : ${#numbers.sequence(1,5)}" th:class="${avaliacao.quantidadeEstrelas >= star} ? 'filled' : ''"><i class="fa"></i></label>
-                        </div>
-                        <br>
-                        <a th:href="@{'/avaliacao/editar-avaliacao/' + ${avaliacao.id}}" class="botao-editar">Editar avaliação</a>
-                        <form th:action="@{'/avaliacao/excluir-avaliacao/' + ${avaliacao.id}}" method="post" style="display:inline;">
-                            <button type="submit" class="botao-danger" onclick="return confirm('Deseja mesmo excluir esta avaliação? Essa ação não pode ser desfeita.')">Excluir avaliação</button>
-                        </form>
-                    </div>
-                </div>
-                <br>
-            </div>
-        </div>
-
-
-        <script>
-            document.querySelectorAll('.formulario-card').forEach((card) => {
-                const cardId = card.id.split('_')[1];
-                const selectElement = card.querySelector('select');
-
-                if (selectElement) {
-                    selectElement.addEventListener("change", function () {
-                        document.getElementById(`cardapioId_${cardId}`).value = this.value;
-                    });
-                }
-
-                card.querySelectorAll('input[name^="fb_"]').forEach((input) => {
-                    input.addEventListener("change", function () {
-                        document.getElementById(`quantidadeEstrelas_${cardId}`).value = this.value || "0";
-                    });
-                });
-
-                card.querySelector('textarea[id^="descricao_"]').addEventListener("input", function () {
-                    document.getElementById(`quantidadeEstrelas_${cardId}`).value = card.querySelector(`input[name="fb_${cardId}"]:checked`).value || "0";
-                });
-            });
-
-        </script>
-
     </div>
 </div>
 </body>

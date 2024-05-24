@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-    <title>Solicitar assistência</title>
+    <title>Editar assistência</title>
 </head>
 <body>
 <div class="navbarstyle">
@@ -51,10 +51,11 @@
 
 </div>
 <div class="texto">
-    <h1>Formulário de solicitação de assistência:</h1>
-    <form action="/assistencia/solicitar-assistencia" method="post">
+    <h1>Edição de assistência:</h1>
+    <form action="/assistencia/atualizar" method="post">
+        <input type="hidden" name="id_assistencia" th:value="${assistencia.id}">
         <label for="motivo">* Motivo da solicitação:</label>
-        <select name="motivo" id="motivo">
+        <select name="motivo" th:value="${assistencia.motivo}" id="motivo">
             <option value="">--Selecione um motivo--</option>
             <option value="Limitações de mobilidade">Limitações de mobilidade por conta de acidentes ou lesões</option>
             <option value="Deficiência">Deficiência que impede a movimentação pelo espaço do restaurante</option>
@@ -64,15 +65,15 @@
             <option value="Motivo não listado">Outro motivo (descreva melhor abaixo)</option>
         </select><br><br>
         <label for="data">* Data de assistência:</label>
-        <input type="date" name="data" id="data"><br><br>
+        <input type="date" name="data" id="data" th:value="${assistencia.data}"><br><br>
         <label for="horario">* Horário de assistência:</label>
-        <input type="time" name="horario" id="horario"><br><br>
+        <input type="time" name="horario" id="horario" th:value="${assistencia.horario}"><br><br>
         <label for="descricao">* Descrição da Solicitação:</label><br>
-        <textarea id="descricao" name="descricao" placeholder="Descreva aqui em detalhes o motivo da sua solicitação..." rows="10" cols="100"></textarea><br><br>
+        <textarea id="descricao" name="descricao"  th:text="${assistencia.descricao}" rows="10" cols="100"></textarea><br><br>
 
         <p th:if="${error}" class="error" th:text="${error}"></p>
 
-        <button type="submit">Cadastrar solicitação de assistência</button>
+        <button type="submit">Confirmar alterações</button>
     </form>
 </div>
 </body>

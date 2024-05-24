@@ -8,9 +8,8 @@ import br.com.ufrn.imd.gru.service.CardapioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -69,6 +68,27 @@ public class AvaliacaoController {
         }
 
         return "avaliacoes";
+    }
+
+    @PostMapping("/atualizar")
+    public String atualizarAvaliacao(@RequestParam("id_avaliacao") long id, @ModelAttribute AvaliacaoDTO avaliacaoDTO) {
+        avaliacaoService.atualizar(id, avaliacaoDTO);
+        return "avaliacoes";
+    }
+
+    @PostMapping("/excluir-avaliacao/{id}")
+    public String excluirCardapio(@PathVariable Long id){
+        avaliacaoService.deleteById(id);
+        return "redirect:/avaliacao/cadastrar";
+    }
+
+    @GetMapping("/editar-avaliacao/{id}")
+    public String editarAvaliacao(@PathVariable Long id, Model model) {
+        Avaliacao avaliacao = avaliacaoService.getById(id);
+        Cardapio cardapio = avaliacao.getCardapio();
+        model.addAttribute("avaliacao", avaliacao);
+        model.addAttribute("cardapio", cardapio);
+        return "editar-avaliacao";
     }
 
 

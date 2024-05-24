@@ -104,7 +104,7 @@
     width: 5em;
     padding: 5px;
     border: 0;
-    border-radius: 10px;
+    border-radius: 10px
 }
 
 #campoNome{
@@ -177,6 +177,33 @@
     margin-left: 2em;
     color: white;
     background-color: #A71919;
+}
+
+.botao-padrao{
+    border: 0;
+    padding: 5px 10px 5px 10px;
+    border-radius: 10px;
+    background-color: #cccccc;
+}
+
+.botao-padrao:hover{
+    background-color: #C3C3C3;
+}
+
+.botao-danger{
+    text-decoration: none;
+    border: 0;
+    padding: 5px 10px 5px 10px;
+    border-radius: 10px;
+    color: white;
+    background-color: firebrick;
+}
+
+.botao-danger:hover{
+    text-decoration: none;
+    cursor: pointer;
+    color: white;
+    background-color: #6c0a0a;
 }
 
 button, input, optgroup, select, textarea {

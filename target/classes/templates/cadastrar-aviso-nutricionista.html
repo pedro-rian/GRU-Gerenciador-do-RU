@@ -14,16 +14,19 @@
 <div class="navbarstyle">
     <h1 class="titulo">GRU</h1>
 
-    <div class="button">
-        <button type="button" class="btn-primarystyle button" id="homeButton">Home</button>
-        <button type="button" class="btn-primarystyle button" id="estatisticasButton">Estatísticas</button>
-        <button type="button" class="btn-primarystyle button" id="verAvaliacoesButton">Ver avaliações</button>
-        <button type="button" class="btn-primarystyle button" id="cadastrarCardapioButton">Cadastrar cardápio</button>
-        <button type="button" class="btn-primarystyle button" id="cadastrarAvisoButton">Cadastrar aviso</button>
-        <button type="button" class="btn-primarystyle button" id="solicitacoesAssistenciaButton">Solicitações de Assitência</button>
+    <div class="button2">
+        <button type="button" class="btn-primarystyle button2" id="homeButton">Home</button>
+        <button type="button" class="btn-primarystyle button2" id="estatisticasButton">Estatísticas</button>
+        <button type="button" class="btn-primarystyle button2" id="verAvaliacoesButton">Ver avaliações</button>
+        <button type="button" class="btn-primarystyle button2" id="cadastrarCardapioButton">Cadastrar cardápio</button>
+        <button type="button" class="btn-primarystyle button2" id="listarCardapiosButton">Listar cardápio</button>
+        <button type="button" class="btn-primarystyle button2" id="cadastrarAvisoButton">Cadastrar aviso</button>
+        <button type="button" class="btn-primarystyle button2" id="solicitacoesAssistenciaButton">Solicitações de Assitência</button>
         <button type="button" class="btn-primarystyle button2" id="cadastrarNutricionistaButton">Cadastrar Nutricionista</button>
-        <button type="button" class="button btn-sair" id="sairButton">Sair</button>
+
+        <button type="button" class="button2 btn-sair" id="sairButton">Sair</button>
     </div>
+
 
     <script>
         document.getElementById("homeButton").onclick = function () {
@@ -38,6 +41,9 @@
         document.getElementById("cadastrarCardapioButton").onclick = function () {
             window.location.href = "/cardapio/cadastrar-cardapio-nutricionista";
         }
+        document.getElementById("listarCardapiosButton").onclick = function () {
+            window.location.href = "/cardapio/cardapio-nutricionista";
+        }
         document.getElementById("cadastrarAvisoButton").onclick = function () {
             window.location.href = "/aviso/cadastrar-aviso-nutricionista";
         }
@@ -47,7 +53,7 @@
         document.getElementById("cadastrarNutricionistaButton").onclick = function () {
             window.location.href = "/usuario/cadastrar-nutricionista";
         }
-        document.getElementById("sairButton").onclick = function () {
+        document.getElementById("sairButton").onclick = function (){
             window.location.href = "/usuario/login";
         }
     </script>
@@ -95,6 +101,10 @@
                     </div>
                 </div>
             </div>
+            <a th:href="@{'/aviso/editar-aviso/' + ${aviso.id}}" class="botao-padrao">Editar aviso</a>
+            <form th:action="@{'/aviso/excluir-aviso/' + ${aviso.id}}" method="post" style="display:inline;">
+                <button type="submit" class="botao-danger" onclick="return confirm('Deseja mesmo excluir este aviso? Essa ação não pode ser desfeita.')">Excluir aviso</button>
+            </form>
         </div>
     </div>
 </div>

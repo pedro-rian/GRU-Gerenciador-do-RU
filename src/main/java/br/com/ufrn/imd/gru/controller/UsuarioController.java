@@ -1,5 +1,6 @@
 package br.com.ufrn.imd.gru.controller;
 
+import br.com.ufrn.imd.gru.dto.PessoaDTO;
 import br.com.ufrn.imd.gru.model.*;
 
 import br.com.ufrn.imd.gru.repository.*;
@@ -7,7 +8,6 @@ import br.com.ufrn.imd.gru.service.PessoaService;
 import br.com.ufrn.imd.gru.service.UsuarioService;
 import br.com.ufrn.imd.gru.service.AssistenciaService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +24,6 @@ public class UsuarioController {
 
     private final UsuarioRepository usuarioRepository;
     private UsuarioService usuarioService;
-    private AssistenciaService assistenciaService;
     private PessoaService pessoaService;
     private UsuarioLogado usuarioLogado;
 
@@ -41,7 +40,6 @@ public class UsuarioController {
                              CardapioRepository cardapioRepository, AvaliacaoRepository avaliacaoRepository,
                              UsuarioLogado usuarioLogado, UsuarioRepository usuarioRepository) {
         this.usuarioService = usuarioService;
-        this.assistenciaService = assistenciaService;
         this.assistenciaRepository = assistenciaRepository;
         this.pessoaService = pessoaService;
         this.pessoaRepository = pessoaRepository;
@@ -140,11 +138,9 @@ public class UsuarioController {
     }
 
     @PostMapping("/salvar-dados")
-    public String salvarDados(@RequestParam String nome, @RequestParam String email,
-                              @RequestParam int idade, @RequestParam double peso,
-                              @RequestParam double altura){
-        Usuario usuario = usuarioRepository.findByEmail(usuarioLogado.getEmail());
-        usuarioService.atualizarDadosUsuario(usuario ,nome, email, idade, peso, altura);
+    public String salvarDados(@ModelAttribute PessoaDTO pessoaDTO){
+        Usuario usuario = usuarioService.findByEmail(usuarioLogado.getEmail());
+        usuarioService.atualizarDadosUsuario(usuario, pessoaDTO);
         return "redirect:/usuario/login";
     }
 
@@ -156,8 +152,6 @@ public class UsuarioController {
     public String solicitarAssistencia() {
         return "solicitar-assistencia";
     }
-    @GetMapping("/meu-perfil-nutricionista")
-    public String meuPerfilNutricionista(){return "meu-perfil-nutricionista";}
 
     @GetMapping("/estatisticas-nutricionista")
     public String estatisticasNutricionista(Model model){

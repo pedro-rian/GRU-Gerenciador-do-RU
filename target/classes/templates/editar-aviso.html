@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/nav-bar.css">
-    <link rel="stylesheet" href="/tela-inicial-comum.css">
+    <link rel="stylesheet" href="/cadastro-de-aviso.css">
     <link rel="stylesheet" href="/webjars/bootstrap/4.6.0/css/bootstrap.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-    <title>Solicitações de assistência</title>
+    <title>Cadastrar aviso</title>
 </head>
 <body>
 <div class="navbarstyle">
@@ -58,41 +58,39 @@
         }
     </script>
 </div>
+
 <div class="texto">
-    <h3 class="cabecalho"> Solicitações de assistência para hoje: </h3>
-    <table class="tabelas">
-        <tr>
-            <th>Motivo da solicitação</th>
-            <th>Descrição da solicitação</th>
-            <th>Data para auxílio</th>
-            <th>Horário para auxílio</th>
-        </tr>
-        <tr th:each="assistencia : ${assistenciasHoje}">
-            <td th:text="${assistencia.motivo}"></td>
-            <td th:text="${assistencia.descricao}"></td>
-            <td th:text="${assistencia.data}"></td>
-            <td th:text="${assistencia.horario}"></td>
-        </tr>
-    </table>
-</div>
-<br><br><br>
-<div class="texto">
-    <h3 class="cabecalho"> Todas as solicitação de assistência: </h3>
-    <table class="tabelas">
-        <tr>
-            <th>Motivo da solicitação</th>
-            <th>Descrição da solicitação</th>
-            <th>Data para auxílio</th>
-            <th>Horário para auxílio</th>
-        </tr>
-        <tr th:each="assistencia : ${assistencias}">
-            <td th:text="${assistencia.motivo}"></td>
-            <td th:text="${assistencia.descricao}"></td>
-            <td th:text="${assistencia.data}"></td>
-            <td th:text="${assistencia.horario}"></td>
-        </tr>
-    </table>
+    <h1 class="titulo-pagina">Edição de aviso:</h1>
+    <div class="containerstyle">
+        <form action="/aviso/atualizar-aviso" method="post">
+            <input type="hidden" name="id_aviso" th:value="${aviso.id}">
+            <label for="titulo" class="subtitulo">Título do aviso:</label>
+            <br>
+            <input class="inputtext" th:value="${aviso.titulo}" type="text" id="titulo" name="titulo" placeholder="Digite o título do aviso"><br><br>
+            <div id="mensagemErroTitulo" class="alerta" role="alert"></div>
+
+            <label for="descricao" class="subtitulo">Descrição do aviso:</label><br>
+            <textarea class="inputdescricao" th:text="${aviso.descricao}" id="descricao" name="descricao" placeholder="Digite a descrição do aviso"></textarea><br>
+            <div id="mensagemErroDescricao" class="alerta" role="alert"></div>
+
+            <label for="data" class="subtitulo">Data do aviso:</label>
+            <br>
+            <input type="date" id="data" name="data" th:value="${aviso.data}"><br><br>
+            <div id="mensagemErroData" class="alerta" role="alert"></div>
+
+            <div id="mensagemErroJaTemAvisoCadastradoNestaData" class="alerta" role="alert"></div>
+            <button type="submit" class="btn-primary-aviso button-aviso">Confirmar alterações</button>
+
+            <div class="alert alert-danger" th:if="${error}">
+                <p th:text="${error}"></p>
+            </div>
+
+        </form>
+    </div>
 </div>
 
+<script>
+
+</script>
 </body>
 </html>

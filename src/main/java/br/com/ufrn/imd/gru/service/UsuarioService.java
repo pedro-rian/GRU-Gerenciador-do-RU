@@ -1,5 +1,6 @@
 
 package br.com.ufrn.imd.gru.service;
+import br.com.ufrn.imd.gru.dto.PessoaDTO;
 import br.com.ufrn.imd.gru.model.Pessoa;
 import br.com.ufrn.imd.gru.model.TipoUsuario;
 import br.com.ufrn.imd.gru.model.Usuario;
@@ -32,15 +33,19 @@ public class UsuarioService {
         return usuarioRepository.autenticar(email, senha);
     }
 
-    public void atualizarDadosUsuario(Usuario usuario, String nome, String email, int idade, double peso, double altura){
+    public Usuario findByEmail(String email) {
+        return usuarioRepository.findByEmail(email);
+    }
+
+    public void atualizarDadosUsuario(Usuario usuario, PessoaDTO pessoaDTO){
         Optional<Pessoa> pessoa = pessoaRepository.findByUsuarioId(usuario.getId());
         if(pessoa.isPresent()){
             Pessoa p = pessoa.get();
-            usuario.setEmail(email);
-            p.setNome(nome);
-            p.setIdade(idade);
-            p.setAltura(altura);
-            p.setPeso(peso);
+            usuario.setEmail(pessoaDTO.getEmail());
+            p.setNome(pessoaDTO.getNome());
+            p.setIdade(pessoaDTO.getIdade());
+            p.setAltura(pessoaDTO.getAltura());
+            p.setPeso(pessoaDTO.getPeso());
             usuarioRepository.save(usuario);
             pessoaRepository.save(p);
         }

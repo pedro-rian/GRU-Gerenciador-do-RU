@@ -18,9 +18,11 @@
         <button type="button" class="btn-primarystyle button2" id="estatisticasButton">Estatísticas</button>
         <button type="button" class="btn-primarystyle button2" id="verAvaliacoesButton">Ver avaliações</button>
         <button type="button" class="btn-primarystyle button2" id="cadastrarCardapioButton">Cadastrar cardápio</button>
+        <button type="button" class="btn-primarystyle button2" id="listarCardapiosButton">Listar cardápio</button>
         <button type="button" class="btn-primarystyle button2" id="cadastrarAvisoButton">Cadastrar aviso</button>
         <button type="button" class="btn-primarystyle button2" id="solicitacoesAssistenciaButton">Solicitações de Assitência</button>
         <button type="button" class="btn-primarystyle button2" id="cadastrarNutricionistaButton">Cadastrar Nutricionista</button>
+
         <button type="button" class="button2 btn-sair" id="sairButton">Sair</button>
     </div>
 
@@ -38,6 +40,9 @@
         document.getElementById("cadastrarCardapioButton").onclick = function () {
             window.location.href = "/cardapio/cadastrar-cardapio-nutricionista";
         }
+        document.getElementById("listarCardapiosButton").onclick = function () {
+            window.location.href = "/cardapio/cardapio-nutricionista";
+        }
         document.getElementById("cadastrarAvisoButton").onclick = function () {
             window.location.href = "/aviso/cadastrar-aviso-nutricionista";
         }
@@ -50,8 +55,6 @@
         document.getElementById("sairButton").onclick = function (){
             window.location.href = "/usuario/login";
         }
-
-
     </script>
 </div>
 <div class="texto">

@@ -19,9 +19,9 @@
         <button type="button" class="btn-primarystyle button" id="meuPerfilButton">Meu Perfil</button>
         <button type="button" class="btn-primarystyle button" id="avaliaçõesButton">Avaliações</button>
         <button type="button" class="btn-primarystyle button" id="solicitarAssistenciaButton">Solicitar Assitência</button>
+        <button type="button" class="btn-primarystyle button" id="assistenciasButton">Assistências solicitadas</button>
         <button type="button" class="button btn-sair" id="sairButton">Sair</button>
     </div>
-
 
     <script>
         document.getElementById("homeButton").onclick = function () {
@@ -34,16 +34,20 @@
             window.location.href = "/usuario/meu-perfil";
         }
         document.getElementById("avaliaçõesButton").onclick = function () {
-            window.location.href = "/usuario/avaliacoes";
+            window.location.href = "/avaliacao/cadastrar";
         };
         document.getElementById("solicitarAssistenciaButton").onclick = function () {
             window.location.href = "/usuario/solicitar-assistencia";
+        }
+        document.getElementById("assistenciasButton").onclick = function () {
+            window.location.href = "/assistencia/assistencias";
         }
         document.getElementById("sairButton").onclick = function (){
             window.location.href = "/usuario/login";
         }
 
     </script>
+
 </div>
 <div class="form-editar-dados">
     <h2>Edição de dados pessoais</h2>

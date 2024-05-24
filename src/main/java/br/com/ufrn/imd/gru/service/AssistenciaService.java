@@ -15,6 +15,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -31,15 +32,28 @@ public class AssistenciaService {
         assistenciaRepository.save(assistencia);
     }
 
-    public List<AssistenciaDTO> listarAssistenciasDaDataAtual(){
-        LocalDate hoje = LocalDate.now();
-        List<Assistencia> assistencias = assistenciaRepository.findByData(hoje);
-        return assistencias.stream().map(this::toDTO).collect(Collectors.toList());
+    public void atualizarAssistencia(long id, AssistenciaDTO assistenciaDTO){
+        Optional<Assistencia> a = assistenciaRepository.findById(id);
+        if(a.isPresent()){
+            Assistencia assistencia = a.get();
+            assistencia.setMotivo(assistenciaDTO.getMotivo());
+            assistencia.setDescricao(assistenciaDTO.getDescricao());
+            assistencia.setData(parseData(assistenciaDTO.getData()));
+            assistencia.setHorario(parseHorario(assistenciaDTO.getHorario()));
+            assistenciaRepository.save(assistencia);
+        }
+
     }
 
-    public List<AssistenciaDTO> listarTodasAssistencias(){
+    public List<Assistencia> listarAssistenciasDaDataAtual(){
+        LocalDate hoje = LocalDate.now();
+        List<Assistencia> assistencias = assistenciaRepository.findByData(hoje);
+        return assistencias;
+    }
+
+    public List<Assistencia> listarTodasAssistencias(){
         List<Assistencia> assistencias = assistenciaRepository.findAll();
-        return assistencias.stream().map(this::toDTO).collect(Collectors.toList());
+        return assistencias;
     }
 
     public void validarCamposObrigatorios(String motivo,
@@ -66,6 +80,15 @@ public class AssistenciaService {
             throw new IllegalArgumentException("Formato de horaŕio inválido.");
         }
     }
+
+    public Assistencia findById(Long id){
+        return assistenciaRepository.findById(id).orElse(null);
+    }
+
+    public void deleteById(Long id){
+        assistenciaRepository.deleteById(id);
+    }
+
 
     public Assistencia toEntity(AssistenciaDTO assistenciaDTO) {
         validarCamposObrigatorios(assistenciaDTO.getMotivo(), assistenciaDTO.getDescricao(),

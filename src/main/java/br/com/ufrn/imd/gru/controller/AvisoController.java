@@ -40,4 +40,23 @@ public class AvisoController {
             return "cadastrar-aviso-nutricionista";
         }
     }
+
+    @PostMapping("/excluir-aviso/{id}")
+    public String excluirAviso(@PathVariable long id) {
+        avisoService.deleteById(id);
+        return "redirect:/aviso/cadastrar-aviso-nutricionista";
+    }
+
+    @GetMapping("/editar-aviso/{id}")
+    public String editarAviso(@PathVariable long id, Model model) {
+        Aviso aviso = avisoService.findById(id);
+        model.addAttribute("aviso", aviso);
+        return "editar-aviso";
+    }
+
+    @PostMapping("/atualizar-aviso")
+    public String atualizarAviso(@RequestParam("id_aviso") long id, @ModelAttribute AvisoDTO avisoDTO, Model model) {
+        avisoService.atualizarAviso(id, avisoDTO);
+        return "redirect:/aviso/cadastrar-aviso-nutricionista";
+    }
 }

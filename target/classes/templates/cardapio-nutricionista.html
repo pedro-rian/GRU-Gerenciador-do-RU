@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/nav-bar.css">
+    <link rel="stylesheet" href="/webjars/bootstrap/4.6.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/tela-inicial-comum.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <title>Cardápios cadastrados</title>
+</head>
+<body>
+    <div class="navbarstyle">
+        <h1 class="titulo">GRU</h1>
+
+        <div class="button2">
+            <button type="button" class="btn-primarystyle button2" id="homeButton">Home</button>
+            <button type="button" class="btn-primarystyle button2" id="estatisticasButton">Estatísticas</button>
+            <button type="button" class="btn-primarystyle button2" id="verAvaliacoesButton">Ver avaliações</button>
+            <button type="button" class="btn-primarystyle button2" id="cadastrarCardapioButton">Cadastrar cardápio</button>
+            <button type="button" class="btn-primarystyle button2" id="listarCardapiosButton">Listar cardápio</button>
+            <button type="button" class="btn-primarystyle button2" id="cadastrarAvisoButton">Cadastrar aviso</button>
+            <button type="button" class="btn-primarystyle button2" id="solicitacoesAssistenciaButton">Solicitações de Assitência</button>
+            <button type="button" class="btn-primarystyle button2" id="cadastrarNutricionistaButton">Cadastrar Nutricionista</button>
+
+            <button type="button" class="button2 btn-sair" id="sairButton">Sair</button>
+        </div>
+
+
+        <script>
+            document.getElementById("homeButton").onclick = function () {
+                window.location.href = "/usuario/tela-inicial-nutricionista";
+            };
+            document.getElementById("estatisticasButton").onclick = function () {
+                window.location.href = "/usuario/estatisticas-nutricionista";
+            }
+            document.getElementById("verAvaliacoesButton").onclick = function () {
+                window.location.href = "/avaliacao/visualizar";
+            };
+            document.getElementById("cadastrarCardapioButton").onclick = function () {
+                window.location.href = "/cardapio/cadastrar-cardapio-nutricionista";
+            }
+            document.getElementById("listarCardapiosButton").onclick = function () {
+                window.location.href = "/cardapio/cardapio-nutricionista";
+            }
+            document.getElementById("cadastrarAvisoButton").onclick = function () {
+                window.location.href = "/aviso/cadastrar-aviso-nutricionista";
+            }
+            document.getElementById("solicitacoesAssistenciaButton").onclick = function () {
+                window.location.href = "/assistencia/solicitacoes-assistencia-nutricionista";
+            }
+            document.getElementById("cadastrarNutricionistaButton").onclick = function () {
+                window.location.href = "/usuario/cadastrar-nutricionista";
+            }
+            document.getElementById("sairButton").onclick = function (){
+                window.location.href = "/usuario/login";
+            }
+        </script>
+    </div>
+    <div class="texto">
+        <h1>Cardápios cadastrados para hoje:</h1>
+    </div>
+    <br><br>
+    <div class="tabelas-cardapio texto">
+        <div class="tabela-convencional">
+            <h3 class="cabecalho">Cardápio convencional: </h3>
+            <table class="tabelas">
+                <tr>
+                    <th>Tipo de Refeição</th>
+                    <th>Acompanhamento</th>
+                    <th>Prato Principal</th>
+                    <th>Opções</th>
+                </tr>
+                <tr th:each="cardapio : ${cardapiosConvencionais}">
+                    <td th:text="${cardapio.tipoRefeicao}"></td>
+                    <td th:text="${cardapio.pratoPrincipal}"></td>
+                    <td th:text="${cardapio.acompanhamento}"></td>
+                    <td>
+                        <a th:href="@{'/cardapio/editar-cardapio/' + ${cardapio.id}}" class="botao-padrao">Editar dados</a>
+                        <form th:action="@{'/cardapio/excluir-cardapio/' + ${cardapio.id}}" method="post" style="display:inline;">
+                            <button type="submit" class="botao-danger" onclick="return confirm('Deseja mesmo excluir este cardápio? Essa ação não pode ser desfeita.')">Excluir cardápio</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+        <div class="tabela-vegetariano">
+            <h3 class="cabecalho">Cardápio vegetariano: </h3>
+            <table class="tabelas">
+                <tr>
+                    <th>Tipo de Refeição</th>
+                    <th>Acompanhamento</th>
+                    <th>Prato Principal</th>
+                    <th>Opções</th>
+                </tr>
+                <tr th:each="cardapio : ${cardapiosVegetarianos}">
+                    <td th:text="${cardapio.tipoRefeicao}"></td>
+                    <td th:text="${cardapio.pratoPrincipal}"></td>
+                    <td th:text="${cardapio.acompanhamento}"></td>
+                    <td>
+                        <a th:href="@{'/cardapio/editar-cardapio/' + ${cardapio.id}}" class="botao-padrao">Editar dados</a>
+                        <form th:action="@{'/cardapio/excluir-cardapio/' + ${cardapio.id}}" method="post" style="display:inline;">
+                            <button type="submit" class="botao-danger" onclick="return confirm('Deseja mesmo excluir este cardápio? Essa ação não pode ser desfeita.')">Excluir cardápio</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    </div>
+</body>
+</html>

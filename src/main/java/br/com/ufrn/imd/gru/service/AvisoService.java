@@ -62,6 +62,40 @@ public class AvisoService {
         avisoRepository.save(aviso);
     }
 
+    public void atualizarAviso(long id, AvisoDTO avisoDTO) {
+        List<String> errors = new ArrayList<>();
+
+        if (avisoDTO.getTitulo() == null || avisoDTO.getTitulo().isEmpty()) {
+            errors.add("Título é um campo obrigatório.");
+        }
+        if (avisoDTO.getDescricao() == null || avisoDTO.getDescricao().isEmpty()) {
+            errors.add("Descrição é um campo obrigatório.");
+        }
+        if (avisoDTO.getData() == null) {
+            errors.add("Data é um campo obrigatório.");
+        }
+        if (!errors.isEmpty()) {
+            throw new IllegalArgumentException(String.join(", ", errors));
+        }
+
+        Date data = parseData(avisoDTO.getData().toString());
+
+        Aviso aviso = avisoRepository.findById(id).get();
+        aviso.setTitulo(avisoDTO.getTitulo());
+        aviso.setDescricao(avisoDTO.getDescricao());
+        aviso.setData(data);
+
+        avisoRepository.save(aviso);
+    }
+
+    public Aviso findById(long id){
+        return avisoRepository.findById(id).orElse(null);
+    }
+
+    public void deleteById(long id){
+        avisoRepository.deleteById(id);
+    }
+
     private Date parseData(String dataString) {
         try {
             SimpleDateFormat format = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
@@ -70,7 +104,6 @@ public class AvisoService {
             throw new IllegalArgumentException("Formato de data inválido.");
         }
     }
-
 
     private boolean avisoJaCadastrado(LocalDate data) {
         return avisoRepository.existsAviso(data);
