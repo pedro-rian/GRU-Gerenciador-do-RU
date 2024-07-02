@@ -1,13 +1,9 @@
 package br.com.ufrn.imd.gru.model;
 import jakarta.persistence.*;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "usuario")
-public class Usuario {
+public class UsuarioGRU {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

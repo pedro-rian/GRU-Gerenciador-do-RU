@@ -3,10 +3,10 @@ package br.com.ufrn.imd.gru.service;
 import br.com.ufrn.imd.gru.dto.PessoaDTO;
 import br.com.ufrn.imd.gru.model.Pessoa;
 import br.com.ufrn.imd.gru.model.TipoUsuario;
-import br.com.ufrn.imd.gru.model.Usuario;
+import br.com.ufrn.imd.gru.model.UsuarioGRU;
 import br.com.ufrn.imd.gru.model.UsuarioLogado;
 import br.com.ufrn.imd.gru.repository.PessoaRepository;
-import br.com.ufrn.imd.gru.repository.UsuarioRepository;
+import br.com.ufrn.imd.gru.repository.UsuarioGRURepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,27 +17,27 @@ import java.util.Optional;
 public class UsuarioService {
 
     private final PessoaRepository pessoaRepository;
-    private UsuarioRepository usuarioRepository;
+    private UsuarioGRURepository usuarioRepository;
 
     @Autowired
-    public UsuarioService(UsuarioRepository usuarioRepository, PessoaRepository pessoaRepository) {
+    public UsuarioService(UsuarioGRURepository usuarioRepository, PessoaRepository pessoaRepository) {
         this.usuarioRepository = usuarioRepository;
         this.pessoaRepository = pessoaRepository;
     }
 
     public boolean existeUsuarioComEmail(String email) {
-        Usuario usuario = usuarioRepository.findByEmail(email);
+        UsuarioGRU usuario = usuarioRepository.findByEmail(email);
         return usuario != null;
     }
-    public Usuario autenticarUsuario(String email, String senha) {
+    public UsuarioGRU autenticarUsuario(String email, String senha) {
         return usuarioRepository.autenticar(email, senha);
     }
 
-    public Usuario findByEmail(String email) {
+    public UsuarioGRU findByEmail(String email) {
         return usuarioRepository.findByEmail(email);
     }
 
-    public void atualizarDadosUsuario(Usuario usuario, PessoaDTO pessoaDTO){
+    public void atualizarDadosUsuario(UsuarioGRU usuario, PessoaDTO pessoaDTO){
         Optional<Pessoa> pessoa = pessoaRepository.findByUsuarioId(usuario.getId());
         if(pessoa.isPresent()){
             Pessoa p = pessoa.get();
@@ -51,17 +51,17 @@ public class UsuarioService {
         }
     }
 
-    public void salvarUsuario(Usuario usuario) {
+    public void salvarUsuario(UsuarioGRU usuario) {
         usuarioRepository.save(usuario);
     }
 
     public void desativarUsuario(UsuarioLogado usuarioLogado){
-        Usuario usuario = usuarioRepository.findByEmail(usuarioLogado.getEmail());
+        UsuarioGRU usuario = usuarioRepository.findByEmail(usuarioLogado.getEmail());
         usuario.setAtivo(false);
         usuarioRepository.save(usuario);
     }
 
-    public List<Usuario> listarConsumidores() {
+    public List<UsuarioGRU> listarConsumidores() {
         return usuarioRepository.findByTipo(TipoUsuario.CONSUMIDOR);
     }
 }

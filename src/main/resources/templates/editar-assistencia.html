@@ -71,7 +71,11 @@
         <label for="descricao">* Descrição da Solicitação:</label><br>
         <textarea id="descricao" name="descricao"  th:text="${assistencia.descricao}" rows="10" cols="100"></textarea><br><br>
 
-        <p th:if="${error}" class="error" th:text="${error}"></p>
+        <div th:if="${erros != null}" class="error">
+            <ul>
+                <li th:each="erro : ${erros}" th:text="${erro}"></li>
+            </ul>
+        </div>
 
         <button type="submit">Confirmar alterações</button>
     </form>

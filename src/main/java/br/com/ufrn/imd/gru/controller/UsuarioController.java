@@ -22,7 +22,7 @@ import java.util.Optional;
 @RequestMapping("/usuario")
 public class UsuarioController {
 
-    private final UsuarioRepository usuarioRepository;
+    private final UsuarioGRURepository usuarioRepository;
     private UsuarioService usuarioService;
     private PessoaService pessoaService;
     private UsuarioLogado usuarioLogado;
@@ -38,7 +38,7 @@ public class UsuarioController {
                              PessoaService pessoaService, PessoaRepository pessoaRepository,
                              AssistenciaRepository assistenciaRepository, AvisoRepository avisoRepository,
                              CardapioRepository cardapioRepository, AvaliacaoRepository avaliacaoRepository,
-                             UsuarioLogado usuarioLogado, UsuarioRepository usuarioRepository) {
+                             UsuarioLogado usuarioLogado, UsuarioGRURepository usuarioRepository) {
         this.usuarioService = usuarioService;
         this.assistenciaRepository = assistenciaRepository;
         this.pessoaService = pessoaService;
@@ -62,8 +62,8 @@ public class UsuarioController {
 
     @PostMapping("/logar")
     public String logar(Model model, String email, String senha){
-        Usuario usuario = usuarioService.autenticarUsuario(email, senha);
-        Usuario u = usuarioRepository.findByEmail(email);
+        UsuarioGRU usuario = usuarioService.autenticarUsuario(email, senha);
+        UsuarioGRU u = usuarioRepository.findByEmail(email);
         if (usuario != null) {
             if (u.getTipo() == TipoUsuario.CONSUMIDOR){
                 usuarioLogado.setEmail(email);
@@ -89,10 +89,10 @@ public class UsuarioController {
     }
     @GetMapping("/tela-inicial-nutricionista")
     public String listarConsumidores(Model model) {
-        List<Usuario> consumidores = usuarioService.listarConsumidores();
+        List<UsuarioGRU> consumidores = usuarioService.listarConsumidores();
         List<Pessoa> pessoas = new ArrayList<>();
 
-        for (Usuario consumidor : consumidores) {
+        for (UsuarioGRU consumidor : consumidores) {
             Long usuarioId = consumidor.getId();
             Pessoa pessoa = pessoaService.buscarPorIdDoUsuario(usuarioId);
             if (pessoa != null) {
@@ -139,7 +139,7 @@ public class UsuarioController {
 
     @PostMapping("/salvar-dados")
     public String salvarDados(@ModelAttribute PessoaDTO pessoaDTO){
-        Usuario usuario = usuarioService.findByEmail(usuarioLogado.getEmail());
+        UsuarioGRU usuario = usuarioService.findByEmail(usuarioLogado.getEmail());
         usuarioService.atualizarDadosUsuario(usuario, pessoaDTO);
         return "redirect:/usuario/login";
     }

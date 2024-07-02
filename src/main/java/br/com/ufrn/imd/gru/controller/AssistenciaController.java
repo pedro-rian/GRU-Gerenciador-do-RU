@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -62,7 +63,27 @@ public class AssistenciaController {
     }
 
     @PostMapping("/atualizar")
-    public String atualizarAssistencia(@RequestParam("id_assistencia") long id, @ModelAttribute AssistenciaDTO assistenciaDTO) {
+    public String atualizarAssistencia(@RequestParam("id_assistencia") long id, @ModelAttribute AssistenciaDTO assistenciaDTO, Model model) {
+        List<String> erros = new ArrayList<>();
+
+        if (assistenciaDTO.getMotivo() == null || assistenciaDTO.getMotivo().isEmpty()) {
+            erros.add("O campo 'motivo' não pode estar vazio.");
+        }
+        if (assistenciaDTO.getDescricao() == null || assistenciaDTO.getDescricao().isEmpty()) {
+            erros.add("O campo 'descricao' não pode estar vazio.");
+        }
+        if (assistenciaDTO.getData() == null) {
+            erros.add("O campo 'data' não pode estar vazio.");
+        }
+        if (assistenciaDTO.getHorario() == null) {
+            erros.add("O campo 'horario' não pode estar vazio.");
+        }
+
+        if (!erros.isEmpty()) {
+            model.addAttribute("erros", erros);
+            return "editar-assistencia";
+        }
+
         assistenciaService.atualizarAssistencia(id, assistenciaDTO);
         return "redirect:/assistencia/assistencias";
     }

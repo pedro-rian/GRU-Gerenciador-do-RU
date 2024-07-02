@@ -2,13 +2,12 @@ package br.com.ufrn.imd.gru.controller;
 
 import br.com.ufrn.imd.gru.dto.PessoaDTO;
 import br.com.ufrn.imd.gru.model.Pessoa;
-import br.com.ufrn.imd.gru.model.Usuario;
+import br.com.ufrn.imd.gru.model.UsuarioGRU;
 import br.com.ufrn.imd.gru.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,7 +42,7 @@ public class PessoaController {
         pessoa.setPeso(pessoaDTO.getPeso());
         pessoa.setAltura(pessoaDTO.getAltura());
 
-        Usuario usuario = new Usuario();
+        UsuarioGRU usuario = new UsuarioGRU();
         usuario.setEmail(pessoaDTO.getEmail());
         usuario.setSenha(pessoaDTO.getSenha());
         usuario.setTipo(pessoaDTO.getTipoUsuario());
