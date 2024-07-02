@@ -3,10 +3,19 @@ package br.com.ufrn.imd.gru.dto;
 import br.com.ufrn.imd.gru.model.Evento;
 
 public class AvaliacaoEventoDTO extends AvaliacaoDTO{
+    private long id;
     private long estrelasAcessibilidade;
     private long estrelasPontualidade;
     private long estrelasPalestrante;
     private Evento evento;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public long getEstrelasAcessibilidade() {
         return estrelasAcessibilidade;

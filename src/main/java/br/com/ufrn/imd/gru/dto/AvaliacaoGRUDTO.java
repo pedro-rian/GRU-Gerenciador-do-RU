@@ -7,12 +7,21 @@ import br.com.ufrn.imd.gru.model.TipoRefeicao;
 import java.util.Date;
 
 public class AvaliacaoGRUDTO extends AvaliacaoDTO{
+    private long id;
     private long quantidadeEstrelas;
     private TipoRefeicao tipoRefeicao;
     private TipoCardapio tipoCardapio;
     private Date date;
 
     private Cardapio cardapio;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public long getQuantidadeEstrelas() {
         return quantidadeEstrelas;

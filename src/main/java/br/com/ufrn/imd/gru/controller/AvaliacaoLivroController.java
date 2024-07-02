@@ -15,35 +15,31 @@ public class AvaliacaoLivroController extends AvaliacaoController<AvaliacaoLivro
 
     @Autowired
     public AvaliacaoLivroController(AvaliacaoLivroService avaliacaoLivroService) {
+        super(avaliacaoLivroService);
         this.avaliacaoLivroService = avaliacaoLivroService;
     }
 
-    @PostMapping
-    public ResponseEntity<String> create(@RequestBody AvaliacaoLivroDTO avaliacaoLivroDto) {
-        AvaliacaoLivro avaliacaoLivro = new AvaliacaoLivro();
-        avaliacaoLivro.setDescricao(avaliacaoLivroDto.getDescricao());
-        avaliacaoLivro.setTituloResenha(avaliacaoLivroDto.getTituloResenha());
-        avaliacaoLivro.setAutorResenha(avaliacaoLivroDto.getAutorResenha());
-        avaliacaoLivro.setLivro(avaliacaoLivroDto.getLivro());
-        avaliacaoLivroService.cadastrar(avaliacaoLivro);
-        return ResponseEntity.ok("Avaliação de livro cadastrada com sucesso!");
-    }
-
     @Override
-    @PutMapping("/{id}")
-    public void update(@PathVariable long id, @RequestBody AvaliacaoLivroDTO avaliacaoDto) {
-        AvaliacaoLivro avaliacaoLivro = avaliacaoLivroService.getById(id);
+    protected void cadastrarAvaliacao(AvaliacaoLivroDTO avaliacaoDto) {
+        AvaliacaoLivroDTO avaliacaoLivro = new AvaliacaoLivroDTO();
         avaliacaoLivro.setDescricao(avaliacaoDto.getDescricao());
         avaliacaoLivro.setTituloResenha(avaliacaoDto.getTituloResenha());
         avaliacaoLivro.setAutorResenha(avaliacaoDto.getAutorResenha());
         avaliacaoLivro.setLivro(avaliacaoDto.getLivro());
-        avaliacaoLivroService.atualizar(avaliacaoLivro);
+        avaliacaoLivroService.cadastrar(avaliacaoLivro);
     }
 
     @Override
-    @DeleteMapping("/{id}")
-    public String deleteById(@PathVariable long id) {
-        avaliacaoLivroService.deleteById(id);
-        return "Avaliação de livro excluída com sucesso!";
+    protected void atualizarAvaliacao(long id, AvaliacaoLivroDTO avaliacaoDto) {
+        AvaliacaoLivroDTO avaliacaoLivro = avaliacaoLivroService.getById(id);
+        if (avaliacaoLivro != null) {
+            avaliacaoLivro.setDescricao(avaliacaoDto.getDescricao());
+            avaliacaoLivro.setTituloResenha(avaliacaoDto.getTituloResenha());
+            avaliacaoLivro.setAutorResenha(avaliacaoDto.getAutorResenha());
+            avaliacaoLivro.setLivro(avaliacaoDto.getLivro());
+            avaliacaoLivroService.atualizar(avaliacaoLivro);
+        } else {
+            throw new IllegalArgumentException("Avaliação de livro não encontrada");
+        }
     }
 }

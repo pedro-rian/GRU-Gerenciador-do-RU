@@ -9,32 +9,52 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class AvaliacaoGRUService {
+public class AvaliacaoGRUService implements AvaliacaoService<AvaliacaoGRUDTO> {
 
     @Autowired
     private AvaliacaoRepository avaliacaoRepository;
 
-    public AvaliacaoGRU cadastrar(AvaliacaoGRU avaliacao) {
+    @Override
+    public AvaliacaoGRU cadastrar(AvaliacaoGRUDTO avaliacaoDto) {
+        AvaliacaoGRU avaliacao = new AvaliacaoGRU();
+        avaliacao.setQuantidadeEstrelas(avaliacaoDto.getQuantidadeEstrelas());
+        avaliacao.setDescricao(avaliacaoDto.getDescricao());
         return avaliacaoRepository.save(avaliacao);
     }
 
-    public void atualizar(long id, AvaliacaoGRUDTO avaliacaoDTO) {
-        AvaliacaoGRU avaliacao = avaliacaoRepository.findById(id).get();
-        avaliacao.setQuantidadeEstrelas(avaliacaoDTO.getQuantidadeEstrelas());
-        avaliacao.setDescricao(avaliacaoDTO.getDescricao());
-        avaliacaoRepository.save(avaliacao);
+    @Override
+    public void atualizar(long id, AvaliacaoGRUDTO avaliacaoDto) {
+        AvaliacaoGRU avaliacao = avaliacaoRepository.findById(id).orElse(null);
+        if (avaliacao != null) {
+            avaliacao.setQuantidadeEstrelas(avaliacaoDto.getQuantidadeEstrelas());
+            avaliacao.setDescricao(avaliacaoDto.getDescricao());
+            avaliacaoRepository.save(avaliacao);
+        } else {
+            throw new IllegalArgumentException("Avaliação não encontrada");
+        }
     }
 
+    @Override
     public List<AvaliacaoGRU> getAvaliacoesAtuais() {
         return avaliacaoRepository.findAll();
     }
 
+    @Override
     public void deleteById(long id) {
         avaliacaoRepository.deleteById(id);
     }
 
-    public AvaliacaoGRU getById(long id) {
-        return avaliacaoRepository.findById(id).orElse(null);
+
+    @Override
+    public AvaliacaoGRUDTO getById(long id) {
+        return null;
     }
 
+    @Override
+    public void validarDadosAvaliacao(AvaliacaoGRUDTO avaliacaoDto) {
+        int quantidadeEstrelas = (int) avaliacaoDto.getQuantidadeEstrelas();
+        if (quantidadeEstrelas < 1 || quantidadeEstrelas > 5) {
+            throw new IllegalArgumentException("A quantidade de estrelas deve estar entre 1 e 5");
+        }
+    }
 }
