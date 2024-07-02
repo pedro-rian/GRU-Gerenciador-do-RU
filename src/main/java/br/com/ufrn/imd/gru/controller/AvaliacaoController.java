@@ -1,19 +1,40 @@
 package br.com.ufrn.imd.gru.controller;
 
 import br.com.ufrn.imd.gru.dto.AvaliacaoDTO;
+import br.com.ufrn.imd.gru.service.AvaliacaoService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 public abstract class AvaliacaoController<T extends AvaliacaoDTO> {
 
-    // Construtor padrão
-    public AvaliacaoController() {}
+    private final AvaliacaoService<T> avaliacaoService;
 
-    public ResponseEntity<String> create(T avaliacaoDto) {
-        // Common logic for creating an evaluation
-        return ResponseEntity.ok("successfully");
+    public AvaliacaoController(AvaliacaoService<T> avaliacaoService) {
+        this.avaliacaoService = avaliacaoService;
     }
 
-    public abstract void update(long id, T avaliacaoDto);
+    @PostMapping
+    public ResponseEntity<String> create(@RequestBody T avaliacaoDto) {
+        avaliacaoService.validarDadosAvaliacao(avaliacaoDto);
+        cadastrarAvaliacao(avaliacaoDto);
+        return ResponseEntity.ok("Avaliação cadastrada com sucesso!");
+    }
 
-    public abstract String deleteById(long id);
+    @PutMapping("/{id}")
+    public ResponseEntity<String> update(@PathVariable long id, @RequestBody T avaliacaoDto) {
+        avaliacaoService.validarDadosAvaliacao(avaliacaoDto);
+        atualizarAvaliacao(id, avaliacaoDto);
+        return ResponseEntity.ok("Avaliação atualizada com sucesso!");
+    }
+
+    @PostMapping("/excluir-avaliacao/{id}")
+    public String deleteById(@PathVariable long id) {
+        avaliacaoService.deleteById(id);
+        return "redirect:/avaliacao/cadastrar";
+    }
+
+    protected abstract void cadastrarAvaliacao(T avaliacaoDto);
+
+    protected abstract void atualizarAvaliacao(long id, T avaliacaoDto);
+
 }

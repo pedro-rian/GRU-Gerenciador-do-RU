@@ -11,11 +11,9 @@ public class AvaliacaoEvento extends Avaliacao{
     private long estrelasAcessibilidade;
     private long estrelasPontualidade;
     private long estrelasPalestrante;
-
     @ManyToOne(optional = true)
     @JoinColumn(name = "id_evento")
     private Evento evento;
-
 
     public long getId() {
         return id;
@@ -52,7 +50,6 @@ public class AvaliacaoEvento extends Avaliacao{
     public Evento getEvento() {
         return evento;
     }
-
     public void setEvento(Evento evento) {
         this.evento = evento;
     }
