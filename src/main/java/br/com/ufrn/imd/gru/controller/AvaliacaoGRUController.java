@@ -84,7 +84,6 @@ public class AvaliacaoGRUController extends AvaliacaoController<AvaliacaoGRUDTO>
 
     @Override
     public void update(long id, AvaliacaoGRUDTO avaliacaoDto) {
-        // Implementação da atualização de avaliação específica, se necessário
     }
 
 }

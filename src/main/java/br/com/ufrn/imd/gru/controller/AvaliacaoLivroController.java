@@ -20,7 +20,6 @@ public class AvaliacaoLivroController extends AvaliacaoController<AvaliacaoLivro
 
     @PostMapping
     public ResponseEntity<String> create(@RequestBody AvaliacaoLivroDTO avaliacaoLivroDto) {
-        // Implementação específica para criar uma avaliação de livro
         AvaliacaoLivro avaliacaoLivro = new AvaliacaoLivro();
         avaliacaoLivro.setDescricao(avaliacaoLivroDto.getDescricao());
         avaliacaoLivro.setTituloResenha(avaliacaoLivroDto.getTituloResenha());
@@ -33,7 +32,6 @@ public class AvaliacaoLivroController extends AvaliacaoController<AvaliacaoLivro
     @Override
     @PutMapping("/{id}")
     public void update(@PathVariable long id, @RequestBody AvaliacaoLivroDTO avaliacaoDto) {
-        // Implementação específica para atualizar uma avaliação de livro
         AvaliacaoLivro avaliacaoLivro = avaliacaoLivroService.getById(id);
         avaliacaoLivro.setDescricao(avaliacaoDto.getDescricao());
         avaliacaoLivro.setTituloResenha(avaliacaoDto.getTituloResenha());
@@ -45,7 +43,6 @@ public class AvaliacaoLivroController extends AvaliacaoController<AvaliacaoLivro
     @Override
     @DeleteMapping("/{id}")
     public String deleteById(@PathVariable long id) {
-        // Implementação específica para excluir uma avaliação de livro
         avaliacaoLivroService.deleteById(id);
         return "Avaliação de livro excluída com sucesso!";
     }

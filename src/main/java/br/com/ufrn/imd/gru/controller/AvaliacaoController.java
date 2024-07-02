@@ -5,11 +5,9 @@ import org.springframework.http.ResponseEntity;
 
 public abstract class AvaliacaoController<T extends AvaliacaoDTO> {
 
-    // Construtor padrão
     public AvaliacaoController() {}
 
     public ResponseEntity<String> create(T avaliacaoDto) {
-        // Common logic for creating an evaluation
         return ResponseEntity.ok("successfully");
     }
 

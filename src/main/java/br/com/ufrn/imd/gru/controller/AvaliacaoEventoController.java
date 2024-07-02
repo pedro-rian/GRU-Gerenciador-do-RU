@@ -20,7 +20,6 @@ public class AvaliacaoEventoController extends AvaliacaoController<AvaliacaoEven
 
     @PostMapping
     public ResponseEntity<String> create(@RequestBody AvaliacaoEventoDTO avaliacaoEventoDto) {
-        // Implementação específica para criar uma avaliação de evento
         AvaliacaoEvento avaliacao = new AvaliacaoEvento();
         avaliacao.setDescricao(avaliacaoEventoDto.getDescricao());
         avaliacao.setEstrelasAcessibilidade(avaliacaoEventoDto.getEstrelasAcessibilidade());
@@ -34,7 +33,6 @@ public class AvaliacaoEventoController extends AvaliacaoController<AvaliacaoEven
     @Override
     @PutMapping("/{id}")
     public void update(@PathVariable long id, @RequestBody AvaliacaoEventoDTO avaliacaoDto) {
-        // Implementação específica para atualizar uma avaliação de evento
         AvaliacaoEvento avaliacao = avaliacaoService.getById(id);
         avaliacao.setDescricao(avaliacaoDto.getDescricao());
         avaliacao.setEstrelasAcessibilidade(avaliacaoDto.getEstrelasAcessibilidade());
@@ -46,7 +44,6 @@ public class AvaliacaoEventoController extends AvaliacaoController<AvaliacaoEven
     @Override
     @DeleteMapping("/{id}")
     public String deleteById(@PathVariable long id) {
-        // Implementação específica para excluir uma avaliação de evento
         avaliacaoService.deleteById(id);
         return "Avaliação de evento excluída com sucesso!";
     }

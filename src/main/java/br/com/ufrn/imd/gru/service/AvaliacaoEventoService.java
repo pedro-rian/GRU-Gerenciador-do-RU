@@ -8,39 +8,44 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
 @Service
 public class AvaliacaoEventoService extends AvaliacaoService<AvaliacaoEventoDTO> {
-        private final AvaliacaoEventoRepository avaliacaoEventoRepository;
 
-        @Autowired
-        public AvaliacaoEventoService(AvaliacaoEventoRepository avaliacaoEventoRepository) {
-            this.avaliacaoEventoRepository = avaliacaoEventoRepository;
-        }
+    private final AvaliacaoEventoRepository avaliacaoEventoRepository;
 
-        public void cadastrar(AvaliacaoEvento avaliacaoEvento) {
-            avaliacaoEventoRepository.save(avaliacaoEvento);
-        }
+    @Autowired
+    public AvaliacaoEventoService(AvaliacaoEventoRepository avaliacaoEventoRepository) {
+        this.avaliacaoEventoRepository = avaliacaoEventoRepository;
+    }
 
-        public void atualizar(AvaliacaoEvento avaliacaoEvento) {
-            avaliacaoEventoRepository.save(avaliacaoEvento);
-        }
+    public void cadastrar(AvaliacaoEvento avaliacaoEvento) {
+        avaliacaoEventoRepository.save(avaliacaoEvento);
+    }
 
-        public void deleteById(long id) {
-            avaliacaoEventoRepository.deleteById(id);
-        }
+    public void atualizar(AvaliacaoEvento avaliacaoEvento) {
+        avaliacaoEventoRepository.save(avaliacaoEvento);
+    }
 
-        public AvaliacaoEvento getById(long id) {
-            Optional<AvaliacaoEvento> optionalAvaliacaoEvento = avaliacaoEventoRepository.findById(id);
-            return optionalAvaliacaoEvento.orElse(null);
-        }
+    public void deleteById(long id) {
+        avaliacaoEventoRepository.deleteById(id);
+    }
 
-        public List<AvaliacaoEvento> getAll() {
-            return avaliacaoEventoRepository.findAll();
-        }
+    public AvaliacaoEvento getById(long id) {
+        Optional<AvaliacaoEvento> optionalAvaliacaoEvento = avaliacaoEventoRepository.findById(id);
+        return optionalAvaliacaoEvento.orElse(null);
+    }
+
+    public List<AvaliacaoEvento> getAll() {
+        return avaliacaoEventoRepository.findAll();
+    }
 
     @Override
     protected void validarDadosAvaliacao(AvaliacaoEventoDTO avaliacaoDto) {
+        // Exemplo: Validar se a descrição não está vazia
+        if (avaliacaoDto.getDescricao() == null || avaliacaoDto.getDescricao().isEmpty()) {
+            throw new IllegalArgumentException("Descrição da avaliação não pode ser vazia");
+        }
 
+        // Aqui você pode adicionar mais validações conforme necessário
     }
 }
