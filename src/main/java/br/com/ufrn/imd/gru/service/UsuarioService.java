@@ -3,7 +3,7 @@ package br.com.ufrn.imd.gru.service;
 import br.com.ufrn.imd.gru.dto.PessoaDTO;
 import br.com.ufrn.imd.gru.model.Pessoa;
 import br.com.ufrn.imd.gru.model.TipoUsuario;
-import br.com.ufrn.imd.gru.model.UsuarioGRU;
+import br.com.ufrn.imd.gru.model.Usuario;
 import br.com.ufrn.imd.gru.model.UsuarioLogado;
 import br.com.ufrn.imd.gru.repository.PessoaRepository;
 import br.com.ufrn.imd.gru.repository.UsuarioGRURepository;
@@ -26,18 +26,18 @@ public class UsuarioService {
     }
 
     public boolean existeUsuarioComEmail(String email) {
-        UsuarioGRU usuario = usuarioRepository.findByEmail(email);
+        Usuario usuario = usuarioRepository.findByEmail(email);
         return usuario != null;
     }
-    public UsuarioGRU autenticarUsuario(String email, String senha) {
+    public Usuario autenticarUsuario(String email, String senha) {
         return usuarioRepository.autenticar(email, senha);
     }
 
-    public UsuarioGRU findByEmail(String email) {
+    public Usuario findByEmail(String email) {
         return usuarioRepository.findByEmail(email);
     }
 
-    public void atualizarDadosUsuario(UsuarioGRU usuario, PessoaDTO pessoaDTO){
+    public void atualizarDadosUsuario(Usuario usuario, PessoaDTO pessoaDTO){
         Optional<Pessoa> pessoa = pessoaRepository.findByUsuarioId(usuario.getId());
         if(pessoa.isPresent()){
             Pessoa p = pessoa.get();
@@ -51,17 +51,17 @@ public class UsuarioService {
         }
     }
 
-    public void salvarUsuario(UsuarioGRU usuario) {
+    public void salvarUsuario(Usuario usuario) {
         usuarioRepository.save(usuario);
     }
 
     public void desativarUsuario(UsuarioLogado usuarioLogado){
-        UsuarioGRU usuario = usuarioRepository.findByEmail(usuarioLogado.getEmail());
+        Usuario usuario = usuarioRepository.findByEmail(usuarioLogado.getEmail());
         usuario.setAtivo(false);
         usuarioRepository.save(usuario);
     }
 
-    public List<UsuarioGRU> listarConsumidores() {
+    public List<Usuario> listarConsumidores() {
         return usuarioRepository.findByTipo(TipoUsuario.CONSUMIDOR);
     }
 }

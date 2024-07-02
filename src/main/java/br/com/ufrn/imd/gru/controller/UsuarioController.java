@@ -4,9 +4,7 @@ import br.com.ufrn.imd.gru.dto.PessoaDTO;
 import br.com.ufrn.imd.gru.model.*;
 
 import br.com.ufrn.imd.gru.repository.*;
-import br.com.ufrn.imd.gru.service.PessoaService;
-import br.com.ufrn.imd.gru.service.UsuarioService;
-import br.com.ufrn.imd.gru.service.AssistenciaService;
+import br.com.ufrn.imd.gru.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +24,10 @@ public class UsuarioController {
     private UsuarioService usuarioService;
     private PessoaService pessoaService;
     private UsuarioLogado usuarioLogado;
+
+    private UsuarioGRUService usuarioGRUService;
+    private UsuarioBibliotecaService usuarioBibliotecaService;
+    private UsuarioEventoService usuarioEventoService;
 
     private AssistenciaRepository assistenciaRepository;
     private PessoaRepository pessoaRepository;
@@ -62,8 +64,8 @@ public class UsuarioController {
 
     @PostMapping("/logar")
     public String logar(Model model, String email, String senha){
-        UsuarioGRU usuario = usuarioService.autenticarUsuario(email, senha);
-        UsuarioGRU u = usuarioRepository.findByEmail(email);
+        Usuario usuario = usuarioService.autenticarUsuario(email, senha);
+        Usuario u = usuarioRepository.findByEmail(email);
         if (usuario != null) {
             if (u.getTipo() == TipoUsuario.CONSUMIDOR){
                 usuarioLogado.setEmail(email);
@@ -89,10 +91,10 @@ public class UsuarioController {
     }
     @GetMapping("/tela-inicial-nutricionista")
     public String listarConsumidores(Model model) {
-        List<UsuarioGRU> consumidores = usuarioService.listarConsumidores();
+        List<Usuario> consumidores = usuarioService.listarConsumidores();
         List<Pessoa> pessoas = new ArrayList<>();
 
-        for (UsuarioGRU consumidor : consumidores) {
+        for (Usuario consumidor : consumidores) {
             Long usuarioId = consumidor.getId();
             Pessoa pessoa = pessoaService.buscarPorIdDoUsuario(usuarioId);
             if (pessoa != null) {
@@ -139,9 +141,22 @@ public class UsuarioController {
 
     @PostMapping("/salvar-dados")
     public String salvarDados(@ModelAttribute PessoaDTO pessoaDTO){
-        UsuarioGRU usuario = usuarioService.findByEmail(usuarioLogado.getEmail());
+        Usuario usuario = usuarioService.findByEmail(usuarioLogado.getEmail());
         usuarioService.atualizarDadosUsuario(usuario, pessoaDTO);
         return "redirect:/usuario/login";
+    }
+
+    @PostMapping("/cadastrar")
+    public Usuario cadastrarUsuario(@RequestBody Usuario usuario) {
+        if (usuario instanceof UsuarioGRU) {
+            return usuarioGRUService.cadastrarUsuario(usuario);
+        } else if (usuario instanceof UsuarioEvento) {
+            return usuarioEventoService.cadastrarUsuario(usuario);
+        } else if (usuario instanceof UsuarioBiblioteca) {
+            return usuarioBibliotecaService.cadastrarUsuario(usuario);
+        } else {
+            throw new IllegalArgumentException("Tipo de usuário não suportado");
+        }
     }
 
     @GetMapping("/avaliacoes")

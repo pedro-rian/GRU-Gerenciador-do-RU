@@ -2,7 +2,7 @@ package br.com.ufrn.imd.gru.service;
 
 import br.com.ufrn.imd.gru.dto.PessoaDTO;
 import br.com.ufrn.imd.gru.model.Pessoa;
-import br.com.ufrn.imd.gru.model.UsuarioGRU;
+import br.com.ufrn.imd.gru.model.Usuario;
 import br.com.ufrn.imd.gru.repository.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -66,7 +66,7 @@ public class PessoaService {
 
     public void salvarDadosEIMC(Pessoa pessoa) {
         if (pessoa.getUsuario() == null) {
-            UsuarioGRU novoUsuario = new UsuarioGRU();
+            Usuario novoUsuario = new Usuario();
             pessoa.setUsuario(novoUsuario);
         }
 
@@ -75,7 +75,7 @@ public class PessoaService {
 
         pessoa.getUsuario().setAtivo(true);
 
-        UsuarioGRU usuario = pessoa.getUsuario();
+        Usuario usuario = pessoa.getUsuario();
         if (usuario != null) {
             usuarioService.salvarUsuario(usuario);
         } else {

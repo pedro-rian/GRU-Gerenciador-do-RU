@@ -1,7 +1,6 @@
 package br.com.ufrn.imd.gru.service;
 
 import br.com.ufrn.imd.gru.model.Pessoa;
-import br.com.ufrn.imd.gru.model.UsuarioGRU;
 import br.com.ufrn.imd.gru.repository.CardapioRepository;
 import br.com.ufrn.imd.gru.repository.PessoaRepository;
 import br.com.ufrn.imd.gru.repository.UsuarioGRURepository;

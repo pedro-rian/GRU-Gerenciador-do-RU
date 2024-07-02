@@ -27,7 +27,7 @@ public class Pessoa {
 
     @OneToOne
     @JoinColumn(name = "usuario_id", unique = true)
-    private UsuarioGRU usuario;
+    private Usuario usuario;
 
     public long getId() {
         return id;
@@ -78,10 +78,10 @@ public class Pessoa {
         this.imc = imc;
     }
 
-    public UsuarioGRU getUsuario() {
+    public Usuario getUsuario() {
         return usuario;
     }
-    public void setUsuario(UsuarioGRU usuario) {
+    public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
 }
