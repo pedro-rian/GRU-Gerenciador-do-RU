@@ -6,7 +6,6 @@ public class AvaliacaoEventoDTO extends AvaliacaoDTO{
     private long estrelasAcessibilidade;
     private long estrelasPontualidade;
     private long estrelasPalestrante;
-
     private Evento evento;
 
     public long getEstrelasAcessibilidade() {

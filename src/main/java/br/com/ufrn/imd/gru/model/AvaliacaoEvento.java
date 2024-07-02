@@ -48,4 +48,12 @@ public class AvaliacaoEvento extends Avaliacao{
     public void setEstrelasPalestrante(long estrelasPalestrante) {
         this.estrelasPalestrante = estrelasPalestrante;
     }
+
+    public Evento getEvento() {
+        return evento;
+    }
+
+    public void setEvento(Evento evento) {
+        this.evento = evento;
+    }
 }

@@ -5,7 +5,6 @@ import br.com.ufrn.imd.gru.model.Livro;
 public class AvaliacaoLivroDTO extends AvaliacaoDTO{
     private String tituloResenha;
     private String autorResenha;
-
     private Livro livro;
 
     public String getTituloResenha() {

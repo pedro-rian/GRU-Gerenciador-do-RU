@@ -40,4 +40,12 @@ public class AvaliacaoLivro extends Avaliacao{
     public void setAutorResenha(String autorResenha) {
         this.autorResenha = autorResenha;
     }
+
+    public Livro getLivro() {
+        return livro;
+    }
+
+    public void setLivro(Livro livro) {
+        this.livro = livro;
+    }
 }
