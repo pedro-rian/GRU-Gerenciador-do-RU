@@ -1,6 +1,8 @@
 package br.com.ufrn.imd.gru.controller;
 
+import br.com.ufrn.imd.gru.dto.AvaliacaoDTO;
 import br.com.ufrn.imd.gru.dto.AvaliacaoGRUDTO;
+import br.com.ufrn.imd.gru.model.Avaliacao;
 import br.com.ufrn.imd.gru.model.AvaliacaoGRU;
 import br.com.ufrn.imd.gru.model.Cardapio;
 import br.com.ufrn.imd.gru.service.AvaliacaoGRUService;
@@ -38,23 +40,27 @@ public class AvaliacaoGRUController extends AvaliacaoController<AvaliacaoGRUDTO>
         model.addAttribute("novaAvaliacao", new AvaliacaoGRU());
         return "avaliacoes";
     }
-
+    @PostMapping("/cadastrar")
     @Override
-    protected void cadastrarAvaliacao(AvaliacaoGRUDTO avaliacaoDto) {
+    public String cadastrarAvaliacao(AvaliacaoGRUDTO novaAvaliacao, Model model) {
         LocalDate dataAtual = LocalDate.now();
-        Cardapio cardapio = cardapioService.findByCardapio(avaliacaoDto.getTipoCardapio(), avaliacaoDto.getTipoRefeicao(), dataAtual);
+
+        Cardapio cardapio = cardapioService.findByCardapio(novaAvaliacao.getTipoCardapio(), novaAvaliacao.getTipoRefeicao(), dataAtual);
 
         if (cardapio != null) {
-            avaliacaoDto.setCardapio(cardapio);
+            novaAvaliacao.setCardapio(cardapio);
             AvaliacaoGRUDTO avaliacao = new AvaliacaoGRUDTO();
-            avaliacao.setQuantidadeEstrelas(avaliacaoDto.getQuantidadeEstrelas());
-            avaliacao.setDescricao(avaliacaoDto.getDescricao());
-            avaliacao.setCardapio(avaliacaoDto.getCardapio());
+            avaliacao.setQuantidadeEstrelas(novaAvaliacao.getQuantidadeEstrelas());
+            avaliacao.setDescricao(novaAvaliacao.getDescricao());
+            avaliacao.setCardapio(novaAvaliacao.getCardapio());
 
             avaliacaoService.cadastrar(avaliacao);
+            model.addAttribute("successMessage", "Avaliação cadastrada com sucesso!");
         } else {
-            throw new IllegalArgumentException("Cardápio não encontrado");
+            model.addAttribute("errorMessage", "Cardápio não encontrado");
         }
+
+        return "avaliacoes";
     }
 
     @Override

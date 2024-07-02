@@ -31,12 +31,11 @@ public class AvaliacaoEventoService implements AvaliacaoService<AvaliacaoEventoD
         if (avaliacaoDto.getDescricao() == null || avaliacaoDto.getDescricao().isEmpty()) {
             throw new IllegalArgumentException("Descrição da avaliação não pode ser vazia");
         }
-        // Adicione outras validações conforme necessário
     }
 
     @Override
     public AvaliacaoGRU cadastrar(AvaliacaoEventoDTO avaliacaoDto) {
-        validarDadosAvaliacao(avaliacaoDto); // Valida os dados antes de cadastrar
+        validarDadosAvaliacao(avaliacaoDto);
 
         AvaliacaoEvento avaliacaoEvento = new AvaliacaoEvento();
         avaliacaoEvento.setDescricao(avaliacaoDto.getDescricao());

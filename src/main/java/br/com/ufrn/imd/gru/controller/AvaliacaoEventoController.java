@@ -4,6 +4,8 @@ import br.com.ufrn.imd.gru.dto.AvaliacaoEventoDTO;
 import br.com.ufrn.imd.gru.model.AvaliacaoEvento;
 import br.com.ufrn.imd.gru.service.AvaliacaoEventoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,7 +21,7 @@ public class AvaliacaoEventoController extends AvaliacaoController<AvaliacaoEven
     }
 
     @Override
-    protected void cadastrarAvaliacao(AvaliacaoEventoDTO avaliacaoDto) {
+    protected String cadastrarAvaliacao(AvaliacaoEventoDTO avaliacaoDto, Model model) {
         AvaliacaoEventoDTO avaliacao = new AvaliacaoEventoDTO();
         avaliacao.setDescricao(avaliacaoDto.getDescricao());
         avaliacao.setEstrelasAcessibilidade(avaliacaoDto.getEstrelasAcessibilidade());
@@ -27,6 +29,7 @@ public class AvaliacaoEventoController extends AvaliacaoController<AvaliacaoEven
         avaliacao.setEstrelasPalestrante(avaliacaoDto.getEstrelasPalestrante());
         avaliacao.setEvento(avaliacaoDto.getEvento());
         avaliacaoService.cadastrar(avaliacao);
+        return "redirect:/avaliacoes/evento/cadastrar";
     }
 
     @Override

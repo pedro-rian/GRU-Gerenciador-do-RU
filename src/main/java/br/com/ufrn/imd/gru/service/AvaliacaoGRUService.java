@@ -2,7 +2,7 @@ package br.com.ufrn.imd.gru.service;
 
 import br.com.ufrn.imd.gru.dto.AvaliacaoGRUDTO;
 import br.com.ufrn.imd.gru.model.AvaliacaoGRU;
-import br.com.ufrn.imd.gru.repository.AvaliacaoRepository;
+import br.com.ufrn.imd.gru.repository.AvaliacaoRepositoryGRU;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import java.util.List;
 public class AvaliacaoGRUService implements AvaliacaoService<AvaliacaoGRUDTO> {
 
     @Autowired
-    private AvaliacaoRepository avaliacaoRepository;
+    private AvaliacaoRepositoryGRU avaliacaoRepository;
 
     @Override
     public AvaliacaoGRU cadastrar(AvaliacaoGRUDTO avaliacaoDto) {
