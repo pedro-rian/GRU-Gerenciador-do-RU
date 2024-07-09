@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/nav-bar.css">
+    <link rel="stylesheet" href="/webjars/bootstrap/4.6.0/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/avaliacao.css">
+    <title>Avaliações - LIVROS</title>
+</head>
+<body>
+<div class="navbarstyle">
+    <h1 class="titulo">LIVROS</h1>
+    <!-- Navbar Content -->
+</div>
+
+<div class="texto">
+    <div class="container mt-5">
+        <h2 class="titulo-pagina">Livros para avaliações</h2>
+        <div class="row col-12">
+            <div th:each="livro : ${livros}" class="col-md-2 mb-4">
+                <div class="card formulario-card">
+                    <div class="formulario p-2">
+                        <h3 class="titulocard" th:text="${livro.titulo}"></h3>
+                        <h5 class="data" th:text="${livro.autor}"></h5>
+                        <form action="/avaliacoes/livro" method="post">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="titulo_${livro.id}" name="titulo"
+                                       placeholder="Título" required>
+                                <input type="text" class="form-control" id="autor_${livro.id}" name="autor"
+                                       placeholder="Autor" required>
+                                <label for="descricao_${livro.id}">Descrição:</label>
+                                <textarea class="form-control custom-textarea" id="descricao_${livro.id}"
+                                          name="descricao" rows="4"></textarea>
+                            </div>
+                            <input type="hidden" name="livro.id" th:value="${livro.id}">
+                            <div class="form-group text-center">
+                                <input type="submit" class="button-cadastrar-avaliacao btn-cadastrar-avaliacao"
+                                       value="Cadastrar">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Histórico de avaliações -->
+        <h2 class="titulo-pagina">Histórico de avaliações</h2>
+        <div class="row col-12">
+            <div th:each="avaliacao : ${avaliacoes}" class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="p-2">
+                        <div>
+                            <h4 th:text="${avaliacao.livro.titulo + ' - ' + avaliacao.livro.autor}"></h4>
+                            <h5>
+                                <span class="text-principal">Descrição:</span>
+                                <span class="text-dados" th:text="${avaliacao.descricao}"></span>
+                                <span class="text-dados" th:text="${avaliacao.getAutorResenha()}"></span>
+
+                            </h5>
+                        </div>
+                        <br>
+                        <a th:href="@{'/avaliacoes/evento/' + ${avaliacao.id}}" class="botao-editar">Editar
+                            avaliação</a>
+                        <form th:action="@{'/avaliacoes/evento/excluir-avaliacao/' + ${avaliacao.id}}" method="post"
+                              style="display:inline;">
+                            <button type="submit" class="botao-danger"
+                                    onclick="return confirm('Deseja mesmo excluir esta avaliação? Essa ação não pode ser desfeita.')">
+                                Excluir avaliação
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
