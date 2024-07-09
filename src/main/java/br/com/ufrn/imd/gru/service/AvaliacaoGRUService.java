@@ -1,5 +1,6 @@
 package br.com.ufrn.imd.gru.service;
 
+import br.com.ufrn.imd.gru.dto.AvaliacaoDTO;
 import br.com.ufrn.imd.gru.dto.AvaliacaoGRUDTO;
 import br.com.ufrn.imd.gru.model.AvaliacaoGRU;
 import br.com.ufrn.imd.gru.repository.AvaliacaoRepositoryGRU;
@@ -19,6 +20,7 @@ public class AvaliacaoGRUService implements AvaliacaoService<AvaliacaoGRUDTO> {
         AvaliacaoGRU avaliacao = new AvaliacaoGRU();
         avaliacao.setQuantidadeEstrelas(avaliacaoDto.getQuantidadeEstrelas());
         avaliacao.setDescricao(avaliacaoDto.getDescricao());
+        avaliacao.setCardapio(avaliacaoDto.getCardapio());
         return avaliacaoRepository.save(avaliacao);
     }
 
@@ -44,13 +46,11 @@ public class AvaliacaoGRUService implements AvaliacaoService<AvaliacaoGRUDTO> {
         avaliacaoRepository.deleteById(id);
     }
 
-
     @Override
     public AvaliacaoGRUDTO getById(long id) {
         return null;
     }
 
-    @Override
     public void validarDadosAvaliacao(AvaliacaoGRUDTO avaliacaoDto) {
         int quantidadeEstrelas = (int) avaliacaoDto.getQuantidadeEstrelas();
         if (quantidadeEstrelas < 1 || quantidadeEstrelas > 5) {

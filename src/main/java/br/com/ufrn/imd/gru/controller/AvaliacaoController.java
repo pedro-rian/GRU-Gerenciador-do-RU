@@ -11,24 +11,11 @@ public abstract class AvaliacaoController<T extends AvaliacaoDTO> {
     public AvaliacaoController(AvaliacaoService<T> avaliacaoService) {
         this.avaliacaoService = avaliacaoService;
     }
-    @PostMapping
-    public ResponseEntity<String> create(@RequestBody T avaliacaoDto) {
-        avaliacaoService.validarDadosAvaliacao(avaliacaoDto);
-        cadastrarAvaliacao(avaliacaoDto, null);
-        return ResponseEntity.ok("Avaliação cadastrada com sucesso!");
-    }
-    @PutMapping("/{id}")
-    public ResponseEntity<String> update(@PathVariable long id, @RequestBody T avaliacaoDto) {
-        avaliacaoService.validarDadosAvaliacao(avaliacaoDto);
-        atualizarAvaliacao(id, avaliacaoDto);
-        return ResponseEntity.ok("Avaliação atualizada com sucesso!");
-    }
+
     @PostMapping("/excluir-avaliacao/{id}")
     public String deleteById(@PathVariable long id) {
         avaliacaoService.deleteById(id);
         return "redirect:/avaliacao/cadastrar";
     }
-    protected abstract String cadastrarAvaliacao(T avaliacaoDto, Model model);
-    protected abstract void atualizarAvaliacao(long id, T avaliacaoDto);
 
 }

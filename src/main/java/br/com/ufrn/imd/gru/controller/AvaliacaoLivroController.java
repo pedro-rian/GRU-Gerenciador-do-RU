@@ -15,7 +15,6 @@ public class AvaliacaoLivroController extends AvaliacaoController<AvaliacaoLivro
         super(avaliacaoLivroService);
         this.avaliacaoLivroService = avaliacaoLivroService;
     }
-    @Override
     protected String cadastrarAvaliacao(AvaliacaoLivroDTO avaliacaoDto, Model model) {
         AvaliacaoLivroDTO avaliacaoLivro = new AvaliacaoLivroDTO();
         avaliacaoLivro.setDescricao(avaliacaoDto.getDescricao());
@@ -25,7 +24,6 @@ public class AvaliacaoLivroController extends AvaliacaoController<AvaliacaoLivro
         avaliacaoLivroService.cadastrar(avaliacaoLivro);
         return "redirect:/avaliacoes/livro/cadastrar";
     }
-    @Override
     protected void atualizarAvaliacao(long id, AvaliacaoLivroDTO avaliacaoDto) {
         AvaliacaoLivroDTO avaliacaoLivro = avaliacaoLivroService.getById(id);
         if (avaliacaoLivro != null) {

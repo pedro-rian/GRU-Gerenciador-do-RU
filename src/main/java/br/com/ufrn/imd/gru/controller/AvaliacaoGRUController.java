@@ -41,7 +41,6 @@ public class AvaliacaoGRUController extends AvaliacaoController<AvaliacaoGRUDTO>
         return "avaliacoes";
     }
     @PostMapping("/cadastrar")
-    @Override
     public String cadastrarAvaliacao(AvaliacaoGRUDTO novaAvaliacao, Model model) {
         LocalDate dataAtual = LocalDate.now();
 
@@ -63,7 +62,6 @@ public class AvaliacaoGRUController extends AvaliacaoController<AvaliacaoGRUDTO>
         return "avaliacoes";
     }
 
-    @Override
     protected void atualizarAvaliacao(long id, AvaliacaoGRUDTO avaliacaoDto) {
         AvaliacaoGRUDTO avaliacao = avaliacaoService.getById(id);
         if (avaliacao != null) {
@@ -73,5 +71,15 @@ public class AvaliacaoGRUController extends AvaliacaoController<AvaliacaoGRUDTO>
         } else {
             throw new IllegalArgumentException("Avaliação não encontrada");
         }
+    }
+    @GetMapping("/visualizar")
+    public String telaAvaliacaoNutricionista(Model model) {
+        LocalDate dataAtual = LocalDate.now();
+        List<Cardapio> cardapios = cardapioService.getCardapiosAtuais(dataAtual);
+        List<AvaliacaoGRU> avaliacoes = avaliacaoService.getAvaliacoesAtuais();
+        model.addAttribute("cardapios", cardapios);
+        model.addAttribute("avaliacoes", avaliacoes);
+        model.addAttribute("novaAvaliacao", new Avaliacao());
+        return "avaliacoes-nutricionista";
     }
 }

@@ -15,5 +15,4 @@ public class Livro {
     @Column(name = "autor", length = 100, nullable = false)
     private String autor;
 
-
 }

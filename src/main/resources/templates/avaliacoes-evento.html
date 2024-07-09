@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/nav-bar.css">
+    <link rel="stylesheet" href="/webjars/bootstrap/4.6.0/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/avaliacao.css">
+    <title>Avaliações - EVENTO</title>
+</head>
+<body>
+<div class="navbarstyle">
+    <h1 class="titulo">EVENTOS</h1>
+    <!-- Navbar Content -->
+</div>
+
+<div class="texto">
+    <div class="container mt-5">
+        <h2 class="titulo-pagina">Eventos para avaliações</h2>
+        <div class="row col-12">
+            <div th:each="evento : ${eventos}" class="col-md-2 mb-4">
+                <div class="card formulario-card">
+                    <div class="formulario p-2">
+                        <h5 class="data" th:text="${evento.data}"></h5>
+                        <h3 class="titulocard" th:text="${evento.titulo + ' ' + evento.descricao}"></h3>
+                        <form action="/avaliacoes/evento" method="post">
+                            <div class="form-group">
+                                <label>Acessibilidade:</label>
+                                <select class="form-control custom-select" name="estrelasAcessibilidade">
+                                    <option value="1">1 Estrela</option>
+                                    <option value="2">2 Estrelas</option>
+                                    <option value="3">3 Estrelas</option>
+                                    <option value="4">4 Estrelas</option>
+                                    <option value="5">5 Estrelas</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Pontualidade:</label>
+                                <select class="form-control custom-select" name="estrelasPontualidade">
+                                    <option value="1">1 Estrela</option>
+                                    <option value="2">2 Estrelas</option>
+                                    <option value="3">3 Estrelas</option>
+                                    <option value="4">4 Estrelas</option>
+                                    <option value="5">5 Estrelas</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Palestrante:</label>
+                                <select class="form-control custom-select" name="estrelasPalestrante">
+                                    <option value="1">1 Estrela</option>
+                                    <option value="2">2 Estrelas</option>
+                                    <option value="3">3 Estrelas</option>
+                                    <option value="4">4 Estrelas</option>
+                                    <option value="5">5 Estrelas</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="descricao_${evento.id}">Descrição:</label>
+                                <textarea class="form-control custom-textarea" id="descricao_${evento.id}"
+                                          name="descricao" rows="4"></textarea>
+                            </div>
+                            <input type="hidden" name="evento.id" th:value="${evento.id}">
+                            <div class="form-group text-center">
+                                <input type="submit" class="button-cadastrar-avaliacao btn-cadastrar-avaliacao"
+                                       value="Cadastrar">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Histórico de avaliações -->
+        <h2 class="titulo-pagina">Histórico de avaliações</h2>
+        <div class="row col-12">
+            <div th:each="avaliacao : ${avaliacoes}" class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="p-2">
+                        <div>
+                            <h4 th:text="${avaliacao.evento.titulo + ' - ' + avaliacao.evento.descricao}"></h4>
+                            <h5>
+                                <span class="text-principal">Descrição:</span>
+                                <span class="text-dados" th:text="${avaliacao.descricao}"></span>
+                            </h5>
+                        </div>
+                        <div class="estrelas">
+                            <span>Pontualidade:</span><label th:each="star : ${#numbers.sequence(1,5)}"
+                                                             th:class="${avaliacao.estrelasPontualidade >= star} ? 'filled' : ''"><i
+                                class="fa"></i></label>
+                        </div>
+                        <div class="estrelas">
+                            <span>Acessibilidade</span><label th:each="star : ${#numbers.sequence(1,5)}"
+                                                              th:class="${avaliacao.estrelasAcessibilidade >= star} ? 'filled' : ''"><i
+                                class="fa"></i></label>
+                        </div>
+                        <div class="estrelas">
+                            <span>Palestrante</span><label th:each="star : ${#numbers.sequence(1,5)}"
+                                                           th:class="${avaliacao.estrelasPalestrante >= star} ? 'filled' : ''"><i
+                                class="fa"></i></label>
+                        </div>
+                        <br>
+                        <a th:href="@{'/avaliacoes/evento/' + ${avaliacao.id}}" class="botao-editar">Editar
+                            avaliação</a>
+                        <form th:action="@{'/avaliacoes/evento/excluir-avaliacao/' + ${avaliacao.id}}" method="post"
+                              style="display:inline;">
+                            <button type="submit" class="botao-danger"
+                                    onclick="return confirm('Deseja mesmo excluir esta avaliação? Essa ação não pode ser desfeita.')">
+                                Excluir avaliação
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
