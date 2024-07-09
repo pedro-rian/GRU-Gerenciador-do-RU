@@ -1,5 +1,6 @@
 package br.com.ufrn.imd.gru.service;
 
+import br.com.ufrn.imd.gru.dto.AvaliacaoDTO;
 import br.com.ufrn.imd.gru.dto.AvaliacaoLivroDTO;
 import br.com.ufrn.imd.gru.model.AvaliacaoGRU;
 import br.com.ufrn.imd.gru.model.AvaliacaoLivro;
@@ -18,6 +19,16 @@ public class AvaliacaoLivroService implements AvaliacaoService<AvaliacaoLivroDTO
     @Autowired
     public AvaliacaoLivroService(AvaliacaoLivroRepository avaliacaoLivroRepository) {
         this.avaliacaoLivroRepository = avaliacaoLivroRepository;
+    }
+
+    @Override
+    public AvaliacaoLivroDTO getById(long id) {
+        return null;
+    }
+
+    @Override
+    public void validarDadosAvaliacao(AvaliacaoLivroDTO avaliacaoDto) {
+
     }
 
     @Override
@@ -49,33 +60,12 @@ public class AvaliacaoLivroService implements AvaliacaoService<AvaliacaoLivroDTO
         return null;
     }
 
+
     @Override
     public void deleteById(long id) {
         avaliacaoLivroRepository.deleteById(id);
     }
 
-    @Override
-    public AvaliacaoLivroDTO getById(long id) {
-        Optional<AvaliacaoLivro> optionalAvaliacaoLivro = avaliacaoLivroRepository.findById(id);
-        if (optionalAvaliacaoLivro.isPresent()) {
-            AvaliacaoLivro avaliacaoLivro = optionalAvaliacaoLivro.get();
-            AvaliacaoLivroDTO avaliacaoDto = new AvaliacaoLivroDTO();
-            avaliacaoDto.setDescricao(avaliacaoLivro.getDescricao());
-            avaliacaoDto.setTituloResenha(avaliacaoLivro.getTituloResenha());
-            avaliacaoDto.setAutorResenha(avaliacaoLivro.getAutorResenha());
-            return avaliacaoDto;
-        } else {
-            return null;
-        }
-    }
-
-    @Override
-    public void validarDadosAvaliacao(AvaliacaoLivroDTO avaliacaoDto) {
-        // Exemplo de validação: garantir que a descrição não esteja vazia
-        if (avaliacaoDto.getDescricao() == null || avaliacaoDto.getDescricao().isEmpty()) {
-            throw new IllegalArgumentException("Descrição da avaliação de livro não pode ser vazia");
-        }
-    }
 
     public List<AvaliacaoLivro> getAll() {
         return avaliacaoLivroRepository.findAll();

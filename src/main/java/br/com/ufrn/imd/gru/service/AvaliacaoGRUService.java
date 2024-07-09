@@ -1,8 +1,9 @@
 package br.com.ufrn.imd.gru.service;
 
+import br.com.ufrn.imd.gru.dto.AvaliacaoDTO;
 import br.com.ufrn.imd.gru.dto.AvaliacaoGRUDTO;
 import br.com.ufrn.imd.gru.model.AvaliacaoGRU;
-import br.com.ufrn.imd.gru.repository.AvaliacaoRepository;
+import br.com.ufrn.imd.gru.repository.AvaliacaoRepositoryGRU;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,13 +13,14 @@ import java.util.List;
 public class AvaliacaoGRUService implements AvaliacaoService<AvaliacaoGRUDTO> {
 
     @Autowired
-    private AvaliacaoRepository avaliacaoRepository;
+    private AvaliacaoRepositoryGRU avaliacaoRepository;
 
     @Override
     public AvaliacaoGRU cadastrar(AvaliacaoGRUDTO avaliacaoDto) {
         AvaliacaoGRU avaliacao = new AvaliacaoGRU();
         avaliacao.setQuantidadeEstrelas(avaliacaoDto.getQuantidadeEstrelas());
         avaliacao.setDescricao(avaliacaoDto.getDescricao());
+        avaliacao.setCardapio(avaliacaoDto.getCardapio());
         return avaliacaoRepository.save(avaliacao);
     }
 
@@ -44,13 +46,11 @@ public class AvaliacaoGRUService implements AvaliacaoService<AvaliacaoGRUDTO> {
         avaliacaoRepository.deleteById(id);
     }
 
-
     @Override
     public AvaliacaoGRUDTO getById(long id) {
         return null;
     }
 
-    @Override
     public void validarDadosAvaliacao(AvaliacaoGRUDTO avaliacaoDto) {
         int quantidadeEstrelas = (int) avaliacaoDto.getQuantidadeEstrelas();
         if (quantidadeEstrelas < 1 || quantidadeEstrelas > 5) {
