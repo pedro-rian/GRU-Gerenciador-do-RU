@@ -53,7 +53,7 @@ public class AvaliacaoLivroService extends AbstractAvaliacaoService<AvaliacaoLiv
     }
 
     @Override
-    protected void excluirPorId(long id) {
+    public void excluirPorId(long id) {
         avaliacaoLivroRepository.deleteById(id);
     }
 

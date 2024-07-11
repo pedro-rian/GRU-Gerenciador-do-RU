@@ -24,14 +24,16 @@
             <div th:each="livro : ${livros}" class="col-md-2 mb-4">
                 <div class="card formulario-card">
                     <div class="formulario p-2">
-                        <h3 class="titulocard" th:text="${livro.titulo}"></h3>
+                        <h3 class="titulocard" th:text="${livro.autor}"></h3>
                         <h5 class="data" th:text="${livro.autor}"></h5>
                         <form action="/avaliacoes/livro" method="post">
                             <div class="form-group">
-                                <input type="text" class="form-control" id="titulo_${livro.id}" name="titulo"
-                                       placeholder="Título" required>
-                                <input type="text" class="form-control" id="autor_${livro.id}" name="autor"
-                                       placeholder="Autor" required>
+                                <label for="tituloResenha_${livro.id}">Titulo:</label>
+                                <textarea class="form-control custom-textarea" id="tituloResenha_${livro.id}"
+                                      name="titulo" rows="4"></textarea>
+                                <label for="autorResenha_${livro.id}">Autor:</label>
+                                <textarea class="form-control custom-textarea" id="autorResenha_${livro.id}"
+                                          name="autor" rows="4"></textarea>
                                 <label for="descricao_${livro.id}">Descrição:</label>
                                 <textarea class="form-control custom-textarea" id="descricao_${livro.id}"
                                           name="descricao" rows="4"></textarea>
@@ -53,7 +55,7 @@
                 <div class="card">
                     <div class="p-2">
                         <div>
-                            <h4 th:text="${avaliacao.livro.titulo + ' - ' + avaliacao.livro.autor}"></h4>
+                            <h4 th:text="${avaliacao.tituloResenha + '-' + avaliacao.autorResenha}"></h4>
                             <h5>
                                 <span class="text-principal">Descrição:</span>
                                 <span class="text-dados" th:text="${avaliacao.descricao}"></span>
@@ -79,4 +81,32 @@
     </div>
 </div>
 </body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('form').forEach(form => {
+            console.log('Formulário:', form);
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Evita o envio padrão do formulário
+
+                const formData = new FormData(form);
+                const data = {};
+                formData.forEach((value, key) => {
+                    data[key] = value;
+                });
+
+                console.log('Dados do formulário:', data);
+                 fetch('/avaliacoes/livro', {
+                     method: 'POST',
+                     body: formData
+                 }).then(response => {
+                     // Tratar a resposta do backend
+                 }).catch(error => {
+                     console.error('Erro ao enviar formulário:', error);
+                 });
+            });
+        });
+    });
+</script>
+
+
 </html>

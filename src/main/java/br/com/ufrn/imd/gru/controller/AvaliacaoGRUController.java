@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 @Controller
 @RequestMapping("/avaliacao")
 public class AvaliacaoGRUController extends AvaliacaoController<AvaliacaoGRUDTO> {
@@ -62,8 +64,10 @@ public class AvaliacaoGRUController extends AvaliacaoController<AvaliacaoGRUDTO>
         return "avaliacoes";
     }
 
-    protected void atualizarAvaliacao(long id, AvaliacaoGRUDTO avaliacaoDto) {
+    @PutMapping("editar-avaliacao-gru/{id}")
+    public void atualizarAvaliacao(@RequestBody AvaliacaoGRUDTO avaliacaoDto, @PathVariable Long id) {
         AvaliacaoGRUDTO avaliacao = avaliacaoService.getById(id);
+
         if (avaliacao != null) {
             avaliacao.setQuantidadeEstrelas(avaliacaoDto.getQuantidadeEstrelas());
             avaliacao.setDescricao(avaliacaoDto.getDescricao());

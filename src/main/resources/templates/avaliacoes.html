@@ -125,7 +125,7 @@
                             <label th:each="star : ${#numbers.sequence(1,5)}" th:class="${avaliacao.quantidadeEstrelas >= star} ? 'filled' : ''"><i class="fa"></i></label>
                         </div>
                         <br>
-                        <a th:href="@{'/avaliacao/editar-avaliacao/' + ${avaliacao.id}}" class="botao-editar">Editar avaliação</a>
+                        <a th:href="@{'/avaliacao/editar-avaliacao-gru/' + ${avaliacao.id}}" class="botao-editar">Editar avaliação</a>
                         <form th:action="@{'/avaliacao/excluir-avaliacao/' + ${avaliacao.id}}" method="post" style="display:inline;">
                             <button type="submit" class="botao-danger" onclick="return confirm('Deseja mesmo excluir esta avaliação? Essa ação não pode ser desfeita.')">Excluir avaliação</button>
                         </form>
