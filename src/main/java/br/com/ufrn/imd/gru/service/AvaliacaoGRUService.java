@@ -8,53 +8,74 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
-public class AvaliacaoGRUService implements AvaliacaoService<AvaliacaoGRUDTO> {
+public class AvaliacaoGRUService extends AbstractAvaliacaoService<AvaliacaoGRUDTO> {
+
+    private final AvaliacaoRepositoryGRU avaliacaoRepository;
 
     @Autowired
-    private AvaliacaoRepositoryGRU avaliacaoRepository;
+    public AvaliacaoGRUService(AvaliacaoRepositoryGRU avaliacaoRepository) {
+        this.avaliacaoRepository = avaliacaoRepository;
+    }
 
     @Override
-    public AvaliacaoGRU cadastrar(AvaliacaoGRUDTO avaliacaoDto) {
+    protected void salvar(AvaliacaoGRUDTO avaliacaoDto) {
         AvaliacaoGRU avaliacao = new AvaliacaoGRU();
         avaliacao.setQuantidadeEstrelas(avaliacaoDto.getQuantidadeEstrelas());
         avaliacao.setDescricao(avaliacaoDto.getDescricao());
         avaliacao.setCardapio(avaliacaoDto.getCardapio());
-        return avaliacaoRepository.save(avaliacao);
+        avaliacaoRepository.save(avaliacao);
     }
 
     @Override
-    public void atualizar(long id, AvaliacaoGRUDTO avaliacaoDto) {
-        AvaliacaoGRU avaliacao = avaliacaoRepository.findById(id).orElse(null);
-        if (avaliacao != null) {
-            avaliacao.setQuantidadeEstrelas(avaliacaoDto.getQuantidadeEstrelas());
-            avaliacao.setDescricao(avaliacaoDto.getDescricao());
-            avaliacaoRepository.save(avaliacao);
-        } else {
-            throw new IllegalArgumentException("Avaliação não encontrada");
-        }
+    protected void atualizarDados(long id, AvaliacaoGRUDTO avaliacaoDto) {
+        AvaliacaoGRU avaliacao = avaliacaoRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Avaliação não encontrada"));
+        avaliacao.setQuantidadeEstrelas(avaliacaoDto.getQuantidadeEstrelas());
+        avaliacao.setDescricao(avaliacaoDto.getDescricao());
+        avaliacao.setCardapio(avaliacaoDto.getCardapio());
+        avaliacaoRepository.save(avaliacao);
     }
 
     @Override
-    public List<AvaliacaoGRU> getAvaliacoesAtuais() {
-        return avaliacaoRepository.findAll();
+    public List<AvaliacaoGRUDTO> buscarAvaliacoesAtuais() {
+        return avaliacaoRepository.findAll().stream()
+                .map(avaliacao -> {
+                    AvaliacaoGRUDTO dto = new AvaliacaoGRUDTO();
+                    dto.setId(avaliacao.getId());
+                    dto.setQuantidadeEstrelas(avaliacao.getQuantidadeEstrelas());
+                    dto.setDescricao(avaliacao.getDescricao());
+                    dto.setCardapio(avaliacao.getCardapio());
+                    return dto;
+                })
+                .collect(Collectors.toList());
     }
 
+
     @Override
-    public void deleteById(long id) {
+    protected void excluirPorId(long id) {
         avaliacaoRepository.deleteById(id);
     }
 
     @Override
     public AvaliacaoGRUDTO getById(long id) {
-        return null;
+        AvaliacaoGRU avaliacao = avaliacaoRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Avaliação não encontrada"));
+        AvaliacaoGRUDTO dto = new AvaliacaoGRUDTO();
+        dto.setId(avaliacao.getId());
+        dto.setQuantidadeEstrelas(avaliacao.getQuantidadeEstrelas());
+        dto.setDescricao(avaliacao.getDescricao());
+        dto.setCardapio(avaliacao.getCardapio());
+        return dto;
     }
 
+    @Override
     public void validarDadosAvaliacao(AvaliacaoGRUDTO avaliacaoDto) {
-        int quantidadeEstrelas = (int) avaliacaoDto.getQuantidadeEstrelas();
+        /*int quantidadeEstrelas = avaliacaoDto.getQuantidadeEstrelas();
         if (quantidadeEstrelas < 1 || quantidadeEstrelas > 5) {
             throw new IllegalArgumentException("A quantidade de estrelas deve estar entre 1 e 5");
-        }
+        }*/
     }
 }

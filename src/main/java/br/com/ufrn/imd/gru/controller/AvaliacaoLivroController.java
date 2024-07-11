@@ -24,8 +24,9 @@ public class AvaliacaoLivroController extends AvaliacaoController<AvaliacaoLivro
         this.livroService = livroService;
     }
     @PostMapping
-    protected String cadastrarAvaliacao(AvaliacaoLivroDTO avaliacaoDto, Model model) {
+    public String cadastrarAvaliacao(AvaliacaoLivroDTO avaliacaoDto, Model model) {
         AvaliacaoLivroDTO avaliacaoLivro = new AvaliacaoLivroDTO();
+        avaliacaoLivro.setId(avaliacaoDto.getId());
         avaliacaoLivro.setDescricao(avaliacaoDto.getDescricao());
         avaliacaoLivro.setTituloResenha(avaliacaoDto.getTituloResenha());
         avaliacaoLivro.setAutorResenha(avaliacaoDto.getAutorResenha());
@@ -36,19 +37,19 @@ public class AvaliacaoLivroController extends AvaliacaoController<AvaliacaoLivro
     @GetMapping
     public String listarAvaliacoes(Model model) {
         List<Livro> livros = livroService.getLivrosAtuais();
-        List<AvaliacaoLivro> avaliacoes = avaliacaoLivroService.getAll();
+        List<AvaliacaoLivroDTO> avaliacoes = avaliacaoLivroService.buscarAvaliacoesAtuais();
         model.addAttribute("avaliacoes", avaliacoes);
         model.addAttribute("livros", livros);
         return "avaliacoes-livros";
     }
-    protected void atualizarAvaliacao(long id, AvaliacaoLivroDTO avaliacaoDto) {
+    public void atualizarAvaliacao(long id, AvaliacaoLivroDTO avaliacaoDto) {
         AvaliacaoLivroDTO avaliacaoLivro = avaliacaoLivroService.getById(id);
         if (avaliacaoLivro != null) {
             avaliacaoLivro.setDescricao(avaliacaoDto.getDescricao());
             avaliacaoLivro.setTituloResenha(avaliacaoDto.getTituloResenha());
             avaliacaoLivro.setAutorResenha(avaliacaoDto.getAutorResenha());
             avaliacaoLivro.setLivro(avaliacaoDto.getLivro());
-            avaliacaoLivroService.atualizar(avaliacaoLivro);
+            avaliacaoLivroService.atualizar(id, avaliacaoDto);
         } else {
             throw new IllegalArgumentException("Avaliação de livro não encontrada");
         }

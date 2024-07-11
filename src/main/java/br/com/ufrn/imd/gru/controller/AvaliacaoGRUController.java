@@ -34,7 +34,7 @@ public class AvaliacaoGRUController extends AvaliacaoController<AvaliacaoGRUDTO>
     public String telaInicialComum(Model model) {
         LocalDate dataAtual = LocalDate.now();
         List<Cardapio> cardapios = cardapioService.getCardapiosAtuais(dataAtual);
-        List<AvaliacaoGRU> avaliacoes = avaliacaoService.getAvaliacoesAtuais();
+        List<AvaliacaoGRUDTO> avaliacoes = avaliacaoService.buscarAvaliacoesAtuais();
         model.addAttribute("cardapios", cardapios);
         model.addAttribute("avaliacoes", avaliacoes);
         model.addAttribute("novaAvaliacao", new AvaliacaoGRU());
@@ -76,7 +76,7 @@ public class AvaliacaoGRUController extends AvaliacaoController<AvaliacaoGRUDTO>
     public String telaAvaliacaoNutricionista(Model model) {
         LocalDate dataAtual = LocalDate.now();
         List<Cardapio> cardapios = cardapioService.getCardapiosAtuais(dataAtual);
-        List<AvaliacaoGRU> avaliacoes = avaliacaoService.getAvaliacoesAtuais();
+        List<AvaliacaoGRUDTO> avaliacoes = avaliacaoService.buscarAvaliacoesAtuais();
         model.addAttribute("cardapios", cardapios);
         model.addAttribute("avaliacoes", avaliacoes);
         model.addAttribute("novaAvaliacao", new Avaliacao());

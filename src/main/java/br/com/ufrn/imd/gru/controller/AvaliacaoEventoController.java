@@ -28,7 +28,7 @@ public class AvaliacaoEventoController extends AvaliacaoController<AvaliacaoEven
     @GetMapping
     public String listarAvaliacoes(Model model) {
         List<Evento> eventos = eventoService.getEventosAtuais();
-        List<AvaliacaoEventoDTO> avaliacoes = avaliacaoService.buscarTodasAvaliacoes();
+        List<AvaliacaoEventoDTO> avaliacoes = avaliacaoService.buscarAvaliacoesAtuais();
         model.addAttribute("avaliacoes", avaliacoes);
         model.addAttribute("eventos", eventos);
         return "avaliacoes-evento";

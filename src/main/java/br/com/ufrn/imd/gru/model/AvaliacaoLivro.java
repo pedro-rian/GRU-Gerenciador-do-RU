@@ -13,7 +13,7 @@ public class AvaliacaoLivro extends Avaliacao{
     private String autorResenha;
 
     @ManyToOne(optional = true)
-    @JoinColumn(name = "livro")
+    @JoinColumn(name = "id_livro")
     private Livro livro;
 
 

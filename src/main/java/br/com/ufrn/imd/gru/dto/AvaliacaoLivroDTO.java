@@ -3,9 +3,18 @@ package br.com.ufrn.imd.gru.dto;
 import br.com.ufrn.imd.gru.model.Livro;
 
 public class AvaliacaoLivroDTO extends AvaliacaoDTO{
+    private long id;
     private String tituloResenha;
     private String autorResenha;
     private Livro livro;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getTituloResenha() {
         return tituloResenha;

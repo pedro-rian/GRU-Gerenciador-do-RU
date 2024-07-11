@@ -1,18 +1,16 @@
 package br.com.ufrn.imd.gru.service;
 
-import br.com.ufrn.imd.gru.dto.AvaliacaoDTO;
 import br.com.ufrn.imd.gru.dto.AvaliacaoLivroDTO;
-import br.com.ufrn.imd.gru.model.AvaliacaoGRU;
 import br.com.ufrn.imd.gru.model.AvaliacaoLivro;
 import br.com.ufrn.imd.gru.repository.AvaliacaoLivroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
-public class AvaliacaoLivroService implements AvaliacaoService<AvaliacaoLivroDTO> {
+public class AvaliacaoLivroService extends AbstractAvaliacaoService<AvaliacaoLivroDTO> {
 
     private final AvaliacaoLivroRepository avaliacaoLivroRepository;
 
@@ -22,55 +20,65 @@ public class AvaliacaoLivroService implements AvaliacaoService<AvaliacaoLivroDTO
     }
 
     @Override
+    protected void salvar(AvaliacaoLivroDTO avaliacaoDto) {
+        AvaliacaoLivro avaliacao = new AvaliacaoLivro();
+        avaliacao.setDescricao(avaliacaoDto.getDescricao());
+        avaliacao.setTituloResenha(avaliacaoDto.getTituloResenha());
+        avaliacao.setAutorResenha(avaliacaoDto.getAutorResenha());
+        avaliacaoLivroRepository.save(avaliacao);
+    }
+
+    @Override
+    protected void atualizarDados(long id, AvaliacaoLivroDTO avaliacaoDto) {
+        AvaliacaoLivro avaliacao = avaliacaoLivroRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Avaliação não encontrada"));
+        avaliacao.setDescricao(avaliacaoDto.getDescricao());
+        avaliacao.setTituloResenha(avaliacaoDto.getTituloResenha());
+        avaliacao.setAutorResenha(avaliacaoDto.getAutorResenha());
+        avaliacaoLivroRepository.save(avaliacao);
+    }
+
+    @Override
+    public List<AvaliacaoLivroDTO> buscarAvaliacoesAtuais() {
+        return avaliacaoLivroRepository.findAll().stream()
+                .map(avaliacao -> {
+                    AvaliacaoLivroDTO dto = new AvaliacaoLivroDTO();
+                    dto.setId(avaliacao.getId());
+                    dto.setDescricao(avaliacao.getDescricao());
+                    dto.setTituloResenha(avaliacao.getTituloResenha());
+                    dto.setAutorResenha(avaliacao.getAutorResenha());
+                    return dto;
+                })
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    protected void excluirPorId(long id) {
+        avaliacaoLivroRepository.deleteById(id);
+    }
+
+    @Override
     public AvaliacaoLivroDTO getById(long id) {
-        return null;
+        return avaliacaoLivroRepository.findById(id)
+                .map(avaliacao -> {
+                    AvaliacaoLivroDTO dto = new AvaliacaoLivroDTO();
+                    dto.setId(avaliacao.getId());
+                    dto.setDescricao(avaliacao.getDescricao());
+                    dto.setTituloResenha(avaliacao.getTituloResenha());
+                    dto.setAutorResenha(avaliacao.getAutorResenha());
+                    return dto;
+                })
+                .orElseThrow(() -> new IllegalArgumentException("Avaliação não encontrada"));
     }
 
     @Override
     public void validarDadosAvaliacao(AvaliacaoLivroDTO avaliacaoDto) {
-
-    }
-
-    @Override
-    public AvaliacaoGRU cadastrar(AvaliacaoLivroDTO avaliacaoDto) {
-        AvaliacaoLivro avaliacaoLivro = new AvaliacaoLivro();
-        avaliacaoLivro.setDescricao(avaliacaoDto.getDescricao());
-        avaliacaoLivro.setTituloResenha(avaliacaoDto.getTituloResenha());
-        avaliacaoLivro.setAutorResenha(avaliacaoDto.getAutorResenha());
-        avaliacaoLivroRepository.save(avaliacaoLivro);
-        return null;
-    }
-
-    @Override
-    public void atualizar(long id, AvaliacaoLivroDTO avaliacaoDto) {
-        Optional<AvaliacaoLivro> optionalAvaliacaoLivro = avaliacaoLivroRepository.findById(id);
-        if (optionalAvaliacaoLivro.isPresent()) {
-            AvaliacaoLivro avaliacaoLivro = optionalAvaliacaoLivro.get();
-            avaliacaoLivro.setDescricao(avaliacaoDto.getDescricao());
-            avaliacaoLivro.setTituloResenha(avaliacaoDto.getTituloResenha());
-            avaliacaoLivro.setAutorResenha(avaliacaoDto.getAutorResenha());
-            avaliacaoLivroRepository.save(avaliacaoLivro);
-        } else {
-            throw new IllegalArgumentException("Avaliação de livro não encontrada");
+        super.validarDadosAvaliacao(avaliacaoDto);
+        if (avaliacaoDto.getTituloResenha() == null || avaliacaoDto.getTituloResenha().isEmpty()) {
+            throw new IllegalArgumentException("Título da resenha não pode ser nulo ou vazio");
+        } else if (avaliacaoDto.getAutorResenha() == null || avaliacaoDto.getAutorResenha().isEmpty()) {
+            throw new IllegalArgumentException("Autor da resenha não pode ser nulo ou vazio");
         }
     }
 
-    @Override
-    public List<AvaliacaoGRU> getAvaliacoesAtuais() {
-        return null;
-    }
-
-
-    @Override
-    public void deleteById(long id) {
-        avaliacaoLivroRepository.deleteById(id);
-    }
-
-
-    public List<AvaliacaoLivro> getAll() {
-        return avaliacaoLivroRepository.findAll();
-    }
-
-    public void atualizar(AvaliacaoLivroDTO avaliacaoLivro) {
-    }
 }
