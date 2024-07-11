@@ -8,6 +8,29 @@
     overflow-x: hidden;
     padding-top: 20px;
 }
+
+.navbarstyle-bib {
+    height: 100%;
+    width: 15em;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #80d75b;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+.navbarstyle-eve {
+    height: 100%;
+    width: 15em;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #46a1d3;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
 .navbar a {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
@@ -27,6 +50,27 @@
     margin-bottom: 1em;
     margin-top: 0;
 }
+
+.titulo-eve{
+    font-family: "Inter", sans-serif;
+    font-weight: 300;
+    color: #0e264a;
+    text-align: center;
+    font-size: 5em;
+    margin-bottom: 1em;
+    margin-top: 0;
+}
+
+.titulo-bib{
+    font-family: "Inter", sans-serif;
+    font-weight: 300;
+    color: #1c470b;
+    text-align: center;
+    font-size: 5em;
+    margin-bottom: 1em;
+    margin-top: 0;
+}
+
 .button{
     margin-bottom: 0.5em;
     text-align: center;

@@ -1,7 +1,7 @@
 
 package br.com.ufrn.imd.gru.service;
-import br.com.ufrn.imd.gru.dto.PessoaDTO;
-import br.com.ufrn.imd.gru.model.Pessoa;
+import br.com.ufrn.imd.gru.dto.PessoaGruDTO;
+import br.com.ufrn.imd.gru.model.PessoaGRU;
 import br.com.ufrn.imd.gru.model.TipoUsuario;
 import br.com.ufrn.imd.gru.model.Usuario;
 import br.com.ufrn.imd.gru.model.UsuarioLogado;
@@ -37,15 +37,15 @@ public class UsuarioService {
         return usuarioRepository.findByEmail(email);
     }
 
-    public void atualizarDadosUsuario(Usuario usuario, PessoaDTO pessoaDTO){
-        Optional<Pessoa> pessoa = pessoaRepository.findByUsuarioId(usuario.getId());
+    public void atualizarDadosUsuario(Usuario usuario, PessoaGruDTO pessoaGRUDTO){
+        Optional<PessoaGRU> pessoa = pessoaRepository.findByUsuarioId(usuario.getId());
         if(pessoa.isPresent()){
-            Pessoa p = pessoa.get();
-            usuario.setEmail(pessoaDTO.getEmail());
-            p.setNome(pessoaDTO.getNome());
-            p.setIdade(pessoaDTO.getIdade());
-            p.setAltura(pessoaDTO.getAltura());
-            p.setPeso(pessoaDTO.getPeso());
+            PessoaGRU p = pessoa.get();
+            usuario.setEmail(pessoaGRUDTO.getEmail());
+            p.setNome(pessoaGRUDTO.getNome());
+            p.setIdade(pessoaGRUDTO.getIdade());
+            p.setAltura(pessoaGRUDTO.getAltura());
+            p.setPeso(pessoaGRUDTO.getPeso());
             usuarioRepository.save(usuario);
             pessoaRepository.save(p);
         }

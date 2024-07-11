@@ -4,9 +4,6 @@ import br.com.ufrn.imd.gru.model.TipoUsuario;
 
 public class PessoaDTO {
     private String nome;
-    private int idade;
-    private double peso;
-    private double altura;
     private String email;
     private String senha;
     private TipoUsuario tipoUsuario;
@@ -17,30 +14,6 @@ public class PessoaDTO {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public int getIdade() {
-        return idade;
-    }
-
-    public void setIdade(int idade) {
-        this.idade = idade;
-    }
-
-    public double getPeso() {
-        return peso;
-    }
-
-    public void setPeso(double peso) {
-        this.peso = peso;
-    }
-
-    public double getAltura() {
-        return altura;
-    }
-
-    public void setAltura(double altura) {
-        this.altura = altura;
     }
 
     public String getEmail() {
@@ -67,5 +40,3 @@ public class PessoaDTO {
         this.tipoUsuario = tipoUsuario;
     }
 }
-
-

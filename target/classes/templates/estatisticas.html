@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/nav-bar.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="/webjars/bootstrap/4.6.0/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <title>Estatísticas</title>
+</head>
+<body>
+<div class="texto">
+    <h3>Dados de contagem:</h3>
+    <div class="table-responsive mt-3">
+        <table class="table">
+            <tr class="rounded-top">
+                <th scope="col">Total de usuários cadastrados:</th>
+                <th scope="col" class="email-column"><span th:text="${totalUsuarios}"></span></th>
+            </tr>
+            <tr th:each="entry : ${totalArtefatos.entrySet()}" class="rounded-top">
+                <th scope="col" th:text="${entry.key}"></th>
+                <th scope="col" th:text="${entry.value}"></th>
+            </tr>
+        </table>
+    </div>
+    <h3>Médias relacionadas:</h3>
+    <div class="table-responsive mt-3">
+        <table class="table">
+            <tr class="rounded-top">
+                <th scope="col">Tipo de Média</th>
+                <th scope="col">Valor</th>
+            </tr>
+            <tr th:each="entry : ${medias.entrySet()}" class="rounded-top">
+                <td th:text="${entry.key}"></td>
+                <td th:text="${entry.value}"></td>
+            </tr>
+        </table>
+    </div>
+    <br><br>
+    <button class="botao-danger" onclick="history.back()">← Voltar à página anterior</button>
+    <button class="botao-padrao" style="margin-left: 2em" onclick="window.print()">🖶 Imprimir relatório de estatísticas</button>
+</div>
+</body>
+</html>

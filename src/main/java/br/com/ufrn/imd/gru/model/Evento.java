@@ -20,6 +20,8 @@ public class Evento {
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date data;
+    @Column(name = "cargaHoraria")
+    private int cargaHoraria;
 
     public long getId() {
         return id;
@@ -52,4 +54,8 @@ public class Evento {
     public void setData(Date data) {
         this.data = data;
     }
+
+    public int getCargaHoraria() {return cargaHoraria;}
+
+    public void setCargaHoraria(int cargaHoraria) {this.cargaHoraria = cargaHoraria;}
 }

@@ -15,7 +15,10 @@
 
     <div class="button2">
         <button type="button" class="btn-primarystyle button2" id="homeButton">Home</button>
-        <button type="button" class="btn-primarystyle button2" id="estatisticasButton">Estatísticas</button>
+        <form action="/estatisticas" method="post">
+            <input type="hidden" name="tipoSistema" value="GRU">
+            <button type="submit" class="btn-primarystyle button2" id="estatisticasButton">Estatísticas</button>
+        </form>
         <button type="button" class="btn-primarystyle button2" id="verAvaliacoesButton">Ver avaliações</button>
         <button type="button" class="btn-primarystyle button2" id="cadastrarCardapioButton">Cadastrar cardápio</button>
         <button type="button" class="btn-primarystyle button2" id="listarCardapiosButton">Listar cardápio</button>
@@ -31,9 +34,6 @@
         document.getElementById("homeButton").onclick = function () {
             window.location.href = "/usuario/tela-inicial-nutricionista";
         };
-        document.getElementById("estatisticasButton").onclick = function () {
-            window.location.href = "/usuario/estatisticas-nutricionista";
-        }
         document.getElementById("verAvaliacoesButton").onclick = function () {
             window.location.href = "/avaliacao/visualizar";
         };
@@ -68,10 +68,10 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="pessoa : ${pessoas}">
-            <td th:text="${pessoa.nome}"></td>
-            <td th:text="${pessoa.usuario.email}"></td>
-            <td th:text="${pessoa.imc}" th:class="${pessoa.imc &lt; 20 ? 'imc-baixo' : (pessoa.imc &lt; 25 ? 'imc-normal' : (pessoa.imc &lt; 30 ? 'imc-alto' : 'obesidade'))}"></td>
+        <tr th:each="pessoaGRU : ${pessoaGRUS}">
+            <td th:text="${pessoaGRU.nome}"></td>
+            <td th:text="${pessoaGRU.usuario.email}"></td>
+            <td th:text="${pessoaGRU.imc}" th:class="${pessoaGRU.imc &lt; 20 ? 'imc-baixo' : (pessoaGRU.imc &lt; 25 ? 'imc-normal' : (pessoaGRU.imc &lt; 30 ? 'imc-alto' : 'obesidade'))}"></td>
         </tr>
         </tbody>
 

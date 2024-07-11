@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <title>Cadastro de consumidor - Gerenciador do RU</title>
+    <link rel="stylesheet" href="/cadastro.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="login-container-bib">
+    <h1 class="titulo-bib">BIB</h1>
+    <h3 class="subtitulo">Gerenciador de Biblioteca</h3>
+    <form id="cadastroForm">
+        <div class="form-row">
+            <div class="form-group">
+                <input type="hidden" name="tipoSistema" value="BIB">
+                <label for="nome">Nome:</label>
+                <input type="text" class="form-control rounded-pill px-4" id="nome" name="nome" required>
+                <div>
+                <div id="mensagemErroNome" class="alerta" role="alert"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">E-mail:</label>
+                <input type="email" class="form-control rounded-pill px-4" id="email" name="email" required>
+                <div id="mensagemErroEmail" class="alerta" role="alert"></div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="idade">Idade:</label>
+                <input type="number" class="form-control rounded-pill px-4" id="idade" name="idade" required>
+                <div id="mensagemErroIdade" class="alerta" role="alert"></div>
+            </div>
+            <div class="form-group">
+                <label for="altura">Altura:</label>
+                <input type="text" class="form-control rounded-pill px-4" id="altura" name="altura" required>
+                <div id="mensagemErroAltura" class="alerta" role="alert"></div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="peso">Peso:</label>
+                <input type="number" class="form-control rounded-pill px-4" id="peso" name="peso" step="any" required>
+                <div id="mensagemErroPeso" class="alerta" role="alert"></div>
+            </div>
+            <div class="form-group">
+                <label for="senha">Senha:</label>
+                <input type="password" class="form-control rounded-pill px-4" id="senha" name="senha" required>
+                <div id="mensagemErroSenha" class="alerta" role="alert"></div>
+            </div>
+        </div>
+
+
+
+        <div class="button">
+            <button type="button" id="cadastrarButton" class="btn-primary">Cadastrar</button>
+        </div>
+    </form>
+    <div class="cadastrar-button">
+        <button type="button" class="cadastrar-button-primary" id="fazerLogin">Voltar</button>
+    </div>
+    <script>
+        document.getElementById("cadastrarButton").onclick = function () {
+            // Captura dos valores dos campos do formulário
+            const nome = document.getElementById("nome").value;
+            const idade = parseInt(document.getElementById("idade").value);
+            const peso = parseFloat(document.getElementById("peso").value);
+            const altura = parseFloat(document.getElementById("altura").value);
+            const email = document.getElementById("email").value;
+            const senha = document.getElementById("senha").value;
+            const tipoUsuario = "CONSUMIDOR";
+
+
+            document.getElementById("mensagemErroNome").innerText = "";
+            document.getElementById("mensagemErroEmail").innerText = "";
+            document.getElementById("mensagemErroIdade").innerText = "";
+            document.getElementById("mensagemErroPeso").innerText = "";
+            document.getElementById("mensagemErroAltura").innerText = "";
+            document.getElementById("mensagemErroSenha").innerText = "";
+
+
+            // Envio dos dados para o servidor
+            fetch('/pessoaGRU/salvar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    nome: nome,
+                    idade: idade,
+                    peso: peso,
+                    altura: altura,
+                    email: email,
+                    senha: senha,
+                    tipoUsuario: tipoUsuario
+                })
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(errors => {
+                            errors.forEach(error => {
+                                switch (error) {
+                                    case "Nome é um campo obrigatório.":
+                                        document.getElementById("mensagemErroNome").innerText = error;
+                                        break;
+                                    case "E-mail é um campo obrigatório.":
+                                        document.getElementById("mensagemErroEmail").innerText = error;
+                                        break;
+                                    case "Já existe um usuário com esse e-mail.":
+                                        document.getElementById("mensagemErroEmail").innerText = error;
+                                        break;
+                                    case "Idade é um campo obrigatório.":
+                                        document.getElementById("mensagemErroIdade").innerText = error;
+                                        break;
+                                    case "Peso é um campo obrigatório.":
+                                        document.getElementById("mensagemErroPeso").innerText = error;
+                                        break;
+                                    case "Altura é um campo obrigatório.":
+                                        document.getElementById("mensagemErroAltura").innerText = error;
+                                        break;
+                                    case "Senha é um campo obrigatório.":
+                                        document.getElementById("mensagemErroSenha").innerText = error;
+                                        break;
+                                    default:
+                                        document.getElementById("mensagemErro").innerText = error;
+                                }
+                            });
+                        });
+                    } else{
+                        window.location.href = '/usuario/login';
+                    }
+                })
+        };
+        document.getElementById("fazerLogin").onclick = function () {
+            window.location.href = '/usuario/login-bib';
+        };
+    </script>
+</div>
+</body>
+</html>

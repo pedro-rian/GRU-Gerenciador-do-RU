@@ -16,7 +16,10 @@
 
     <div class="button2">
         <button type="button" class="btn-primarystyle button2" id="homeButton">Home</button>
-        <button type="button" class="btn-primarystyle button2" id="estatisticasButton">Estatísticas</button>
+        <form action="/estatisticas" method="post">
+            <input type="hidden" name="tipoSistema" value="GRU">
+            <button type="submit" class="btn-primarystyle button2" id="estatisticasButton">Estatísticas</button>
+        </form>
         <button type="button" class="btn-primarystyle button2" id="verAvaliacoesButton">Ver avaliações</button>
         <button type="button" class="btn-primarystyle button2" id="cadastrarCardapioButton">Cadastrar cardápio</button>
         <button type="button" class="btn-primarystyle button2" id="listarCardapiosButton">Listar cardápio</button>
@@ -32,9 +35,6 @@
         document.getElementById("homeButton").onclick = function () {
             window.location.href = "/usuario/tela-inicial-nutricionista";
         };
-        document.getElementById("estatisticasButton").onclick = function () {
-            window.location.href = "/usuario/estatisticas-nutricionista";
-        }
         document.getElementById("verAvaliacoesButton").onclick = function () {
             window.location.href = "/avaliacao/visualizar";
         };

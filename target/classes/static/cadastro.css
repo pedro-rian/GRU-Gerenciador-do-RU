@@ -6,10 +6,46 @@
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-.titulo2{
+
+.login-container-bib {
+    max-width: 1000px;
+    margin: 100px auto;
+    padding: 20px;
+    background-color: #80d75b;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-container-eve {
+    max-width: 1000px;
+    margin: 100px auto;
+    padding: 20px;
+    background-color: #46a1d3;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.titulo{
     font-family: "Inter", sans-serif;
     font-weight: 300;
     color: #A71919;
+    text-align: center;
+    font-size: 5em;
+    margin-bottom: 0;
+}
+
+.titulo-bib{
+    font-family: "Inter", sans-serif;
+    font-weight: 300;
+    color: #1c470b;
+    text-align: center;
+    font-size: 5em;
+    margin-bottom: 0;
+}
+
+.titulo-eve{
+    font-family: "Inter", sans-serif;
+    font-weight: 300;
+    color: #0e264a;
     text-align: center;
     font-size: 5em;
     margin-bottom: 0;
