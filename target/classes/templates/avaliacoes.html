@@ -19,8 +19,8 @@
         <button type="button" class="btn-primarystyle button" id="homeButton">Home</button>
         <button type="button" class="btn-primarystyle button" id="sobreORuButton">Sobre o RU</button>
         <button type="button" class="btn-primarystyle button" id="meuPerfilButton">Meu Perfil</button>
-        <button type="button" class="btn-primarystyle button" id="avaliaçõesButton">Avaliações</button>
-        <button type="button" class="btn-primarystyle button" id="solicitarAssistenciaButton">Solicitar Assitência</button>
+        <button type="button" class="btn-primarystyle button" id="avaliacoesButton">Avaliações</button>
+        <button type="button" class="btn-primarystyle button" id="solicitarAssistenciaButton">Solicitar Assistência</button>
         <button type="button" class="btn-primarystyle button" id="assistenciasButton">Assistências solicitadas</button>
         <button type="button" class="button btn-sair" id="sairButton">Sair</button>
     </div>
@@ -35,7 +35,7 @@
         document.getElementById("meuPerfilButton").onclick = function () {
             window.location.href = "/usuario/meu-perfil";
         }
-        document.getElementById("avaliaçõesButton").onclick = function () {
+        document.getElementById("avaliacoesButton").onclick = function () {
             window.location.href = "/avaliacao/cadastrar";
         };
         document.getElementById("solicitarAssistenciaButton").onclick = function () {
@@ -47,16 +47,15 @@
         document.getElementById("sairButton").onclick = function (){
             window.location.href = "/usuario/login";
         }
-
     </script>
 
 </div>
 
 <div class="texto">
-
     <div class="container mt-5">
         <h2 class="titulo-pagina">Refeições para avaliações</h2>
         <div class="row col-12">
+            <!-- Iteração sobre os cardápios -->
             <div th:each="cardapio : ${cardapios}" class="col-md-2 mb-4">
                 <div class="card formulario-card">
                     <div class="formulario p-2">
@@ -71,6 +70,7 @@
                                 <span class="text-dados" th:text="${cardapio.getAcompanhamento()}"></span>
                             </div>
                         </h5>
+                        <!-- Formulário para cada cardápio -->
                         <form action="/avaliacao/cadastrar" method="post">
                             <div class="form-group">
                                 <label>Quantidade de Estrelas:</label>
@@ -104,6 +104,7 @@
 
         <h2 class="titulo-pagina">Histórico de avaliações</h2>
         <div class="row col-12">
+            <!-- Iteração sobre as avaliações -->
             <div th:each="avaliacao : ${avaliacoes}" class="col-md-4 mb-4">
                 <div class="">
                     <div class="p-2">
@@ -122,10 +123,13 @@
 
                         </div>
                         <div class="estrelas">
+                            <!-- Mostra as estrelas baseadas na quantidade de estrelas -->
                             <label th:each="star : ${#numbers.sequence(1,5)}" th:class="${avaliacao.quantidadeEstrelas >= star} ? 'filled' : ''"><i class="fa"></i></label>
                         </div>
                         <br>
-                        <a th:href="@{'/avaliacao/editar-avaliacao/' + ${avaliacao.id}}" class="botao-editar">Editar avaliação</a>
+                        <!-- Link para editar avaliação -->
+                        <button type="button" class="botao-editar" onclick="editarAvaliacao(${avaliacao.id})">Editar avaliação</button>
+                        <!-- Formulário para excluir avaliação -->
                         <form th:action="@{'/avaliacao/excluir-avaliacao/' + ${avaliacao.id}}" method="post" style="display:inline;">
                             <button type="submit" class="botao-danger" onclick="return confirm('Deseja mesmo excluir esta avaliação? Essa ação não pode ser desfeita.')">Excluir avaliação</button>
                         </form>
@@ -134,32 +138,63 @@
                 <br>
             </div>
         </div>
-
-
-        <script>
-            document.querySelectorAll('.formulario-card').forEach((card) => {
-                const cardId = card.id.split('_')[1];
-                const selectElement = card.querySelector('select');
-
-                if (selectElement) {
-                    selectElement.addEventListener("change", function () {
-                        document.getElementById(`cardapioId_${cardId}`).value = this.value;
-                    });
-                }
-
-                card.querySelectorAll('input[name^="fb_"]').forEach((input) => {
-                    input.addEventListener("change", function () {
-                        document.getElementById(`quantidadeEstrelas_${cardId}`).value = this.value || "0";
-                    });
-                });
-
-                card.querySelector('textarea[id^="descricao_"]').addEventListener("input", function () {
-                    document.getElementById(`quantidadeEstrelas_${cardId}`).value = card.querySelector(`input[name="fb_${cardId}"]:checked`).value || "0";
-                });
-            });
-
-        </script>
-
     </div>
 </div>
+
+<!-- Formulário de Edição de Avaliação -->
+<form action="/editar-avaliacao-gru/{id}" method="put" id="formEditarAvaliacao">
+    <div class="form-group">
+        <label>Quantidade de Estrelas:</label>
+        <select class="form-control custom-select" name="quantidadeEstrelas">
+            <option value="1">1 Estrela</option>
+            <option value="2">2 Estrelas</option>
+            <option value="3">3 Estrelas</option>
+            <option value="4">4 Estrelas</option>
+            <option value="5">5 Estrelas</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="descricao">Descrição:</label>
+        <textarea class="form-control custom-textarea" id="descricao" name="descricao" rows="4"></textarea>
+    </div>
+    <!-- Input Hidden para ID da Avaliação -->
+    <input type="hidden" name="id" value="{id_da_avaliacao}">
+    <div class="form-group text-center">
+        <button type="submit" class="button-cadastrar-avaliacao btn-cadastrar-avaliacao">Atualizar Avaliação</button>
+    </div>
+</form>
+
+<script>
+    function editarAvaliacao(avaliacaoId) {
+        const url = `/avaliacao/editar-avaliacao-gru/${avaliacaoId}`;
+
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao carregar dados da avaliação para edição');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Redirecionar para a página de edição preenchida com os dados da avaliação
+                preencherFormularioEdicao(data);
+            })
+            .catch(error => {
+                console.error('Erro ao carregar dados da avaliação:', error);
+                // Tratar erros ou feedback para o usuário, se necessário
+            });
+    }
+
+    function preencherFormularioEdicao(avaliacao) {
+        // Preencher os campos do formulário de edição com os dados da avaliação
+        document.getElementById('quantidadeEstrelas').value = avaliacao.quantidadeEstrelas;
+        document.getElementById('descricao').value = avaliacao.descricao;
+
+        // Redirecionar para a página de edição
+        window.location.href = `/avaliacao/editar-avaliacao-gru/${avaliacao.id}`;
+    }
+
+</script>
+
 </body>
+</html>
