@@ -66,6 +66,9 @@ public class AvaliacaoGRUService extends AbstractAvaliacaoService<AvaliacaoGRUDT
         AvaliacaoGRUDTO dto = new AvaliacaoGRUDTO();
         dto.setId(avaliacao.getId());
         dto.setQuantidadeEstrelas(avaliacao.getQuantidadeEstrelas());
+        dto.setTipoCardapio(avaliacao.getCardapio().getTipoCardapio());
+        dto.setTipoRefeicao(avaliacao.getCardapio().getTipoRefeicao());
+        dto.setDate(avaliacao.getCardapio().getData());
         dto.setDescricao(avaliacao.getDescricao());
         dto.setCardapio(avaliacao.getCardapio());
         return dto;

@@ -48,12 +48,43 @@
             window.location.href = "/usuario/login";
         }
 
-    </script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const urlPath = window.location.pathname;
+            const pathSegments = urlPath.split('/');
+            const evaluationId = pathSegments[pathSegments.length - 1];
 
+            if (evaluationId) {
+                document.getElementById("id_avaliacao").value = evaluationId;
+                console.log("Evaluation ID:", evaluationId);
+            }
+
+            document.querySelectorAll("form").forEach(function(form) {
+                form.addEventListener("submit", function(event) {
+                    event.preventDefault(); // Prevent the form from submitting
+
+                    let formData = new FormData(form);
+                    let formDataObject = {};
+                    formData.forEach((value, key) => {
+                        formDataObject[key] = value;
+                    });
+
+                    console.log("Form Data:", formDataObject);
+
+                    // Set the action attribute of the form dynamically
+                    form.action = "/avaliacao/atualizar/" + evaluationId;
+                    console.log("Form action updated to:", form.action);
+
+                    // Optionally, you can submit the form after setting the action
+                    setTimeout(function() {
+                        form.submit();
+                    }, 1000); // Delay submission to ensure console output is visible
+                });
+            });
+        });
+    </script>
 </div>
 
 <div class="texto">
-
     <div class="container mt-5">
         <h2 class="titulo-pagina">Refeições para avaliações</h2>
         <div class="row col-12">
@@ -71,8 +102,8 @@
                                 <span class="text-dados" th:text="${cardapio.getAcompanhamento()}"></span>
                             </div>
                         </h5>
-                        <form action="/avaliacao/atualizar" method="post">
-                            <input type="hidden" name="id_avaliacao" th:value="${avaliacao.id}"/>
+                        <form action="/avaliacao/atualizar/{id}" method="post">
+                            <input type="hidden" name="id" id="id_avaliacao" th:value="${id_avaliacao}"/>
                             <div class="form-group">
                                 <label>Quantidade de Estrelas:</label>
                                 <select class="form-control custom-select" name="quantidadeEstrelas">
@@ -88,14 +119,15 @@
                                 <textarea class="form-control custom-textarea" id="descricao_${cardapio.id}"
                                           name="descricao" rows="4" th:text="${avaliacao.descricao}"></textarea>
                             </div>
-                            <input type="hidden" name="data" value="">
+
+                            <input type="hidden" name="data" th:value="${cardapio.data}">
                             <input type="hidden" name="tipoRefeicao" th:value="${cardapio.tipoRefeicao}">
                             <input type="hidden" name="tipoCardapio" th:value="${cardapio.tipoCardapio}">
                             <input type="hidden" name="quantidadeEstrelas" id="quantidadeEstrelas_${cardapio.id}"
                                    value="">
                             <div class="form-group text-center">
                                 <input type="submit" class="button-cadastrar-avaliacao btn-cadastrar-avaliacao"
-                                       value="Atualizar">
+                                       id="submitButton_${cardapio.id}" value="Atualizar">
                             </div>
                         </form>
                     </div>
@@ -105,3 +137,4 @@
     </div>
 </div>
 </body>
+</html>

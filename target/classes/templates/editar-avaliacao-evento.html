@@ -8,46 +8,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/avaliacao.css">
+    <link rel="stylesheet" href="/avaliacao-evento.css">
     <title>Avaliações</title>
 </head>
 <body>
-<div class="navbarstyle">
-    <h1 class="titulo">GRU</h1>
-
-    <div class="button">
-        <button type="button" class="btn-primarystyle button" id="homeButton">Home</button>
-        <button type="button" class="btn-primarystyle button" id="sobreORuButton">Sobre o RU</button>
-        <button type="button" class="btn-primarystyle button" id="meuPerfilButton">Meu Perfil</button>
-        <button type="button" class="btn-primarystyle button" id="avaliaçõesButton">Avaliações</button>
-        <button type="button" class="btn-primarystyle button" id="solicitarAssistenciaButton">Solicitar Assitência</button>
-        <button type="button" class="btn-primarystyle button" id="assistenciasButton">Assistências solicitadas</button>
-        <button type="button" class="button btn-sair" id="sairButton">Sair</button>
-    </div>
+<div class="navbarstyle-eve">
+    <h1 class="titulo-eve">EVE</h1>
+    <!-- Navbar Content -->
+</div>
 
     <script>
-        document.getElementById("homeButton").onclick = function () {
-            window.location.href = "/cardapio/tela-inicial-comum";
-        };
-        document.getElementById("sobreORuButton").onclick = function () {
-            window.location.href = "/usuario/sobre-o-ru";
-        };
-        document.getElementById("meuPerfilButton").onclick = function () {
-            window.location.href = "/usuario/meu-perfil";
-        }
-        document.getElementById("avaliaçõesButton").onclick = function () {
-            window.location.href = "/avaliacao/cadastrar";
-        };
-        document.getElementById("solicitarAssistenciaButton").onclick = function () {
-            window.location.href = "/usuario/solicitar-assistencia";
-        }
-        document.getElementById("assistenciasButton").onclick = function () {
-            window.location.href = "/assistencia/assistencias";
-        }
-        document.getElementById("sairButton").onclick = function (){
-            window.location.href = "/usuario/login";
-        }
-
         document.addEventListener("DOMContentLoaded", function() {
             const urlPath = window.location.pathname;
             const pathSegments = urlPath.split('/');
@@ -70,8 +40,7 @@
 
                     console.log("Form Data:", formDataObject);
 
-                    // Set the action attribute of the form dynamically
-                    form.action = "/avaliacao/atualizar/" + evaluationId;
+                    form.action = "/avaliacoes/evento/atualizar/" + evaluationId;
                     console.log("Form action updated to:", form.action);
 
                     // Optionally, you can submit the form after setting the action
@@ -91,22 +60,33 @@
             <div class="col-md-6 mb-4">
                 <div class="card formulario-card">
                     <div class="formulario p-2">
-                        <h5 class="data" th:text="${cardapio.data}"></h5>
-
-                        <h3 class="titulocard" th:text="${cardapio.tipoRefeicao + ' ' + cardapio.tipoCardapio}"></h3>
-                        <h5>
-                            <span class="text-principal">Prato principal: </span>
-                            <span class="text-dados" th:text="${cardapio.getPratoPrincipal()}"></span>
-                            <div>
-                                <span class="text-principal">Acompanhamentos: </span>
-                                <span class="text-dados" th:text="${cardapio.getAcompanhamento()}"></span>
-                            </div>
-                        </h5>
+                        <h5 class="data" th:text="${evento.data}"></h5>
+                        <h3 class="titulocard" th:text="${evento.titulo + ' ' + evento.descricao}"></h3>
                         <form action="/avaliacao/atualizar/{id}" method="post">
                             <input type="hidden" name="id" id="id_avaliacao" th:value="${id_avaliacao}"/>
                             <div class="form-group">
-                                <label>Quantidade de Estrelas:</label>
-                                <select class="form-control custom-select" name="quantidadeEstrelas">
+                                <label>Pontualidade</label>
+                                <select class="form-control custom-select" name="estrelasPontualidade">
+                                    <option value="1">1 Estrela</option>
+                                    <option value="2">2 Estrelas</option>
+                                    <option value="3">3 Estrelas</option>
+                                    <option value="4">4 Estrelas</option>
+                                    <option value="5">5 Estrelas</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Acessibilidade</label>
+                                <select class="form-control custom-select" name="estrelasAcessibilidade">
+                                    <option value="1">1 Estrela</option>
+                                    <option value="2">2 Estrelas</option>
+                                    <option value="3">3 Estrelas</option>
+                                    <option value="4">4 Estrelas</option>
+                                    <option value="5">5 Estrelas</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Palestrante</label>
+                                <select class="form-control custom-select" name="estrelasPalestrante">
                                     <option value="1">1 Estrela</option>
                                     <option value="2">2 Estrelas</option>
                                     <option value="3">3 Estrelas</option>
@@ -119,12 +99,6 @@
                                 <textarea class="form-control custom-textarea" id="descricao_${cardapio.id}"
                                           name="descricao" rows="4" th:text="${avaliacao.descricao}"></textarea>
                             </div>
-
-                            <input type="hidden" name="data" th:value="${cardapio.data}">
-                            <input type="hidden" name="tipoRefeicao" th:value="${cardapio.tipoRefeicao}">
-                            <input type="hidden" name="tipoCardapio" th:value="${cardapio.tipoCardapio}">
-                            <input type="hidden" name="quantidadeEstrelas" id="quantidadeEstrelas_${cardapio.id}"
-                                   value="">
                             <div class="form-group text-center">
                                 <input type="submit" class="button-cadastrar-avaliacao btn-cadastrar-avaliacao"
                                        id="submitButton_${cardapio.id}" value="Atualizar">
