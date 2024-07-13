@@ -1,7 +1,7 @@
 package br.com.ufrn.imd.gru.controller;
 
 import br.com.ufrn.imd.gru.dto.AvaliacaoEventoDTO;
-import br.com.ufrn.imd.gru.model.Evento;
+import br.com.ufrn.imd.gru.dto.EventoDto;
 import br.com.ufrn.imd.gru.service.AvaliacaoEventoService;
 import br.com.ufrn.imd.gru.service.EventoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class AvaliacaoEventoController extends AvaliacaoController<AvaliacaoEven
 
     @GetMapping
     public String listarAvaliacoes(Model model) {
-        List<Evento> eventos = eventoService.getEventosAtuais();
+        List<EventoDto> eventos = eventoService.getEventosAtuais();
         List<AvaliacaoEventoDTO> avaliacoes = avaliacaoService.buscarAvaliacoesAtuais();
         model.addAttribute("avaliacoes", avaliacoes);
         model.addAttribute("eventos", eventos);
@@ -46,7 +46,38 @@ public class AvaliacaoEventoController extends AvaliacaoController<AvaliacaoEven
         return "avaliacoes-evento";
     }
 
-    protected void atualizarAvaliacao(long id, AvaliacaoEventoDTO avaliacaoDto) {
-        avaliacaoService.atualizar(id, avaliacaoDto);
+    @GetMapping("/editar/{id}")
+    public String editarAvaliacaoForm(@PathVariable Long id, Model model) {
+        AvaliacaoEventoDTO avaliacao = avaliacaoService.getById(id);
+        if (avaliacao != null) {
+            model.addAttribute("avaliacao", avaliacao);
+            model.addAttribute("evento", avaliacao.getEvento());
+            return "editar-avaliacao-evento";
+        } else {
+            throw new IllegalArgumentException("Avaliação não encontrada");
+        }
     }
+
+    @PostMapping("/atualizar/{id}")
+    public String atualizarAvaliacao(@PathVariable("id") Long id, @ModelAttribute AvaliacaoEventoDTO avaliacaoDto, Model model) {
+        AvaliacaoEventoDTO avaliacao = avaliacaoService.getById(id);
+
+        if (avaliacao != null) {
+            avaliacao.setDescricao(avaliacaoDto.getDescricao());
+            avaliacao.setEstrelasPontualidade(avaliacaoDto.getEstrelasPontualidade());
+            avaliacao.setEstrelasAcessibilidade(avaliacaoDto.getEstrelasAcessibilidade());
+            avaliacao.setEstrelasPalestrante(avaliacaoDto.getEstrelasPalestrante());
+            avaliacaoService.atualizar(id, avaliacao);
+            model.addAttribute("successMessage", "Avaliação atualizada com sucesso!");
+            return "redirect:/avaliacoes/evento";
+        } else {
+            model.addAttribute("errorMessage", "Avaliação não encontrada");
+            return "editar-avaliacao";
+        }
+    }
+
+
+
+
+
 }

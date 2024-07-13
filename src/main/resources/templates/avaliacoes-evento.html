@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/avaliacao.css">
+    <link rel="stylesheet" href="/avaliacao-evento.css">
     <title>Avaliações - EVENTO</title>
 </head>
 <body>
@@ -101,7 +101,7 @@
                                 class="fa"></i></label>
                         </div>
                         <br>
-                        <a th:href="@{'/avaliacoes/evento/' + ${avaliacao.id}}" class="botao-editar">Editar
+                        <a th:href="@{'/avaliacoes/evento/editar/' + ${avaliacao.id}}" class="botao-editar">Editar
                             avaliação</a>
                         <form th:action="@{'/avaliacoes/evento/excluir-avaliacao/' + ${avaliacao.id}}" method="post"
                               style="display:inline;">

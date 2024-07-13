@@ -64,18 +64,36 @@ public class AvaliacaoGRUController extends AvaliacaoController<AvaliacaoGRUDTO>
         return "avaliacoes";
     }
 
-    @PutMapping("editar-avaliacao-gru/{id}")
-    public void atualizarAvaliacao(@RequestBody AvaliacaoGRUDTO avaliacaoDto, @PathVariable Long id) {
+    @GetMapping("/editar-avaliacao-gru/{id}")
+    public String editarAvaliacaoForm(@PathVariable Long id, Model model) {
+        AvaliacaoGRUDTO avaliacao = avaliacaoService.getById(id);
+        if (avaliacao != null) {
+            model.addAttribute("avaliacao", avaliacao);
+            model.addAttribute("cardapio", avaliacao.getCardapio());
+            return "editar-avaliacao";
+        } else {
+            throw new IllegalArgumentException("Avaliação não encontrada");
+        }
+    }
+
+    @PostMapping("/atualizar/{id}")
+    public String atualizarAvaliacao(@PathVariable("id") Long id, @ModelAttribute AvaliacaoGRUDTO avaliacaoDto, Model model) {
         AvaliacaoGRUDTO avaliacao = avaliacaoService.getById(id);
 
         if (avaliacao != null) {
             avaliacao.setQuantidadeEstrelas(avaliacaoDto.getQuantidadeEstrelas());
             avaliacao.setDescricao(avaliacaoDto.getDescricao());
-            avaliacaoService.atualizar(id, avaliacaoDto);
+            avaliacaoService.atualizar(id, avaliacao);
+            model.addAttribute("successMessage", "Avaliação atualizada com sucesso!");
+            return "redirect:/avaliacao/cadastrar";
         } else {
-            throw new IllegalArgumentException("Avaliação não encontrada");
+            model.addAttribute("errorMessage", "Avaliação não encontrada");
+            return "editar-avaliacao";
         }
     }
+
+
+
     @GetMapping("/visualizar")
     public String telaAvaliacaoNutricionista(Model model) {
         LocalDate dataAtual = LocalDate.now();
