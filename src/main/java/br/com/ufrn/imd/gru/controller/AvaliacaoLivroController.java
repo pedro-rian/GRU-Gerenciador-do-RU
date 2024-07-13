@@ -1,5 +1,7 @@
 package br.com.ufrn.imd.gru.controller;
 
+import br.com.ufrn.imd.gru.dto.AvaliacaoDTO;
+import br.com.ufrn.imd.gru.dto.AvaliacaoEventoDTO;
 import br.com.ufrn.imd.gru.dto.AvaliacaoLivroDTO;
 import br.com.ufrn.imd.gru.model.AvaliacaoLivro;
 import br.com.ufrn.imd.gru.model.Livro;
@@ -42,16 +44,32 @@ public class AvaliacaoLivroController extends AvaliacaoController<AvaliacaoLivro
         model.addAttribute("livros", livros);
         return "avaliacoes-livros";
     }
-    public void atualizarAvaliacao(long id, AvaliacaoLivroDTO avaliacaoDto) {
-        AvaliacaoLivroDTO avaliacaoLivro = avaliacaoLivroService.getById(id);
-        if (avaliacaoLivro != null) {
-            avaliacaoLivro.setDescricao(avaliacaoDto.getDescricao());
-            avaliacaoLivro.setTituloResenha(avaliacaoDto.getTituloResenha());
-            avaliacaoLivro.setAutorResenha(avaliacaoDto.getAutorResenha());
-            avaliacaoLivro.setLivro(avaliacaoDto.getLivro());
-            avaliacaoLivroService.atualizar(id, avaliacaoDto);
+    @GetMapping("/editar/{id}")
+    public String editarAvaliacaoForm(@PathVariable Long id, Model model) {
+        AvaliacaoLivroDTO avaliacao = avaliacaoLivroService.getById(id);
+        if (avaliacao != null) {
+            model.addAttribute("avaliacao", avaliacao);
+            model.addAttribute("livro", avaliacao.getLivro());
+            return "editar-avaliacao-livro";
         } else {
-            throw new IllegalArgumentException("Avaliação de livro não encontrada");
+            throw new IllegalArgumentException("Avaliação não encontrada");
+        }
+    }
+
+    @PostMapping("/atualizar/{id}")
+    public String atualizarAvaliacao(@PathVariable("id") Long id, @ModelAttribute AvaliacaoLivroDTO avaliacaoDto, Model model) {
+        AvaliacaoLivroDTO avaliacao = avaliacaoLivroService.getById(id);
+
+        if (avaliacao != null) {
+            avaliacao.setDescricao(avaliacaoDto.getDescricao());
+            avaliacao.setTituloResenha(avaliacaoDto.getTituloResenha());
+            avaliacao.setAutorResenha(avaliacaoDto.getAutorResenha());
+            avaliacaoLivroService.atualizar(id, avaliacao);
+            model.addAttribute("successMessage", "Avaliação atualizada com sucesso!");
+            return "redirect:/avaliacoes/livro";
+        } else {
+            model.addAttribute("errorMessage", "Avaliação não encontrada");
+            return "editar-avaliacao";
         }
     }
 }
