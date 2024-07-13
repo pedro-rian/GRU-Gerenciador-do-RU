@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/nav-bar.css">
+    <link rel="stylesheet" href="/webjars/bootstrap/4.6.0/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/avaliacao-livro.css">
+    <title>Avaliações</title>
+</head>
+<body>
+<div class="navbarstyle-bib">
+    <h1 class="titulo-bib">BIB</h1>
+    <!-- Navbar Content -->
+</div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const urlPath = window.location.pathname;
+        const pathSegments = urlPath.split('/');
+        const evaluationId = pathSegments[pathSegments.length - 1];
+
+        if (evaluationId) {
+            document.getElementById("id_avaliacao").value = evaluationId;
+            console.log("Evaluation ID:", evaluationId);
+        }
+
+        document.querySelectorAll("form").forEach(function(form) {
+            form.addEventListener("submit", function(event) {
+                event.preventDefault(); // Prevent the form from submitting
+
+                let formData = new FormData(form);
+                let formDataObject = {};
+                formData.forEach((value, key) => {
+                    formDataObject[key] = value;
+                });
+
+                console.log("Form Data:", formDataObject);
+
+                form.action = "/avaliacoes/livro/atualizar/" + evaluationId;
+                console.log("Form action updated to:", form.action);
+
+                // Optionally, you can submit the form after setting the action
+                setTimeout(function() {
+                    form.submit();
+                }, 1000); // Delay submission to ensure console output is visible
+            });
+        });
+    });
+</script>
+</div>
+
+<div class="texto">
+    <div class="container mt-5">
+        <h2 class="titulo-pagina">Refeições para avaliações</h2>
+        <div class="row col-12">
+            <div class="col-md-6 mb-4">
+                <div class="card formulario-card">
+                    <div class="formulario p-2">
+                        <h3 class="titulocard" th:text="${' '}"></h3>
+                        <form action="/avaliacoes/livro/atualizar/{id}" method="post">
+                            <input type="hidden" name="id" id="id_avaliacao" th:value="${avaliacao.id}"/>
+                            <div class="form-group">
+                                <label for="tituloResenha">Título da Resenha:</label>
+                                <textarea class="form-control custom-textarea" id="tituloResenha"
+                                          name="tituloResenha" rows="4" th:text="${avaliacao.tituloResenha}"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="autorResenha">Autor da Resenha:</label>
+                                <textarea class="form-control custom-textarea" id="autorResenha"
+                                          name="autorResenha" rows="4" th:text="${avaliacao.autorResenha}"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="descricao">Descrição:</label>
+                                <textarea class="form-control custom-textarea" id="descricao"
+                                          name="descricao" rows="4" th:text="${avaliacao.descricao}"></textarea>
+                            </div>
+                            <div class="form-group text-center">
+                                <input type="submit" class="button-cadastrar-avaliacao btn-cadastrar-avaliacao"
+                                       value="Atualizar">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

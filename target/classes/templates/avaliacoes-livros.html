@@ -64,7 +64,7 @@
                             </h5>
                         </div>
                         <br>
-                        <a th:href="@{'/avaliacoes/evento/' + ${avaliacao.id}}" class="botao-editar">Editar
+                        <a th:href="@{'/avaliacoes/livro/editar/' + ${avaliacao.id}}" class="botao-editar">Editar
                             avaliação</a>
                         <form th:action="@{'/avaliacoes/evento/excluir-avaliacao/' + ${avaliacao.id}}" method="post"
                               style="display:inline;">
